@@ -63,7 +63,7 @@ export default function Home() {
       <Version />
       
       {/* Main Content - Takes available space */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 py-4 overflow-y-auto">
+     <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 py-4 overflow-y-auto scrollable">
         <div className="w-full max-w-7xl mx-auto flex flex-col items-center justify-center min-h-0">
           {/* Hero Section */}
           <Hero t={t} language={language} />
@@ -100,24 +100,24 @@ export default function Home() {
         <p className={`text-white/50 text-sm leading-relaxed ${rtl ? 'font-arabic' : 'font-english'}`}>
           {language === 'ar' ? (
             <>
-              <span className="mx-1">© {new Date().getFullYear()}</span>
+              <span className="mx-1 text-white">© {new Date().getFullYear()}</span>
               <a
                 href="https://www.linkedin.com/in/ammar1987/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-amber-300 hover:text-amber-200 transition-colors mx-1 underline decoration-dotted"
+                className="transition-colors text-white mx-1 underline decoration-dotted"
               >
                 عمار قويدر
               </a>
             </>
           ) : (
             <>
-              <span className="mx-1">© {new Date().getFullYear()}</span>
+              <span className="mx-1 text-white">© {new Date().getFullYear()}</span>
               <a
                 href="https://www.linkedin.com/in/ammar1987/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-amber-300 hover:text-amber-200 transition-colors mx-1 underline decoration-dotted"
+                className="transition-colors text-white mx-1 underline decoration-dotted"
               >
                 Ammar Qwaider
               </a>       

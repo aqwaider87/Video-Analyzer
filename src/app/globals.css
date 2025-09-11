@@ -10,7 +10,9 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
-  overflow: hidden; /* Prevent window scrolling */
+  /* Allow vertical scroll (was fully hidden) while keeping horizontal overflow clipped */
+  overflow-x: hidden;
+  overflow-y: auto;
   height: 100%; /* Full height */
   /* Performance optimizations */
   -webkit-font-smoothing: antialiased;
@@ -24,12 +26,15 @@ html::-webkit-scrollbar {
 body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   background-attachment: fixed;
-  height: 100vh; /* Full viewport height */
+  height: 100vh; /* Fallback */
+  height: 100dvh; /* Dynamic viewport on modern mobile browsers */
   margin: 0;
   padding: 0;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
-  overflow: hidden; /* Prevent body scrolling */
+  /* Permit vertical scrolling (horizontal still clipped) */
+  overflow-x: hidden;
+  overflow-y: auto;
   /* Performance optimizations */
   will-change: scroll-position;
   transform: translateZ(0); /* Force GPU acceleration */
@@ -37,6 +42,19 @@ body {
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
+}
+
+/* Touch momentum scrolling for iOS within custom scroll areas */
+.scrollable {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* On very small screens, avoid locking layout to the first viewport; allow content to extend naturally */
+@media (max-width: 640px) {
+  html, body {
+    height: auto;
+    min-height: 100dvh;
+  }
 }
 
 /* Hide scrollbar utility class */
