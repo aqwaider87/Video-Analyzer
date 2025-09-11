@@ -10,6 +10,7 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  overflow-x: hidden; /* Prevent horizontal scroll caused by animated backgrounds */
 }
 
 html::-webkit-scrollbar {
@@ -22,6 +23,7 @@ body {
   min-height: 100vh;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  overflow-x: hidden; /* Ensure no horizontal scrollbar if any absolute element overflows */
 }
 
 body::-webkit-scrollbar {

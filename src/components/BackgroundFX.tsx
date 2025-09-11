@@ -65,17 +65,17 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
       <div className="absolute inset-0 opacity-[0.12] mix-blend-overlay [background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+2lP3VwAAAABJRU5ErkJggg==)]" />
       {/* Full-screen binary matrix layer */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-        {Array.from({ length: 46 }).map((_, i) => {
+        {Array.from({ length: 40 }).map((_, i) => { // reduced count to avoid potential overflow creating scroll space
           const delay = (i * -0.9) + 's';
           const dur = 18 + (i % 10) * 2.2; // vary duration for parallax feel
-          const left = (i / 46) * 100;
+          const left = (i / 40) * 100; // recompute based on new count
           const fontSize = i % 7 === 0 ? '0.7rem' : i % 5 === 0 ? '0.55rem' : '0.62rem';
           const opacity = i % 9 === 0 ? '0.22' : i % 4 === 0 ? '0.15' : '0.11';
           return (
             <div
               key={i}
               aria-hidden="true"
-              className="absolute top-0 h-[220%] w-[4.2%] flex items-start justify-center"
+              className="absolute top-0 h-[220%] w-[4%] flex items-start justify-center"
               style={{ left: left + '%', animation: `binaryFull ${dur}s linear infinite`, animationDelay: delay }}
             >
               <div
