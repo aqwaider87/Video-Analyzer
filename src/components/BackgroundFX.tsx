@@ -88,7 +88,7 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
                 className="font-mono whitespace-pre leading-[1.1] tracking-tight will-change-transform text-cyan-200/70 [text-shadow:0_0_4px_rgba(0,255,255,0.1)]"
                 style={{ fontSize, opacity }}
               >
-{`1010 1101 0110\n0101 1010 0011\n1101 0110 1001\n1110 0101 1101\n1001 0011 0101\n0110 1001 0101\n1010 1101 0110\n0101 1010 0011\n1101 0110 1001\n1110 0101 1101\n1001 0011 0101\n0110 1001 0101`}
+{`1010 1101 0110 0001\n0101 1010 0011 0000\n1101 0110 1001 0001\n1110 0101 1101 0000\n1001 0011 0101 0001\n0110 1001 0101 0000\n1010 1101 0110 0001\n0101 1010 0011 0000\n1101 0110 1001 0001\n1110 0101 1101 0000\n1001 0011 0101 0001\n0110 1001 0101 0000`}
               </div>
             </div>
           );
