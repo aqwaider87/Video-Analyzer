@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700&display=swap');
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Hide scrollbar utility class */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Custom glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* RTL support */
+[dir="rtl"] {
+  text-align: right;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+[dir="rtl"] *,
+[dir="rtl"] span,
+[dir="rtl"] p,
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6,
+[dir="rtl"] button,
+[dir="rtl"] input,
+[dir="rtl"] label {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+[dir="rtl"] .ltr-only {
+  direction: ltr;
+  text-align: left;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+/* Arabic font classes */
+.font-arabic,
+.font-arabic *,
+.font-arabic span,
+.font-arabic p,
+.font-arabic h1,
+.font-arabic h2,
+.font-arabic h3,
+.font-arabic h4,
+.font-arabic h5,
+.font-arabic h6,
+.font-arabic button,
+.font-arabic input,
+.font-arabic label {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* English font classes */
+.font-english,
+.font-english *,
+.font-english span,
+.font-english p,
+.font-english h1,
+.font-english h2,
+.font-english h3,
+.font-english h4,
+.font-english h5,
+.font-english h6,
+.font-english button,
+.font-english input,
+.font-english label {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Loading shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Floating particles animation */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { animation-delay: 0s; }
+.particle:nth-child(2) { animation-delay: 1s; }
+.particle:nth-child(3) { animation-delay: 2s; }
+.particle:nth-child(4) { animation-delay: 3s; }
+.particle:nth-child(5) { animation-delay: 4s; }
+
+/* Focus styles */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+}
+
+/* Button animations */
+.btn-primary {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* ---------------- New Aurora / Background Animations ---------------- */
+@keyframes aurora {
+  0% { transform: translate3d(0,0,0) scale(1); filter: hue-rotate(0deg) saturate(120%); }
+  50% { transform: translate3d(2%, -3%, 0) scale(1.06); filter: hue-rotate(35deg) saturate(140%); }
+  100% { transform: translate3d(0,0,0) scale(1); filter: hue-rotate(0deg) saturate(120%); }
+}
+
+@keyframes slow-pulse {
+  0%,100% { transform: translate3d(0,0,0) scale(1); opacity:0.25; }
+  50% { transform: translate3d(0,-2%,0) scale(1.12); opacity:0.4; }
+}
+
+.animate-slow-pulse { animation: slow-pulse 16s ease-in-out infinite; }
+
+/* Prefer-reduced-motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slow-pulse, [class*="aurora"] { animation: none !important; }
+}
+
+/* Neural / HUD additions */
+@keyframes hud-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes edge-flicker { 0%,100% { opacity: .18; } 50% { opacity:.65; } }
+@keyframes node-pulse { 0%,100% { transform: scale(.85); opacity:.55;} 50% { transform: scale(1.15); opacity:.95; } }
+@keyframes spark-flash { 0%,90% { opacity:.6; transform: scale(.6) rotate(0deg);} 95% { opacity:1; transform: scale(1.15) rotate(35deg);} 100% { opacity:.6; transform: scale(.6) rotate(0deg);} }
+
+.animate-hud-spin { animation: hud-spin 26s linear infinite; }
+.animate-edge-flicker { animation: edge-flicker 4.4s ease-in-out infinite; }
+.animate-node-pulse { animation: node-pulse 6s ease-in-out infinite; }
+.animate-spark-flash { animation: spark-flash 2.8s ease-in-out infinite; }
+
+/* Split brain variant animations */
+@keyframes stream-flow { to { stroke-dashoffset: -400; } }
+@keyframes glow-pulse { 0%,100% { opacity:.55; } 50% { opacity:1; } }
+.animate-stream-flow { stroke-dasharray: 140 420; stroke-dashoffset:0; animation: stream-flow 7s linear infinite; }
+.animate-glow-pulse { animation: glow-pulse 3.8s ease-in-out infinite; }
+/* Enhanced thinking state animations */
+@keyframes stream-flow-fast { to { stroke-dashoffset: -600; } }
+@keyframes glow-pulse-fast { 0%,100% { opacity:.4; } 40% { opacity:1; } 70% { opacity:.6; } }
+@keyframes node-pulse-fast { 0%,100% { transform: scale(.7); opacity:.5;} 50% { transform: scale(1.35); opacity:1; } }
+@keyframes beam-pulse { 0%,100% { opacity:.15; transform: scaleY(.6);} 50% { opacity:.9; transform: scaleY(1);} }
+@keyframes beam-pulse-fast { 0%,100% { opacity:.2; transform: scaleY(.5);} 50% { opacity:1; transform: scaleY(1.15);} }
+@keyframes thinking-breath { 0%,100% { opacity:.0; transform: scale(.8);} 50% { opacity:.5; transform: scale(1);} }
+@keyframes thinking-rings { 0% { opacity:.5; transform: scale(.8);} 70% { opacity:0; transform: scale(1.8);} 100% { opacity:0; } }
+@keyframes rotate-slow { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+
+.animate-stream-flow-fast { stroke-dasharray: 140 420; stroke-dashoffset:0; animation: stream-flow-fast 3.5s linear infinite; }
+.animate-glow-pulse-fast { animation: glow-pulse-fast 2.2s ease-in-out infinite; }
+.animate-node-pulse-fast { animation: node-pulse-fast 2.8s ease-in-out infinite; }
+.animate-beam-pulse { animation: beam-pulse 4.4s ease-in-out infinite; }
+.animate-beam-pulse-fast { animation: beam-pulse-fast 2.2s ease-in-out infinite; }
+.animate-thinking-breath { animation: thinking-breath 5.4s ease-in-out infinite; mix-blend-mode: screen; }
+.animate-thinking-rings { animation: thinking-rings 3.6s ease-out infinite; }
+.animate-rotate-slow { animation: rotate-slow 40s linear infinite; }
+/* Additional detail animations */
+@keyframes hemisphere-shift { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(0,-2px,0);} }
+@keyframes contour-fade { 0%,100% { opacity:.0;} 30% { opacity:.25;} 70% { opacity:.05;} }
+@keyframes stream-glow-thin { to { stroke-dashoffset:-260; } }
+@keyframes stream-glow-thin-fast { to { stroke-dashoffset:-380; } }
+@keyframes micro-flicker { 0%,100% { opacity:.15; transform:scale(.4);} 50% { opacity:.9; transform:scale(1);} }
+@keyframes micro-flicker-fast { 0%,100% { opacity:.25; transform:scale(.5);} 50% { opacity:1; transform:scale(1.25);} }
+
+.animate-hemisphere-shift { animation: hemisphere-shift 6s ease-in-out infinite; }
+.animate-contour-fade { animation: contour-fade 14s linear infinite; }
+.animate-stream-glow-thin { stroke-dasharray:110 240; stroke-dashoffset:0; animation: stream-glow-thin 8s linear infinite; }
+.animate-stream-glow-thin-fast { stroke-dasharray:110 240; stroke-dashoffset:0; animation: stream-glow-thin-fast 3.6s linear infinite; }
+.animate-micro-flicker { animation: micro-flicker 4.4s ease-in-out infinite; }
+.animate-micro-flicker-fast { animation: micro-flicker-fast 2.6s ease-in-out infinite; }
+
+/* ---- Additional professional brain HUD + circuit animations ---- */
+@keyframes dash-spin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+@keyframes sweep-rotate { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+@keyframes circuit-flow { to { stroke-dashoffset: -240; } }
+@keyframes orbit-path { 0% { transform: rotate(0deg) translateX(140px) rotate(0deg);} 100% { transform: rotate(360deg) translateX(140px) rotate(-360deg);} }
+@keyframes binary-fall { 0% { transform: translateY(-40%); opacity:0;} 20% { opacity:.4;} 80% { opacity:.4;} 100% { transform: translateY(120%); opacity:0;} }
+
+.animate-dash-spin { animation: dash-spin 18s linear infinite; }
+.animate-sweep { animation: sweep-rotate 12s linear infinite; }
+.animate-circuit-flow { stroke-dasharray: 4 12; stroke-dashoffset:0; animation: circuit-flow 7s linear infinite; }
+.animate-circuit-flow-fast { stroke-dasharray: 4 12; stroke-dashoffset:0; animation: circuit-flow 3.5s linear infinite; }
+.animate-orbit { animation: orbit-path 9s linear infinite; }
+.animate-binary-fall { animation: binary-fall 8s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-dash-spin, .animate-sweep, .animate-circuit-flow, .animate-circuit-flow-fast, .animate-orbit, .animate-binary-fall { animation: none !important; }
+}
+
+
