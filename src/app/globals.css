@@ -10,7 +10,8 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
-  overflow-x: hidden; /* Prevent horizontal scroll caused by animated backgrounds */
+  overflow: hidden; /* Prevent window scrolling */
+  height: 100%; /* Full height */
   /* Performance optimizations */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,10 +24,12 @@ html::-webkit-scrollbar {
 body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   background-attachment: fixed;
-  min-height: 100vh;
+  height: 100vh; /* Full viewport height */
+  margin: 0;
+  padding: 0;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
-  overflow-x: hidden; /* Ensure no horizontal scrollbar if any absolute element overflows */
+  overflow: hidden; /* Prevent body scrolling */
   /* Performance optimizations */
   will-change: scroll-position;
   transform: translateZ(0); /* Force GPU acceleration */

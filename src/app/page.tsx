@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <main className={`
-      min-h-screen relative overflow-x-hidden
+      h-screen relative overflow-x-hidden flex flex-col
       ${rtl ? 'font-arabic' : 'font-english'}
     `} style={{ contain: 'layout style paint' }}>
       {/* Background Effects */}
@@ -62,31 +62,37 @@ export default function Home() {
       {/* Version Display */}
       <Version />
       
-      {/* Main Content */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12">
-        <div className="w-full max-w-7xl mx-auto">
+      {/* Main Content - Takes available space */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 py-4 overflow-y-auto">
+        <div className="w-full max-w-7xl mx-auto flex flex-col items-center justify-center min-h-0">
           {/* Hero Section */}
           <Hero t={t} language={language} />
           
           {/* URL Input Card */}
-          <UrlCard 
-            t={t} 
-            language={language} 
-            onAnalysisComplete={handleAnalysisComplete}
-          />
+          <div className="flex-shrink-0 w-full">
+            <UrlCard 
+              t={t} 
+              language={language} 
+              onAnalysisComplete={handleAnalysisComplete}
+            />
+          </div>
           
           {/* Results Section */}
-          <ResultsPlaceholder
-            t={t}
-            language={language}
-            isVisible={showResults}
-          />
+          {showResults && (
+            <div className="flex-shrink-0 w-full">
+              <ResultsPlaceholder
+                t={t}
+                language={language}
+                isVisible={showResults}
+              />
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer - Always visible at bottom */}
       <motion.footer
-        className={`relative z-10 text-center py-8 px-4 ${rtl ? 'font-arabic' : 'font-english'}`}
+        className={`relative z-10 text-center py-4 px-4 flex-shrink-0 ${rtl ? 'font-arabic' : 'font-english'}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}

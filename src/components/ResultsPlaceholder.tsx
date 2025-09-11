@@ -24,58 +24,58 @@ export default function ResultsPlaceholder({ t, language, isVisible }: ResultsPl
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3, duration: 0.8 }}
-      className={`w-full max-w-4xl mx-auto mt-8 ${rtl ? 'font-arabic' : 'font-english'}`}
+      transition={{ delay: 0.3, duration: 0.6 }}
+      className={`w-full max-w-4xl mx-auto mt-4 ${rtl ? 'font-arabic' : 'font-english'}`}
     >
       <motion.div
-        className="glass rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-xl"
+        className="glass rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur-xl"
         initial={{ scale: 0.95 }}
         animate={{ scale: 1 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
+        transition={{ delay: 0.4, duration: 0.4 }}
       >
         {/* Header */}
         <motion.div
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-6"
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.6 }}
+          transition={{ delay: 0.5, duration: 0.4 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
             {t.resultsTitle}
           </h2>
-          <p className="text-white/70 text-lg">
+          <p className="text-white/70 text-base">
             {t.resultsSubtitle}
           </p>
         </motion.div>
 
-        {/* Insights Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Insights Grid - More compact */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {insights.map((insight, index) => {
             const Icon = insight.icon;
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 0.8 + index * 0.1, duration: 0.6 }}
+                transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
                 className="relative group"
               >
                 <motion.div
-                  className="bg-white/10 rounded-2xl p-6 border border-white/20 backdrop-blur-sm
+                  className="bg-white/10 rounded-xl p-4 border border-white/20 backdrop-blur-sm
                            hover:bg-white/15 transition-all duration-300 h-full"
                   whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+                    scale: 1.03,
+                    boxShadow: "0 10px 20px rgba(0,0,0,0.1)"
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {/* Icon with gradient background */}
                   <motion.div
-                    className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${insight.color} mb-4`}
+                    className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${insight.color} mb-3`}
                     animate={{
-                      rotate: [0, 5, -5, 0],
+                      rotate: [0, 3, -3, 0],
                     }}
                     transition={{
                       duration: 4,
