@@ -56,13 +56,23 @@ export default function AnimatedBrainI({ thinking = false }: AnimatedBrainIProps
             <feBlend in="SourceGraphic" mode="screen" />
           </filter>
         </defs>
-        {/* Shell */}
-        <path
-          d="M32 4c-8 0-14 6-14 14v2h-2c-4 0-8 4-8 8v8c0 4 4 8 8 8h2v2c0 8 6 14 14 14h4c8 0 14-6 14-14v-2h2c4 0 8-4 8-8v-8c0-4-4-8-8-8h-2v-2c0-8-6-14-14-14h-4z"
-          stroke="url(#signalGrad)"
-          fill="url(#brainFill)"
-          filter="url(#gsoft)"
-        />
+        {/* Anatomical Shell (more brain-like with lobed curvature) */}
+        <g id="brain-shell" filter="url(#gsoft)">
+          <path
+            d="M31.5 6c-4.2 0-7.6 2.2-9.3 5.7-1.2-.8-2.6-1.2-4.1-1.2-4.9 0-8.9 4.1-8.9 9.2 0 1.2.2 2.4.6 3.5-1 1.5-1.6 3.4-1.6 5.4 0 3.4 1.8 6.4 4.6 8-.4 1.1-.6 2.3-.6 3.6 0 6.2 4.7 11.3 10.9 11.3 1.1 0 2.2-.2 3.3-.5 1.4 2.1 3.9 3.5 6.8 3.5h2c6.8 0 12.4-5.7 12.4-12.7v-.8c3-1.9 5.2-5.3 5.2-9.2 0-1.3-.2-2.6-.6-3.8 1.1-1.5 1.8-3.4 1.8-5.4 0-5.1-4.1-9.3-9.2-9.3-.5 0-1.1.1-1.6.2C41 8.4 36.6 6 31.5 6Z"
+            stroke="url(#signalGrad)"
+            strokeWidth={1.2}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            fill="url(#brainFill)"
+            style={{ filter: 'drop-shadow(0 0 6px rgba(120,255,255,0.35)) drop-shadow(0 0 10px rgba(255,99,255,0.25))' }}
+          />
+          {/* Subtle sulcus-style inner contour lines */}
+          <path d="M22 20c3 2 5 4.5 7.2 7.2 2.2 2.7 4.5 5.1 7.8 7" stroke="url(#signalGrad)" strokeOpacity={0.22} strokeWidth={0.7} fill="none" />
+          <path d="M20 28c3.4 2.1 6 4.9 8.4 7.9 1.8 2.2 3.6 4.1 6.2 5.8" stroke="url(#signalGrad)" strokeOpacity={0.18} strokeWidth={0.65} fill="none" />
+          {/* Midline (hemisphere division) */}
+          <path d="M32 10c-1.8 2.5-2.6 5.2-2.6 8.2 0 4.6 1.9 8.2 2.6 12.4.7-4.2 2.6-7.8 2.6-12.4 0-3-0.8-5.7-2.6-8.2Z" fill="url(#signalGrad)" fillOpacity={0.15} />
+        </g>
         {/* Pathways – traveling neural dots style */}
         <g strokeLinecap="round" fill="none">
           {/* Base pathways */}

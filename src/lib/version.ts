@@ -5,5 +5,5 @@ export const getVersion = (): string => {
 };
 
 export const getVersionDisplay = (): string => {
-  return `v${packageJson.version}`;
+  return `${packageJson.version}`;
 };
