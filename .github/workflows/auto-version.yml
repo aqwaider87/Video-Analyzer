@@ -1,0 +1,59 @@
+name: Auto Version Increment
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+      - '.gitignore'
+      - '.github/workflows/**'
+
+jobs:
+  increment-version:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip-version]')"
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Get current version
+        id: current_version
+        run: |
+          cd src
+          echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Increment version
+        id: increment_version
+        run: |
+          cd src
+          # Increment patch version
+          npm version patch --no-git-tag-version
+          echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Commit version bump
+        run: |
+          git add src/package.json
+          git commit -m "chore: bump version to v${{ steps.increment_version.outputs.new_version }} [skip-version]" || exit 0
+
+      - name: Push changes
+        run: |
+          git push origin main || true
+
+      - name: Create and push tag
+        run: |
+          git tag "v${{ steps.increment_version.outputs.new_version }}"
+          git push origin "v${{ steps.increment_version.outputs.new_version }}" || true

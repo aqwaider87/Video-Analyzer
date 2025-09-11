@@ -8,6 +8,7 @@ import LanguageToggle from '@/components/LanguageToggle';
 import Hero from '@/components/Hero';
 import UrlCard from '@/components/UrlCard';
 import ResultsPlaceholder from '@/components/ResultsPlaceholder';
+import Version from '@/components/Version';
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>('en');
@@ -57,6 +58,9 @@ export default function Home() {
       
       {/* Language Toggle */}
       <LanguageToggle language={language} onLanguageChange={handleLanguageChange} />
+      
+      {/* Version Display */}
+      <Version />
       
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12">

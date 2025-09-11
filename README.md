@@ -1,6 +1,16 @@
 # Video-Analyzer
 Advanced AI-powered analysis for TikTok videos with sentiment analysis and engagement insights
 
+[![Version](https://img.shields.io/badge/version-v0.1.0-blue.svg)](./VERSIONING.md)
+
+## Features
+
+- 🤖 AI-powered video analysis
+- 📊 Sentiment analysis and engagement insights  
+- 🌍 Multi-language support (English/Arabic)
+- 🎨 Modern glassmorphism UI with animations
+- 📱 Responsive design for all devices
+- 🔄 Automatic version management
 
 ## Project Structure
 
