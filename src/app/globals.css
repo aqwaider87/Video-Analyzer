@@ -11,6 +11,9 @@ html {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   overflow-x: hidden; /* Prevent horizontal scroll caused by animated backgrounds */
+  /* Performance optimizations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html::-webkit-scrollbar {
@@ -24,6 +27,9 @@ body {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   overflow-x: hidden; /* Ensure no horizontal scrollbar if any absolute element overflows */
+  /* Performance optimizations */
+  will-change: scroll-position;
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
 body::-webkit-scrollbar {
@@ -168,7 +174,7 @@ body::-webkit-scrollbar {
   left: 100%;
 }
 
-/* ---------------- New Aurora / Background Animations ---------------- */
+/* ---------------- Optimized Aurora / Background Animations ---------------- */
 @keyframes aurora {
   0% { transform: translate3d(0,0,0) scale(1); filter: hue-rotate(0deg) saturate(120%); }
   50% { transform: translate3d(2%, -3%, 0) scale(1.06); filter: hue-rotate(35deg) saturate(140%); }
@@ -180,23 +186,59 @@ body::-webkit-scrollbar {
   50% { transform: translate3d(0,-2%,0) scale(1.12); opacity:0.4; }
 }
 
-.animate-slow-pulse { animation: slow-pulse 16s ease-in-out infinite; }
+.animate-slow-pulse { 
+  animation: slow-pulse 16s ease-in-out infinite; 
+  will-change: transform, opacity;
+  contain: layout style paint;
+}
+
+/* Optimized binary animation - contained within viewport */
+@keyframes binaryFull {
+  0%{ transform: translate3d(0, -100%, 0); }
+  100%{ transform: translate3d(0, 100vh, 0); }
+}
 
 /* Prefer-reduced-motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   .animate-slow-pulse, [class*="aurora"] { animation: none !important; }
 }
 
-/* Neural / HUD additions */
-@keyframes hud-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes edge-flicker { 0%,100% { opacity: .18; } 50% { opacity:.65; } }
-@keyframes node-pulse { 0%,100% { transform: scale(.85); opacity:.55;} 50% { transform: scale(1.15); opacity:.95; } }
-@keyframes spark-flash { 0%,90% { opacity:.6; transform: scale(.6) rotate(0deg);} 95% { opacity:1; transform: scale(1.15) rotate(35deg);} 100% { opacity:.6; transform: scale(.6) rotate(0deg);} }
+/* Optimized Neural / HUD animations */
+@keyframes hud-spin { 
+  from { transform: rotate(0deg); } 
+  to { transform: rotate(360deg); } 
+}
+@keyframes edge-flicker { 
+  0%,100% { opacity: .15; } 
+  50% { opacity:.55; } 
+}
+@keyframes node-pulse { 
+  0%,100% { transform: scale(.85); opacity:.45;} 
+  50% { transform: scale(1.1); opacity:.85; } 
+}
+@keyframes spark-flash { 
+  0%,90% { opacity:.5; transform: scale(.6) rotate(0deg);} 
+  95% { opacity:.9; transform: scale(1.1) rotate(35deg);} 
+  100% { opacity:.5; transform: scale(.6) rotate(0deg);} 
+}
 
-.animate-hud-spin { animation: hud-spin 26s linear infinite; }
-.animate-edge-flicker { animation: edge-flicker 4.4s ease-in-out infinite; }
-.animate-node-pulse { animation: node-pulse 6s ease-in-out infinite; }
-.animate-spark-flash { animation: spark-flash 2.8s ease-in-out infinite; }
+.animate-hud-spin { 
+  animation: hud-spin 26s linear infinite; 
+  will-change: transform;
+  contain: layout style paint;
+}
+.animate-edge-flicker { 
+  animation: edge-flicker 4.4s ease-in-out infinite; 
+  will-change: opacity;
+}
+.animate-node-pulse { 
+  animation: node-pulse 6s ease-in-out infinite; 
+  will-change: transform, opacity;
+}
+.animate-spark-flash { 
+  animation: spark-flash 2.8s ease-in-out infinite; 
+  will-change: transform, opacity;
+}
 
 /* Split brain variant animations */
 @keyframes stream-flow { to { stroke-dashoffset: -400; } }

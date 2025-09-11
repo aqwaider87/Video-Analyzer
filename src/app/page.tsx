@@ -51,7 +51,7 @@ export default function Home() {
     <main className={`
       min-h-screen relative overflow-x-hidden
       ${rtl ? 'font-arabic' : 'font-english'}
-    `}>
+    `} style={{ contain: 'layout style paint' }}>
       {/* Background Effects */}
       <BackgroundFX language={language} />
       

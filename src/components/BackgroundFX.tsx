@@ -63,26 +63,32 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
       </div>
       {/* Noise */}
       <div className="absolute inset-0 opacity-[0.12] mix-blend-overlay [background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+2lP3VwAAAABJRU5ErkJggg==)]" />
-      {/* Full-screen binary matrix layer */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-        {Array.from({ length: 40 }).map((_, i) => { // reduced count to avoid potential overflow creating scroll space
-          const delay = (i * -0.9) + 's';
-          const dur = 18 + (i % 10) * 2.2; // vary duration for parallax feel
-          const left = (i / 40) * 100; // recompute based on new count
-          const fontSize = i % 7 === 0 ? '0.7rem' : i % 5 === 0 ? '0.55rem' : '0.62rem';
-          const opacity = i % 9 === 0 ? '0.22' : i % 4 === 0 ? '0.15' : '0.11';
+      {/* Full-screen binary matrix layer - optimized for performance */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" style={{ contain: 'layout style paint' }}>
+        {Array.from({ length: 20 }).map((_, i) => { // reduced from 40 to 20 for better performance
+          const delay = (i * -1.2) + 's';
+          const dur = 20 + (i % 6) * 3; // simplified duration calculation
+          const left = (i / 20) * 100; // recompute based on new count
+          const fontSize = i % 6 === 0 ? '0.65rem' : i % 4 === 0 ? '0.5rem' : '0.55rem';
+          const opacity = i % 7 === 0 ? '0.18' : i % 3 === 0 ? '0.12' : '0.08';
           return (
             <div
               key={i}
               aria-hidden="true"
-              className="absolute top-0 h-[220%] w-[4%] flex items-start justify-center"
-              style={{ left: left + '%', animation: `binaryFull ${dur}s linear infinite`, animationDelay: delay }}
+              className="absolute top-0 h-full w-[5%] flex items-start justify-center"
+              style={{ 
+                left: left + '%', 
+                animation: `binaryFull ${dur}s linear infinite`, 
+                animationDelay: delay,
+                transform: 'translateZ(0)', // Force GPU acceleration
+                contain: 'layout style paint'
+              }}
             >
               <div
-                className="font-mono whitespace-pre leading-[1.05] tracking-tight will-change-transform text-cyan-200/80 [text-shadow:0_0_6px_rgba(0,255,255,0.15)]"
+                className="font-mono whitespace-pre leading-[1.1] tracking-tight will-change-transform text-cyan-200/70 [text-shadow:0_0_4px_rgba(0,255,255,0.1)]"
                 style={{ fontSize, opacity }}
               >
-{`1010 1101 0110 1001 1110\n0101 1010 0011 1110 0110\n1101 0110 1001 0101 0011\n1110 0101 1101 0110 1010\n1001 0011 0101 1110 1101\n0110 1001 0101 1010 0011\n1010 1101 0110 1001 1110\n0101 1010 0011 1110 0110\n1101 0110 1001 0101 0011\n1110 0101 1101 0110 1010\n1001 0011 0101 1110 1101\n0110 1001 0101 1010 0011\n1010 1101 0110 1001 1110\n0101 1010 0011 1110 0110\n1101 0110 1001 0101 0011\n1110 0101 1101 0110 1010\n1001 0011 0101 1110 1101\n0110 1001 0101 1010 0011`}
+{`1010 1101 0110\n0101 1010 0011\n1101 0110 1001\n1110 0101 1101\n1001 0011 0101\n0110 1001 0101\n1010 1101 0110\n0101 1010 0011\n1101 0110 1001\n1110 0101 1101\n1001 0011 0101\n0110 1001 0101`}
               </div>
             </div>
           );
@@ -124,19 +130,19 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
                   </feMerge>
                 </filter>
               </defs>
-              {Array.from({length:46}).map((_,i)=>{
-                const x1 = 400 + Math.cos(i)* (140 + (i%7)*18);
-                const y1 = 400 + Math.sin(i*1.2)* (160 + (i%5)*22);
-                const x2 = 400 + Math.cos(i*1.4)* (210 + (i%9)*14);
-                const y2 = 400 + Math.sin(i*1.1)* (230 + (i%6)*19);
-                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="url(#gradEdge)" strokeWidth={1.2} strokeLinecap="round" filter="url(#glow)" className="animate-edge-flicker" style={{animationDelay:`${i*0.18}s`}} />
+              {Array.from({length:24}).map((_,i)=>{ // reduced from 46 to 24 for better performance
+                const x1 = 400 + Math.cos(i)* (140 + (i%5)*15);
+                const y1 = 400 + Math.sin(i*1.2)* (160 + (i%4)*18);
+                const x2 = 400 + Math.cos(i*1.4)* (210 + (i%6)*12);
+                const y2 = 400 + Math.sin(i*1.1)* (230 + (i%5)*16);
+                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="url(#gradEdge)" strokeWidth={1.2} strokeLinecap="round" filter="url(#glow)" className="animate-edge-flicker" style={{animationDelay:`${i*0.25}s`}} />
               })}
-              {Array.from({length:34}).map((_,i)=>{
-                const angle = i * (Math.PI * 2 / 34);
-                const radius = 140 + (i%5)*34;
+              {Array.from({length:20}).map((_,i)=>{ // reduced from 34 to 20 for better performance
+                const angle = i * (Math.PI * 2 / 20);
+                const radius = 140 + (i%4)*30;
                 const x = 400 + Math.cos(angle)*radius;
                 const y = 400 + Math.sin(angle)*(radius*0.72);
-                return <circle key={i} cx={x} cy={y} r={i%6===0?14: i%4===0?9:6} fill="url(#gradNode)" className="animate-node-pulse" style={{animationDelay:`${i*0.3}s`}} />
+                return <circle key={i} cx={x} cy={y} r={i%5===0?12: i%3===0?8:5} fill="url(#gradNode)" className="animate-node-pulse" style={{animationDelay:`${i*0.4}s`}} />
               })}
             </svg>
             <div className="absolute right-[6%] top-1/2 -translate-y-[62%] w-[220px] md:w-[260px] lg:w-[300px] opacity-80">
@@ -219,9 +225,9 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
               <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/25 via-fuchsia-400/10 to-transparent blur-2xl" />
             </div>
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {Array.from({length:40}).map((_,i)=>{
-                const delay = (i*0.15).toFixed(2)+'s';
-                return <span key={i} className="absolute w-1 h-1 rounded-full bg-white/70 animate-holo-particle" style={{ left: `${(i*73)%100}%`, top: `${(i*37)%100}%`, animationDelay: delay }} />
+              {Array.from({length:20}).map((_,i)=>{ // reduced from 40 to 20 for better performance
+                const delay = (i*0.2).toFixed(2)+'s';
+                return <span key={i} className="absolute w-1 h-1 rounded-full bg-white/60 animate-holo-particle" style={{ left: `${(i*73)%100}%`, top: `${(i*37)%100}%`, animationDelay: delay, transform: 'translateZ(0)' }} />
               })}
             </div>
             {/* Auto-close hint */}
@@ -231,16 +237,16 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
             @keyframes ripple {0%{transform:scale(.2);opacity:.9}70%{opacity:.25}100%{transform:scale(6);opacity:0}}
             .animate-ripple{animation:ripple 1.1s ease-out forwards}
             @keyframes holoParticle{0%{transform:translateY(20px);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-40px);opacity:0}}
-            .animate-holo-particle{animation:holoParticle 6s linear infinite}
-            @keyframes binaryFull {0%{transform:translateY(0%)}100%{transform:translateY(110%)} }
+            .animate-holo-particle{animation:holoParticle 6s linear infinite; will-change: transform, opacity;}
+            @keyframes binaryFull {0%{transform:translate3d(0, -100%, 0)}100%{transform:translate3d(0, 100vh, 0)} }
           `}</style>
         </div>
       )}
       {/* Global keyframes for ripple if not already defined */}
       <style>{`
         @keyframes hueCycle{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
-        /* Global binary column scroll (overridden if already defined) */
-  @keyframes binaryFull {0%{transform:translateY(0%)}100%{transform:translateY(110%)} }
+        /* Optimized binary column scroll */
+        @keyframes binaryFull {0%{transform:translate3d(0, -100%, 0)}100%{transform:translate3d(0, 100vh, 0)} }
       `}</style>
     </div>
   );
