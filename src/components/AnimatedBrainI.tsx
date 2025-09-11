@@ -61,7 +61,7 @@ export default function AnimatedBrainI({ thinking = false }: AnimatedBrainIProps
           <path
             d="M31.5 6c-4.2 0-7.6 2.2-9.3 5.7-1.2-.8-2.6-1.2-4.1-1.2-4.9 0-8.9 4.1-8.9 9.2 0 1.2.2 2.4.6 3.5-1 1.5-1.6 3.4-1.6 5.4 0 3.4 1.8 6.4 4.6 8-.4 1.1-.6 2.3-.6 3.6 0 6.2 4.7 11.3 10.9 11.3 1.1 0 2.2-.2 3.3-.5 1.4 2.1 3.9 3.5 6.8 3.5h2c6.8 0 12.4-5.7 12.4-12.7v-.8c3-1.9 5.2-5.3 5.2-9.2 0-1.3-.2-2.6-.6-3.8 1.1-1.5 1.8-3.4 1.8-5.4 0-5.1-4.1-9.3-9.2-9.3-.5 0-1.1.1-1.6.2C41 8.4 36.6 6 31.5 6Z"
             stroke="url(#signalGrad)"
-            strokeWidth={1.2}
+            strokeWidth={0.8}
             strokeLinejoin="round"
             strokeLinecap="round"
             fill="url(#brainFill)"
