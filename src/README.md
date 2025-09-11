@@ -45,7 +45,7 @@ A modern, bilingual (Arabic/English) web interface for AI-powered TikTok video a
 ## Project Structure
 
 ```
-src/web/
+src/
 ├── app/
 │   ├── globals.css          # Global styles and animations
 │   ├── layout.tsx           # Root layout with metadata
