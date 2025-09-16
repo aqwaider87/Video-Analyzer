@@ -378,7 +378,7 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                   />
                 ))}
               </div>
-              <span className="text-sm">{t.resultsSubtitle}</span>
+              <span className="text-sm">{t.loadingDivText}</span>
             </motion.div>
           </motion.div>
         )}

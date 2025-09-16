@@ -6,8 +6,31 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const validateTikTokUrl = (url: string): boolean => {
-  const tiktokRegex = /^https?:\/\/(www\.)?(vm\.)?tiktok\.com\/.+/i;
-  return tiktokRegex.test(url.trim());
+  const allowedDomains = [
+    'tiktok.com',
+    'www.tiktok.com',
+    'm.tiktok.com',
+    'vm.tiktok.com',
+    'vt.tiktok.com'
+  ];
+  
+  const trimmedUrl = url.trim();
+  
+  // Check if URL starts with http:// or https://
+  if (!/^https?:\/\//.test(trimmedUrl)) {
+    return false;
+  }
+  
+  // Extract domain from URL
+  try {
+    const urlObj = new URL(trimmedUrl);
+    const domain = urlObj.hostname.toLowerCase();
+    
+    // Check if domain is in allowed list and has a path
+    return allowedDomains.includes(domain) && urlObj.pathname.length > 1;
+  } catch {
+    return false;
+  }
 };
 
 export const analyzeVideo = async (url: string): Promise<AnalyzeResponse> => {

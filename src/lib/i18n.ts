@@ -32,6 +32,10 @@ export interface Translations {
     mostLikedComment: string;
     hashtags: string;
     videoDescription: string;
+    topPositiveComments: string;
+    slideOf: string;
+    nextComment: string;
+    previousComment: string;
   };
 }
 
@@ -39,7 +43,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
   en: {
     title: 'AI TikTok Video Analyzer',
     subtitle: 'Advanced AI-powered analysis for TikTok videos with sentiment analysis and engagement insights',
-  inputPlaceholder: 'https://www.tiktok.com/video',
+    inputPlaceholder: 'https://www.tiktok.com/video',
     buttonText: 'Start Analysis',
     pasteButton: 'Paste',
     errorInvalidUrl: 'Please enter a valid TikTok video URL',
@@ -56,7 +60,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
     results: {
       operationFailed: 'Operation Failed',
       analysisResults: 'Analysis Results',
-      detailedAnalysis: 'Detailed analysis of video content and comments',
+      detailedAnalysis: 'The video has been successfully analyzed using AI techniques, based on user interactions and comments.',
       contentCreator: 'Content Creator',
       likes: 'Likes',
       comments: 'Comments',
@@ -69,13 +73,17 @@ export const translations: Record<'en' | 'ar', Translations> = {
       topPositiveComment: 'Top Positive Comment',
       mostLikedComment: 'Most Liked Comment',
       hashtags: 'Hashtags',
-      videoDescription: 'Video Description'
+      videoDescription: 'Video Description',
+      topPositiveComments: 'Top Positive Comments',
+      slideOf: 'of',
+      nextComment: 'Next',
+      previousComment: 'Previous'
     }
   },
   ar: {
     title: 'محلل فيديوهات تيك توك الذكي',
     subtitle: 'تحليل متقدم مدعوم بالذكاء الاصطناعي لفيديوهات تيك توك مع تحليل المشاعر ومقاييس التفاعل',
-  inputPlaceholder: 'https://www.tiktok.com/video',
+    inputPlaceholder: 'https://www.tiktok.com/video',
     buttonText: 'بدء التحليل',
     pasteButton: 'لصق',
     errorInvalidUrl: 'يرجى إدخال رابط فيديو تيك توك صالح',
@@ -92,7 +100,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
     results: {
       operationFailed: 'فشلت العملية',
       analysisResults: 'نتائج التحليل',
-      detailedAnalysis: 'تحليل مفصل لمحتوى الفيديو والتعليقات',
+      detailedAnalysis: 'تم تحليل الفيديو بنجاح باستخدام تقنيات الذكاء الاصطناعي، استنادًا إلى تفاعل وتعليقات المستخدمين.',
       contentCreator: 'منشئ المحتوى',
       likes: 'الإعجابات',
       comments: 'التعليقات',
@@ -105,7 +113,11 @@ export const translations: Record<'en' | 'ar', Translations> = {
       topPositiveComment: 'أفضل تعليق إيجابي',
       mostLikedComment: 'التعليق الأكثر إعجاباً',
       hashtags: 'الهاشتاغات',
-      videoDescription: 'وصف الفيديو'
+      videoDescription: 'وصف الفيديو',
+      topPositiveComments: 'أفضل التعليقات الإيجابية',
+      slideOf: 'من',
+      nextComment: 'التالي',
+      previousComment: 'السابق'
     }
   }
 };

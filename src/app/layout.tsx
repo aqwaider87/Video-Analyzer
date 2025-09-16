@@ -5,6 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://yourdomain.com' : 'http://localhost:3000'),
   title: 'AI Video Analyzer | محلل فيديوهات الذكي',
   description: 'Advanced AI-powered analysis for TikTok videos with sentiment analysis, engagement metrics, and content insights.',
   keywords: ['TikTok', 'AI', 'Video Analysis', 'Sentiment Analysis', 'Social Media'],
