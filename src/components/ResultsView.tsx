@@ -22,6 +22,23 @@ interface SentimentCounts {
 export default function ResultsView({ t, language, data, isVisible }: ResultsViewProps) {
   const rtl = isRTL(language);
 
+  // Sentiment lookup function to map API values to translated strings
+  const getSentimentLabel = (sentimentValue: string): string => {
+    // Handle both Arabic and English API responses
+    const normalizedSentiment = sentimentValue.toLowerCase().trim();
+    
+    if (normalizedSentiment === 'ايجابي' || normalizedSentiment === 'positive') {
+      return t.results.positive;
+    } else if (normalizedSentiment === 'سلبي' || normalizedSentiment === 'negative') {
+      return t.results.negative;
+    } else if (normalizedSentiment === 'محايد' || normalizedSentiment === 'neutral') {
+      return t.results.neutral;
+    }
+    
+    // Fallback to original value if no match found
+    return sentimentValue;
+  };
+
   if (!isVisible || !data) return null;
 
   // More robust error handling - check for various error conditions
@@ -244,13 +261,13 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 {mostLikedComment.sentiment && (
                   <div className="flex items-center gap-2">
                     <span className={`text-xs px-2 py-1 rounded-full ${
-                      mostLikedComment.sentiment === 'ايجابي' 
+                      mostLikedComment.sentiment === 'ايجابي' || mostLikedComment.sentiment.toLowerCase() === 'positive'
                         ? 'bg-green-500/20 text-green-400' 
-                        : mostLikedComment.sentiment === 'سلبي'
+                        : mostLikedComment.sentiment === 'سلبي' || mostLikedComment.sentiment.toLowerCase() === 'negative'
                         ? 'bg-red-500/20 text-red-400'
                         : 'bg-gray-500/20 text-gray-400'
                     }`}>
-                      {mostLikedComment.sentiment}
+                      {getSentimentLabel(mostLikedComment.sentiment)}
                     </span>
                     {mostLikedComment.sentiment_confidence && (
                       <span className="text-xs text-pink-400">

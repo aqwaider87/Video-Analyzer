@@ -9,7 +9,7 @@ interface HeroProps { t: Translations; language: Language }
 export default function Hero({ t, language }: HeroProps) {
   const rtl = isRTL(language);
   return (
-    <div className={`relative ${rtl ? 'font-arabic' : 'font-english'} pt-16 md:pt-20 pb-4`}>      
+    <div className={`relative ${rtl ? 'font-arabic' : 'font-english'} pt-8 md:pt-12 pb-4`}>      
       <div className="mx-auto max-w-[1080px] px-4">
         <AnimatedHeading className="bg-gradient-to-br from-white via-white to-slate-300 bg-clip-text text-transparent" phrase={t.title} />
       </div>

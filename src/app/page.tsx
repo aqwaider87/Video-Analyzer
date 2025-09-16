@@ -66,10 +66,12 @@ export default function Home() {
       <Version />
       
       {/* Main Content - Takes available space */}
-     <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 py-4 overflow-y-auto scrollable">
-        <div className="w-full max-w-7xl mx-auto flex flex-col items-center justify-center min-h-0">
-          {/* Hero Section */}
-          <Hero t={t} language={language} />
+     <div className="relative z-10 flex-1 flex flex-col items-center px-4 py-4 overflow-y-auto scrollable">
+        <div className="w-full max-w-7xl mx-auto flex flex-col items-center min-h-0">
+          {/* Hero Section - Always at top */}
+          <div className="flex-shrink-0 w-full">
+            <Hero t={t} language={language} />
+          </div>
           
           {/* URL Input Card */}
           <div className="flex-shrink-0 w-full">
