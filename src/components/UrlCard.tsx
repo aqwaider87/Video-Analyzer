@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clipboard, AlertCircle, Loader2 } from 'lucide-react';
 import { Translations, isRTL, Language } from '@/lib/i18n';
-import { validateTikTokUrl, simulateAnalysis } from '@/lib/utils';
+import { validateTikTokUrl, analyzeVideo } from '@/lib/utils';
 
 interface UrlCardProps {
   t: Translations;
@@ -42,10 +42,16 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
     setError('');
     setIsLoading(true);
     try {
-      await simulateAnalysis();
+      const response = await analyzeVideo(url);
+      console.log('Analysis completed successfully:', response);
       onAnalysisComplete();
     } catch (err) {
-      setError('Analysis failed. Please try again.');
+      console.error('Analysis failed:', err);
+      if (err instanceof Error) {
+        setError(`Analysis failed: ${err.message}`);
+      } else {
+        setError('Analysis failed. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
