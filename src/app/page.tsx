@@ -3,16 +3,18 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Language, getTranslation, isRTL } from '@/lib/i18n';
+import { AnalyzeResponse } from '@/api/types';
 import BackgroundFX from '@/components/BackgroundFX';
 import LanguageToggle from '@/components/LanguageToggle';
 import Hero from '@/components/Hero';
 import UrlCard from '@/components/UrlCard';
-import ResultsPlaceholder from '@/components/ResultsPlaceholder';
+import ResultsView from '@/components/ResultsView';
 import Version from '@/components/Version';
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>('en');
   const [showResults, setShowResults] = useState(false);
+  const [analysisData, setAnalysisData] = useState<AnalyzeResponse | null>(null);
   const [mounted, setMounted] = useState(false);
 
   const t = getTranslation(language);
@@ -40,7 +42,8 @@ export default function Home() {
     setLanguage(newLanguage);
   };
 
-  const handleAnalysisComplete = () => {
+  const handleAnalysisComplete = (data: AnalyzeResponse) => {
+    setAnalysisData(data);
     setShowResults(true);
   };
 
@@ -80,9 +83,10 @@ export default function Home() {
           {/* Results Section */}
           {showResults && (
             <div className="flex-shrink-0 w-full">
-              <ResultsPlaceholder
+              <ResultsView
                 t={t}
                 language={language}
+                data={analysisData}
                 isVisible={showResults}
               />
             </div>

@@ -1,0 +1,915 @@
+{
+    "success": true,
+    "complete": false,
+    "cached": false,
+    "video_id": "7536225574189059336",
+    "video_size_mb": null,
+    "cache_age_minutes": 60.0,
+    "processing_time": 22.722928762435913,
+    "metadata": {
+        "video_url": "https://www.tiktok.com/@abonawafnology/video/7536225574189059336",
+        "video_id": "7536225574189059336",
+        "processed_at": 1757830157.5078466,
+        "influencer_name": "abonawafnology",
+        "description": "",
+        "likes": "2813",
+        "comment_count": 144,
+        "save_count": 555,
+        "comments_extracted": 60,
+        "comments": [
+            {
+                "user": "omar_339",
+                "comment": "كل شي فيه حلو إلا بطاريته",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9977328777313232,
+                "sentiment_probs": {
+                    "ايجابي": 0.9977328777313232,
+                    "سلبي": 0.0005741966306231916,
+                    "محايد": 0.0016928998520597816
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 517.9896354675293
+            },
+            {
+                "user": "u9999i",
+                "comment": "كويس خفيف انا تعبت من ال١٢برو ماكس كسر يدي",
+                "likes": "6",
+                "lang": "ar",
+                "sentiment": "سلبي",
+                "sentiment_confidence": 0.9990856647491455,
+                "sentiment_probs": {
+                    "ايجابي": 0.0004993803449906409,
+                    "سلبي": 0.9990856647491455,
+                    "محايد": 0.00041493208846077323
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 535.0015163421631
+            },
+            
+            {
+                "user": "bl_94321",
+                "comment": "محتار بين Air او 17 العادي 🥺",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.6640871465206146,
+                "sentiment_probs": {
+                    "ايجابي": 0.1324092000722885,
+                    "سلبي": 0.1685517281293869,
+                    "محايد": 0.699039101600647
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 156.9998264312744
+            },
+            {
+                "user": "abonawafnology",
+                "comment": "ايش رايكم فيه تشوفونه يستاهل ؟",
+                "likes": "2",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.9989390969276428,
+                "sentiment_probs": {
+                    "ايجابي": 0.0006094697746448219,
+                    "سلبي": 0.0004514229076448828,
+                    "محايد": 0.9989390969276428
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 153.0001163482666
+            },
+            {
+                "user": "evil9.t",
+                "comment": "بطاريات رموت؟",
+                "likes": "1",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.999113142490387,
+                "sentiment_probs": {
+                    "ايجابي": 0.999113142490387,
+                    "سلبي": 0.0004729613719973713,
+                    "محايد": 0.00041383024654351175
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 141.00003242492676
+            },
+            {
+                "user": "azoozmohammed0",
+                "comment": "ايش تشوف الفرق بينه وبين البرو ماكس 13 ابغا بالتفصيل لاهنت",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.9963873624801636,
+                "sentiment_probs": {
+                    "ايجابي": 0.0005618507275357842,
+                    "سلبي": 0.003050820901989937,
+                    "محايد": 0.9963873624801636
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 235.0015640258789
+            },
+            {
+                "user": "i.sara___",
+                "comment": "مدري اتوقع بيسخن بسرعه ولى؟",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.6575353741645813,
+                "sentiment_probs": {
+                    "ايجابي": 0.3375917673110962,
+                    "سلبي": 0.004872873425483704,
+                    "محايد": 0.6575353741645813
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 239.00151252746582
+            },
+            {
+                "user": "saa788d",
+                "comment": "حلو ولله نحيف وخفيف انا من عشاقه بشتريه ان شاء الله",
+                "likes": "2",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9977892637252808,
+                "sentiment_probs": {
+                    "ايجابي": 0.9977892637252808,
+                    "سلبي": 0.0005030621541664004,
+                    "محايد": 0.0017076804069802165
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 525.001049041748
+            },
+            {
+                "user": "doctor.md0",
+                "comment": "Price riyal",
+                "likes": "1",
+                "lang": "en",
+                "sentiment": null,
+                "sentiment_confidence": 0.0,
+                "sentiment_probs": null,
+                "sentiment_method": "validation_failed",
+                "sentiment_latency_ms": 430.00292778015137
+            },
+            {
+                "user": "user84653551",
+                "comment": "أكيد يكون أفضل 👍",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.99,
+                "sentiment_probs": {
+                    "ايجابي": 0.9991545677185059,
+                    "سلبي": 0.00044909174903295934,
+                    "محايد": 0.0003963806957472116
+                },
+                "sentiment_method": "neural_model_with_emoji_boost",
+                "sentiment_latency_ms": 435.0011348724365
+            },
+            {
+                "user": "abdulkoo",
+                "comment": "اروح عند البياع اقولو عطيني 17 !!! 😁",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.99,
+                "sentiment_probs": {
+                    "ايجابي": 0.9850971102714539,
+                    "سلبي": 0.004714481998234987,
+                    "محايد": 0.010188410989940166
+                },
+                "sentiment_method": "neural_model_with_emoji_boost",
+                "sentiment_latency_ms": 82.0002555847168
+            },
+            {
+                "user": "phonix554",
+                "comment": "2800 🤣🤣",
+                "likes": "0",
+                "lang": "en",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.99,
+                "sentiment_probs": {
+                    "ايجابي": 0.9987610578536987,
+                    "سلبي": 0.0008562916191294789,
+                    "محايد": 0.00038267875788733363
+                },
+                "sentiment_method": "neural_model_with_emoji_boost",
+                "sentiment_latency_ms": 436.9997978210449
+            },
+            {
+                "user": "ol0b0",
+                "comment": "جوالي ايفون 15 العادي يستحق اغير؟",
+                "likes": "1",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.9606154561042786,
+                "sentiment_probs": {
+                    "ايجابي": 0.032084960490465164,
+                    "سلبي": 0.007299576420336962,
+                    "محايد": 0.9606154561042786
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 611.0005378723145
+            },
+            {
+                "user": "ios1950",
+                "comment": "كم فريم ببجي رد",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9991316199302673,
+                "sentiment_probs": {
+                    "ايجابي": 0.9991316199302673,
+                    "سلبي": 0.00037937171873636544,
+                    "محايد": 0.000489099882543087
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 629.0009021759033
+            },
+            {
+                "user": "qi.6kl",
+                "comment": "طيب الحين لو في واحد صاحب محل جوالات ومتوفر عنده ايفون ١٧ يمديه يستخدمه ؟",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.990398645401001,
+                "sentiment_probs": {
+                    "ايجابي": 0.007792435586452484,
+                    "سلبي": 0.0018089417135342956,
+                    "محايد": 0.990398645401001
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 637.0000839233398
+            },
+            {
+                "user": "malekmohamedddddd",
+                "comment": "يعني كام دولار",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9990321397781372,
+                "sentiment_probs": {
+                    "ايجابي": 0.9990321397781372,
+                    "سلبي": 0.0004985815612599254,
+                    "محايد": 0.000469397782580927
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 541.9919490814209
+            },
+            {
+                "user": "ba.7775",
+                "comment": "2800 البطاريه كم ساعه استخدمه ٤ ساعات واشحنه هل هذا يستحق من ابل",
+                "likes": "1",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.993833065032959,
+                "sentiment_probs": {
+                    "ايجابي": 0.005094943568110466,
+                    "سلبي": 0.0010720404097810388,
+                    "محايد": 0.993833065032959
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 623.9924430847168
+            },
+            {
+                "user": "bobo2229",
+                "comment": "ماشاء الله تبارك الله",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9989873766899109,
+                "sentiment_probs": {
+                    "ايجابي": 0.9989873766899109,
+                    "سلبي": 0.00043964770156890154,
+                    "محايد": 0.0005729891709052026
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 234.99536514282227
+            },
+            {
+                "user": "immyst__",
+                "comment": "يجنن صراحه",
+                "likes": "3",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9991773962974548,
+                "sentiment_probs": {
+                    "ايجابي": 0.9991773962974548,
+                    "سلبي": 0.00040970678674057126,
+                    "محايد": 0.0004128587315790355
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 251.99413299560547
+            },
+            {
+                "user": "lett_212",
+                "comment": "متى ينزل بصبط في سبتمبر",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9986374974250793,
+                "sentiment_probs": {
+                    "ايجابي": 0.9986374974250793,
+                    "سلبي": 0.0008298341417685151,
+                    "محايد": 0.0005326119135133922
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 70.99223136901855
+            },
+            {
+                "user": "bassemofficial.965",
+                "comment": "الوزن 145 جرام",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9990418553352356,
+                "sentiment_probs": {
+                    "ايجابي": 0.9990418553352356,
+                    "سلبي": 0.0005909402389079332,
+                    "محايد": 0.00036719252238981426
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 66.99347496032715
+            },
+            {
+                "user": "d2hoom",
+                "comment": "2800 😂",
+                "likes": "1",
+                "lang": "en",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.99,
+                "sentiment_probs": {
+                    "ايجابي": 0.9987610578536987,
+                    "سلبي": 0.0008562916191294789,
+                    "محايد": 0.00038267875788733363
+                },
+                "sentiment_method": "neural_model_with_emoji_boost",
+                "sentiment_latency_ms": 455.9934139251709
+            },
+            {
+                "user": "meema916",
+                "comment": "هل فيها منفذ شريحة",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.5488496422767639,
+                "sentiment_probs": {
+                    "ايجابي": 0.5488496422767639,
+                    "سلبي": 0.018396371975541115,
+                    "محايد": 0.4327540099620819
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 73.99153709411621
+            },
+            {
+                "user": "qem418",
+                "comment": "ايش تأثر البطاريه يوم تكون منخفضه عن الباقي؟",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.998721182346344,
+                "sentiment_probs": {
+                    "ايجابي": 0.0004120210069231689,
+                    "سلبي": 0.0008667648071423173,
+                    "محايد": 0.998721182346344
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 165.99345207214355
+            },
+            {
+                "user": "awwww5214",
+                "comment": "[sticker]",
+                "likes": "0",
+                "lang": "en",
+                "sentiment": null,
+                "sentiment_confidence": 0.0,
+                "sentiment_probs": null,
+                "sentiment_method": "validation_failed",
+                "sentiment_latency_ms": 235.9933853149414
+            },
+            {
+                "user": "lilface2004",
+                "comment": "معقوله بطارية 2800 شتكفي هاي",
+                "likes": "1",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9893229603767395,
+                "sentiment_probs": {
+                    "ايجابي": 0.9893229603767395,
+                    "سلبي": 0.0009123457130044699,
+                    "محايد": 0.009764638729393482
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 307.99174308776855
+            },
+            {
+                "user": "fhd3333",
+                "comment": "اهم شي البطاريه وش 2800 يعني لازم يكون ع الشاحن ع طول",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.9987587928771973,
+                "sentiment_probs": {
+                    "ايجابي": 0.0007490740390494466,
+                    "سلبي": 0.0004921940853819251,
+                    "محايد": 0.9987587928771973
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 316.99228286743164
+            },
+            {
+                "user": "marchalnet",
+                "comment": "يارب ارزقني أيفون 📱 ١٧🥺😌",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9492178469896316,
+                "sentiment_probs": {
+                    "ايجابي": 0.9991766810417175,
+                    "سلبي": 0.00042858265805989504,
+                    "محايد": 0.0003946987562812865
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 313.9991760253906
+            },
+            {
+                "user": "abuazozalnasser",
+                "comment": "هههه",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9977471232414246,
+                "sentiment_probs": {
+                    "ايجابي": 0.9977471232414246,
+                    "سلبي": 0.0019013102864846587,
+                    "محايد": 0.0003515398420859128
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 322.99327850341797
+            },
+            {
+                "user": "danialina3",
+                "comment": "♥️♥️♥️",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9022602409124374,
+                "sentiment_probs": {
+                    "ايجابي": 0.949747622013092,
+                    "سلبي": 0.04846052825450897,
+                    "محايد": 0.0017917994409799576
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 365.9930229187012
+            },
+            {
+                "user": "ahmedfayed823",
+                "comment": "❤️",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9022602409124374,
+                "sentiment_probs": {
+                    "ايجابي": 0.949747622013092,
+                    "سلبي": 0.04846052825450897,
+                    "محايد": 0.0017917994409799576
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 374.99547004699707
+            },
+            {
+                "user": "semedo_jnr",
+                "comment": "❤️❤️❤️",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9022602409124374,
+                "sentiment_probs": {
+                    "ايجابي": 0.949747622013092,
+                    "سلبي": 0.04846052825450897,
+                    "محايد": 0.0017917994409799576
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 371.9916343688965
+            },
+            {
+                "user": "mustafaalaqabi37",
+                "comment": "@بروس @عباس حسن",
+                "likes": "1",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9989523887634277,
+                "sentiment_probs": {
+                    "ايجابي": 0.9989523887634277,
+                    "سلبي": 0.00045871699694544077,
+                    "محايد": 0.0005888186278752983
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 387.99524307250977
+            },
+            {
+                "user": "3zoz966",
+                "comment": "👌👌👌",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 367.99168586730957
+            },
+            {
+                "user": "fahadaim",
+                "comment": "😁😁😁",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 368.9923286437988
+            },
+            {
+                "user": "mohamedooooooooo0",
+                "comment": "💥🫶",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9022602409124374,
+                "sentiment_probs": {
+                    "ايجابي": 0.949747622013092,
+                    "سلبي": 0.04846052825450897,
+                    "محايد": 0.0017917994409799576
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 427.9918670654297
+            },
+            {
+                "user": "user1877302786004",
+                "comment": "🥰🥰🥰",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 373.9919662475586
+            },
+            {
+                "user": "o_e2e",
+                "comment": "😭😭😭",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "سلبي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.025,
+                    "سلبي": 0.95,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 625.9920597076416
+            },
+            {
+                "user": "zeadahmed623",
+                "comment": "❤️",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.9022602409124374,
+                "sentiment_probs": {
+                    "ايجابي": 0.949747622013092,
+                    "سلبي": 0.04846052825450897,
+                    "محايد": 0.0017917994409799576
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 698.9920139312744
+            },
+            {
+                "user": "mootezbk",
+                "comment": "😂😂😂",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 628.9927959442139
+            },
+            {
+                "user": "yayaaaaa617",
+                "comment": "😂😂😂",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 629.9929618835449
+            },
+            {
+                "user": "5vx_li",
+                "comment": "😂😂😂",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 630.9938430786133
+            },
+            {
+                "user": "m9x56",
+                "comment": "😁😁😁",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 631.9952011108398
+            },
+            {
+                "user": "leyoooooooooo10",
+                "comment": "😂😂😂😂",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 632.9934597015381
+            },
+            {
+                "user": "enaitch97",
+                "comment": "😂😂😂",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 633.9926719665527
+            },
+            {
+                "user": "mohamedsayedno1",
+                "comment": "اللهم صل وسلم وبارك علي سيدنا محمد وعلي آله وصحبه اجمعين ❤️❤️❤️",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.4311563119292259,
+                "sentiment_probs": {
+                    "ايجابي": 0.4538487493991852,
+                    "سلبي": 0.2834298312664032,
+                    "محايد": 0.2627214193344116
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 726.9923686981201
+            },
+            {
+                "user": "saudi5112",
+                "comment": "الي كان اسمه بلس 😂 ماتغير شي",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.9486561894416808,
+                "sentiment_probs": {
+                    "ايجابي": 0.00043620658107101917,
+                    "سلبي": 0.000978373922407627,
+                    "محايد": 0.9985854625701904
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 712.9919528961182
+            },
+            {
+                "user": "realbtsaed",
+                "comment": "لو البطارية تكون افضل من كذا اول واحد يشتريه انا",
+                "likes": "2",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.9294332265853882,
+                "sentiment_probs": {
+                    "ايجابي": 0.06790221482515335,
+                    "سلبي": 0.0026645800098776817,
+                    "محايد": 0.9294332265853882
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 765.9945487976074
+            },
+            {
+                "user": "fkkkjj",
+                "comment": "البطاريه اذا بها الارقام سيئه جداً",
+                "likes": "1",
+                "lang": "ar",
+                "sentiment": "سلبي",
+                "sentiment_confidence": 0.9989627599716187,
+                "sentiment_probs": {
+                    "ايجابي": 0.00043630230356939137,
+                    "سلبي": 0.9989627599716187,
+                    "محايد": 0.0006008708151057363
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 794.9919700622559
+            },
+            {
+                "user": "esl_22",
+                "comment": "مصنع في الصين مو أصلي وكاميرا واحد ميك",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "سلبي",
+                "sentiment_confidence": 0.9949530363082886,
+                "sentiment_probs": {
+                    "ايجابي": 0.0005727060488425195,
+                    "سلبي": 0.9949530363082886,
+                    "محايد": 0.0044742426835000515
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 798.992395401001
+            },
+            {
+                "user": "ff..10000",
+                "comment": "حطين سعره 4700 و 17 بروه ماكس 5700 اكيد اخذ 17 بروه ماكس هاذه اكثر حد 3500 وكثير عليه بعد",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.8981163501739502,
+                "sentiment_probs": {
+                    "ايجابي": 0.09440802037715912,
+                    "سلبي": 0.007475570775568485,
+                    "محايد": 0.8981163501739502
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 826.9979953765869
+            },
+            {
+                "user": "702ِِٰ",
+                "comment": "والله كنت بشتريه لكن دام بطاريته كذا كنسل",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.9891408681869507,
+                "sentiment_probs": {
+                    "ايجابي": 0.009951049461960793,
+                    "سلبي": 0.0009081243188120425,
+                    "محايد": 0.9891408681869507
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 850.9941101074219
+            },
+            {
+                "user": "3zf903",
+                "comment": "اخيرا نزل حفيد الاكس ماكس. بس البطاريه تخوف",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.9951674938201904,
+                "sentiment_probs": {
+                    "ايجابي": 0.0007777615683153272,
+                    "سلبي": 0.004054753575474024,
+                    "محايد": 0.9951674938201904
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 897.9923725128174
+            },
+            {
+                "user": "houari8800",
+                "comment": "شركة أيفون في نزول في هواتفها 😳",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "سلبي",
+                "sentiment_confidence": 0.9488390296697616,
+                "sentiment_probs": {
+                    "ايجابي": 0.0006186087848618627,
+                    "سلبي": 0.9987779259681702,
+                    "محايد": 0.0006034313701093197
+                },
+                "sentiment_method": "neural_model_with_emoji_conflict",
+                "sentiment_latency_ms": 883.9926719665527
+            },
+            {
+                "user": "abo_salahh_alyoousf502",
+                "comment": "شابوره مس جوال😂",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.99,
+                "sentiment_probs": {
+                    "ايجابي": 0.9992032647132874,
+                    "سلبي": 0.00041211905772797763,
+                    "محايد": 0.00038464381941594183
+                },
+                "sentiment_method": "neural_model_with_emoji_boost",
+                "sentiment_latency_ms": 909.9929332733154
+            },
+            {
+                "user": "zzozzdchv0t",
+                "comment": "تخيل اترك جوالي بطاريته ٦٠٠٠ واخذ واحد ٢٥٠٠ 😂",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.690698003768921,
+                "sentiment_probs": {
+                    "ايجابي": 0.6279072761535645,
+                    "سلبي": 0.3674543499946594,
+                    "محايد": 0.0046382988803088665
+                },
+                "sentiment_method": "neural_model_with_emoji_boost",
+                "sentiment_latency_ms": 927.9954433441162
+            },
+            {
+                "user": "mbark.bravo",
+                "comment": "3500 ماذا؟",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "سلبي",
+                "sentiment_confidence": 0.8540635704994202,
+                "sentiment_probs": {
+                    "ايجابي": 0.1426553577184677,
+                    "سلبي": 0.8540635704994202,
+                    "محايد": 0.003281138138845563
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 944.9930191040039
+            },
+            {
+                "user": "omralghafri5555",
+                "comment": "😂🇮🇳🍎🐑🍏🐑😂",
+                "likes": "0",
+                "lang": "other",
+                "sentiment": "ايجابي",
+                "sentiment_confidence": 0.95,
+                "sentiment_probs": {
+                    "ايجابي": 0.95,
+                    "سلبي": 0.025,
+                    "محايد": 0.025
+                },
+                "sentiment_method": "emoji_analysis",
+                "sentiment_latency_ms": 898.9958763122559
+            },
+            {
+                "user": "basoomlove",
+                "comment": "نزول ابل الى الهاوية بشكل فضيع مقارنة مع باقي الاجهزه الاقتصادية توجد فيها مميزات اكثر واعلى بالنهاية احنا كمستهلك نشتري اسم الماركة فقط بغض النظر عن الامتياز",
+                "likes": "0",
+                "lang": "ar",
+                "sentiment": "محايد",
+                "sentiment_confidence": 0.596184492111206,
+                "sentiment_probs": {
+                    "ايجابي": 0.3927916884422302,
+                    "سلبي": 0.011023824103176594,
+                    "محايد": 0.596184492111206
+                },
+                "sentiment_method": "neural_model",
+                "sentiment_latency_ms": 970.9908962249756
+            }
+        ],
+        "hashtags": [
+            "#iPhoneAir",
+            "#فيصل_السيف",
+            "#تقنية",
+            "#AppleEvent",
+            "#مؤتمر_ابل"
+        ],
+        "extraction_complete": {
+            "url": "https://www.tiktok.com/@abonawafnology/video/7536225574189059336",
+            "extracted_at": 1757830147.8578146,
+            "influencer_name": "abonawafnology",
+            "likes": "2813",
+            "comment_count": "144",
+            "save_count": "555"
+        }
+    }
+}

@@ -5,11 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Clipboard, AlertCircle, Loader2 } from 'lucide-react';
 import { Translations, isRTL, Language } from '@/lib/i18n';
 import { validateTikTokUrl, analyzeVideo } from '@/lib/utils';
+import { AnalyzeResponse } from '@/api/types';
 
 interface UrlCardProps {
   t: Translations;
   language: Language;
-  onAnalysisComplete: () => void;
+  onAnalysisComplete: (data: AnalyzeResponse) => void;
 }
 
 export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProps) {
@@ -54,7 +55,7 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
     try {
       const response = await analyzeVideo(url);
       console.log('Analysis completed successfully:', response);
-      onAnalysisComplete();
+      onAnalysisComplete(response);
     } catch (err) {
       console.error('Analysis failed:', err);
       if (err instanceof Error) {

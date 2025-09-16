@@ -15,6 +15,24 @@ export interface Translations {
     views: string;
     likes: string;
   };
+  results: {
+    operationFailed: string;
+    analysisResults: string;
+    detailedAnalysis: string;
+    contentCreator: string;
+    likes: string;
+    comments: string;
+    saves: string;
+    sentimentAnalysis: string;
+    positive: string;
+    negative: string;
+    neutral: string;
+    confidence: string;
+    topPositiveComment: string;
+    mostLikedComment: string;
+    hashtags: string;
+    videoDescription: string;
+  };
 }
 
 export const translations: Record<'en' | 'ar', Translations> = {
@@ -34,6 +52,24 @@ export const translations: Record<'en' | 'ar', Translations> = {
       sentiment: 'Positive Sentiment',
       views: '2.5M Views Predicted',
       likes: '125K Likes Estimated'
+    },
+    results: {
+      operationFailed: 'Operation Failed',
+      analysisResults: 'Analysis Results',
+      detailedAnalysis: 'Detailed analysis of video content and comments',
+      contentCreator: 'Content Creator',
+      likes: 'Likes',
+      comments: 'Comments',
+      saves: 'Saves',
+      sentimentAnalysis: 'Sentiment Analysis',
+      positive: 'Positive',
+      negative: 'Negative',
+      neutral: 'Neutral',
+      confidence: 'confidence',
+      topPositiveComment: 'Top Positive Comment',
+      mostLikedComment: 'Most Liked Comment',
+      hashtags: 'Hashtags',
+      videoDescription: 'Video Description'
     }
   },
   ar: {
@@ -52,6 +88,24 @@ export const translations: Record<'en' | 'ar', Translations> = {
       sentiment: 'مشاعر إيجابية',
       views: '2.5 مليون مشاهدة متوقعة',
       likes: '125 ألف إعجاب متوقع'
+    },
+    results: {
+      operationFailed: 'فشلت العملية',
+      analysisResults: 'نتائج التحليل',
+      detailedAnalysis: 'تحليل مفصل لمحتوى الفيديو والتعليقات',
+      contentCreator: 'منشئ المحتوى',
+      likes: 'الإعجابات',
+      comments: 'التعليقات',
+      saves: 'الحفظ',
+      sentimentAnalysis: 'تحليل المشاعر',
+      positive: 'إيجابي',
+      negative: 'سلبي',
+      neutral: 'محايد',
+      confidence: 'ثقة',
+      topPositiveComment: 'أفضل تعليق إيجابي',
+      mostLikedComment: 'التعليق الأكثر إعجاباً',
+      hashtags: 'الهاشتاغات',
+      videoDescription: 'وصف الفيديو'
     }
   }
 };

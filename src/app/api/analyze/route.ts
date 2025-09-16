@@ -54,10 +54,22 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const data: AnalyzeResponse = await response.json();
+      const rawResponse = await response.json();
       
-      // Log the response for debugging
-      console.log('API Response:', JSON.stringify(data, null, 2));
+      // Log the raw response for debugging
+      console.log('Raw API Response:', JSON.stringify(rawResponse, null, 2));
+      
+      // Check if the response is wrapped in a status/data structure
+      let data: AnalyzeResponse;
+      if (rawResponse.status && rawResponse.data) {
+        // Wrapped response - extract the actual data
+        data = rawResponse.data;
+        console.log('Extracted data from wrapped response:', JSON.stringify(data, null, 2));
+      } else {
+        // Direct response
+        data = rawResponse;
+        console.log('Using direct response as data');
+      }
       
       return NextResponse.json(data);
     } catch (error) {
