@@ -17,6 +17,7 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [shake, setShake] = useState(false);
+  const [highlightInput, setHighlightInput] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const pasteResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [pasteActive, setPasteActive] = useState(false);
@@ -33,6 +34,15 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check if input is empty
+    if (!url.trim()) {
+      setHighlightInput(true);
+      inputRef.current?.focus();
+      setTimeout(() => setHighlightInput(false), 2000);
+      return;
+    }
+    
     if (!validateTikTokUrl(url)) {
       setError(t.errorInvalidUrl);
       setShake(true);
@@ -72,6 +82,7 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
     if (error) setError('');
+    if (highlightInput) setHighlightInput(false);
   };
 
   return (
@@ -85,7 +96,24 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
         <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md shadow-xl space-y-6">
           <div className="flex flex-col md:flex-row gap-4 md:items-center">
             <div className="flex-1">
-              <div className="relative group rounded-2xl p-[2px] transition-all duration-500 bg-white/10">
+              <motion.div 
+                className="relative group rounded-2xl p-[2px] transition-all duration-500 bg-white/10"
+                animate={highlightInput ? {
+                  boxShadow: [
+                    '0 0 0 0 rgba(94, 249, 255, 0)',
+                    '0 0 0 4px rgba(94, 191, 255, 0.4)',
+                    '0 0 0 0 rgba(255, 99, 255, 0)',
+                    '0 0 0 4px rgba(125, 91, 255, 0.5)',
+                    '0 0 0 0 rgba(94, 249, 255, 0)'
+                  ],
+                  scale: [1, 1.02, 1, 1.02, 1]
+                } : {}}
+                transition={highlightInput ? { 
+                  duration: 2, 
+                  times: [0, 0.2, 0.4, 0.6, 1],
+                  ease: 'easeInOut' 
+                } : {}}
+              >
                 <motion.input
                   ref={inputRef}
                   // Use text instead of url to avoid native browser validation; rely on custom validateTikTokUrl
@@ -103,10 +131,24 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                     transition-all duration-300 text-lg
                     ${rtl ? 'text-left pl-6 pr-14' : 'text-left pl-6 pr-14'}
                     ${error ? 'border-red-400/50 focus:ring-red-400/50' : ''}
+                    ${highlightInput ? 'border-blue-400/60' : ''}
                   `}
                   disabled={isLoading}
                   dir="ltr"
-                  // Removed whileFocus scale and color-changing handlers to keep appearance stable
+                  animate={highlightInput ? {
+                    borderColor: [
+                      'rgba(255, 255, 255, 0.2)',
+                      'rgba(94, 249, 255, 0.6)',
+                      'rgba(255, 99, 255, 0.6)',
+                      'rgba(125, 91, 255, 0.7)',
+                      'rgba(255, 255, 255, 0.2)'
+                    ]
+                  } : {}}
+                  transition={highlightInput ? { 
+                    duration: 2, 
+                    times: [0, 0.2, 0.4, 0.6, 1],
+                    ease: 'easeInOut' 
+                  } : {}}
                   aria-invalid={!!error}
                   aria-describedby={error ? 'url-error' : undefined}
                 />
@@ -188,11 +230,11 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                     )}
                   </AnimatePresence>
                 </motion.button>
-              </div>
+              </motion.div>
             </div>
               <motion.button
                 type="submit"
-                disabled={isLoading || !url.trim()}
+                disabled={isLoading}
                 className="px-7 py-4 rounded-2xl font-semibold text-lg bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white hover:from-gray-500 hover:via-gray-600 hover:to-gray-700 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl h-14 whitespace-nowrap"
                 whileHover={{ scale: isLoading ? 1 : 1.06 }}
                 whileTap={{ scale: 0.94 }}
@@ -208,7 +250,7 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                   boxShadow: { duration: 6, repeat: Infinity, ease: 'easeInOut' },
                   scale: url.trim() ? { duration: 2.8, repeat: Infinity, ease: 'easeInOut' } : undefined
                 }}
-                aria-disabled={isLoading || !url.trim()}
+                aria-disabled={isLoading}
               >
                 <AnimatePresence mode="wait">
                   {isLoading ? (
