@@ -6,6 +6,7 @@ export interface Translations {
   pasteButton: string;
   errorInvalidUrl: string;
   loadingText: string;
+  loadingDivText: string;
   resultsTitle: string;
   resultsSubtitle: string;
   sampleInsights: {
@@ -24,9 +25,10 @@ export const translations: Record<'en' | 'ar', Translations> = {
     buttonText: 'Start Analysis',
     pasteButton: 'Paste',
     errorInvalidUrl: 'Please enter a valid TikTok video URL',
-    loadingText: 'Analyzing video content with AI...',
+    loadingText: 'Analyzing...',
+    loadingDivText: 'Analyzing video content...',
     resultsTitle: 'Analysis Results',
-    resultsSubtitle: 'AI-powered insights for your TikTok video',
+    resultsSubtitle: 'The video has been successfully analyzed using AI techniques, based on user interactions and comments.',
     sampleInsights: {
       engagement: 'High Engagement Score',
       sentiment: 'Positive Sentiment',
@@ -41,9 +43,10 @@ export const translations: Record<'en' | 'ar', Translations> = {
     buttonText: 'بدء التحليل',
     pasteButton: 'لصق',
     errorInvalidUrl: 'يرجى إدخال رابط فيديو تيك توك صالح',
-    loadingText: 'جاري تحليل محتوى الفيديو بالذكاء الاصطناعي...',
+    loadingText: 'تحليل...',
+    loadingDivText: 'جاري تحليل محتوى الفيديو...',
     resultsTitle: 'نتائج التحليل',
-    resultsSubtitle: 'رؤى مدعومة بالذكاء الاصطناعي لفيديو تيك توك الخاص بك',
+    resultsSubtitle: 'تم تحليل الفيديو بنجاح باستخدام تقنيات الذكاء الاصطناعي، استنادًا إلى تفاعل وتعليقات المستخدمين.',
     sampleInsights: {
       engagement: 'نسبة تفاعل عالية',
       sentiment: 'مشاعر إيجابية',

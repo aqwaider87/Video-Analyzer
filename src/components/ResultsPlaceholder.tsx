@@ -124,35 +124,6 @@ export default function ResultsPlaceholder({ t, language, isVisible }: ResultsPl
             );
           })}
         </div>
-
-        {/* Additional Analysis Section */}
-        <motion.div
-          className="mt-8 p-6 bg-white/5 rounded-2xl border border-white/10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
-        >
-          <h3 className={`text-xl font-semibold text-white mb-4 flex items-center ${rtl ? 'font-arabic' : 'font-english'}`}>
-            <motion.div
-              className="w-2 h-2 bg-blue-400 rounded-full mr-3"
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-              }}
-            />
-            {language === 'ar' ? 'اكتمل التحليل بالذكاء الاصطناعي' : 'AI Analysis Complete'}
-          </h3>
-          <p className={`text-white/70 leading-relaxed ${rtl ? 'font-arabic' : 'font-english'}`}>
-            {language === 'ar' 
-              ? 'تم تحليل الفيديو بنجاح باستخدام تقنيات الذكاء الاصطناعي المتقدمة. النتائج تظهر مؤشرات إيجابية للتفاعل والمشاعر.'
-              : 'Video analysis completed using advanced AI techniques. The results show positive indicators for engagement and sentiment analysis.'
-            }
-          </p>
-        </motion.div>
       </motion.div>
     </motion.div>
   );
