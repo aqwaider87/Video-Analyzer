@@ -59,9 +59,6 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
           <h2 className="text-xl font-bold text-red-400 mb-2">
             {t.results.operationFailed}
           </h2>
-          <p className="text-white/70">
-            {t.results.operationFailed}
-          </p>
         </motion.div>
       </motion.div>
     );
@@ -279,8 +276,149 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
               </motion.div>
             </motion.div>
           )}
-        </div>
 
+          {/* Top Positive Comment */}
+          {(() => {
+            const positiveComments = comments
+              .filter((comment: CommentSentiment) => comment.sentiment === 'ايجابي' || comment.sentiment.toLowerCase() === 'positive')
+              .sort((a: CommentSentiment, b: CommentSentiment) => {
+                // First sort by confidence (descending)
+                const confidenceDiff = (b.sentiment_confidence || 0) - (a.sentiment_confidence || 0);
+                if (confidenceDiff !== 0) return confidenceDiff;
+                
+                // If confidence is equal, sort by likes (descending)
+                return Number(b.likes || 0) - Number(a.likes || 0);
+              })
+              .slice(0, 1);
+            
+            return positiveComments.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, x: rtl ? -20 : 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
+                className="glass rounded-2xl p-6 border border-green-400/20"
+              >
+                <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                  <ThumbsUp className="text-green-400" size={24} />
+                  {t.results.topPositiveComment}
+                </h4>
+                <div className="space-y-4">
+                  {positiveComments.map((comment: CommentSentiment, index: number) => (
+                    <motion.div
+                      key={index}
+                      className="bg-white/5 rounded-xl p-4 border border-white/10"
+                      whileHover={{ scale: 1.02 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.0 + index * 0.1 }}
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center">
+                          <User className="text-white" size={14} />
+                        </div>
+                        <span className="text-white font-medium">@{comment.user}</span>
+                        <span className="text-xs text-green-400">
+                          {(comment.sentiment_confidence * 100).toFixed(2)}% {t.results.confidence}
+                        </span>
+                      </div>
+                      <p className={`text-white/90 mb-3 ${rtl ? 'text-right' : 'text-left'}`}>
+                        {comment.comment}
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <Heart className="text-pink-400" size={16} />
+                        <span className="text-white/70 text-sm">{comment.likes}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })()}
+
+          {/* Top Negative Comment */}
+          {(() => {
+            const negativeComments = comments
+              .filter((comment: CommentSentiment) => comment.sentiment === 'سلبي' || comment.sentiment.toLowerCase() === 'negative')
+              .sort((a: CommentSentiment, b: CommentSentiment) => {
+                // First sort by confidence (descending)
+                const confidenceDiff = (b.sentiment_confidence || 0) - (a.sentiment_confidence || 0);
+                if (confidenceDiff !== 0) return confidenceDiff;
+                
+                // If confidence is equal, sort by likes (descending)
+                return Number(b.likes || 0) - Number(a.likes || 0);
+              })
+              .slice(0, 1);
+            
+            return negativeComments.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, x: rtl ? -20 : 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.0, duration: 0.5 }}
+                className="glass rounded-2xl p-6 border border-red-400/20"
+              >
+                <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                  <ThumbsDown className="text-red-400" size={24} />
+                  {t.results.topNegativeComment}
+                </h4>
+                <div className="space-y-4">
+                  {negativeComments.map((comment: CommentSentiment, index: number) => (
+                    <motion.div
+                      key={index}
+                      className="bg-white/5 rounded-xl p-4 border border-white/10"
+                      whileHover={{ scale: 1.02 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.1 + index * 0.1 }}
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-red-400 to-rose-600 rounded-full flex items-center justify-center">
+                          <User className="text-white" size={14} />
+                        </div>
+                        <span className="text-white font-medium">@{comment.user}</span>
+                        <span className="text-xs text-red-400">
+                          {(comment.sentiment_confidence * 100).toFixed(2)}% {t.results.confidence}
+                        </span>
+                      </div>
+                      <p className={`text-white/90 mb-3 ${rtl ? 'text-right' : 'text-left'}`}>
+                        {comment.comment}
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <Heart className="text-pink-400" size={16} />
+                        <span className="text-white/70 text-sm">{comment.likes}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })()}
+        </div>
+        
+        {/* Video Description */}
+        {description && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5, duration: 0.5 }}
+            className="glass rounded-2xl p-6 border border-white/10"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center">
+                <User className="text-white" size={20} />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-white">
+                  {t.results.videoDescription}
+                </h4>
+                <p className="text-white/60 text-sm">@{influencerName}</p>
+              </div>
+            </div>
+            <p className="text-white/80 leading-relaxed">
+              {description}
+            </p>
+          </motion.div>
+        )}
+        
         {/* Hashtags */}
         {hashtags.length > 0 && (
           <motion.div
@@ -309,31 +447,6 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
             </div>
           </motion.div>
         )}
-
-        {/* Video Description */}
-        {description && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5, duration: 0.5 }}
-            className="glass rounded-2xl p-6 border border-white/10"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center">
-                <User className="text-white" size={20} />
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-white">
-                  {t.results.videoDescription}
-                </h4>
-                <p className="text-white/60 text-sm">@{influencerName}</p>
-              </div>
-            </div>
-            <p className="text-white/80 leading-relaxed">
-              {description}
-            </p>
-          </motion.div>
-        )}
       </motion.div>
     );
   } catch (error) {
@@ -354,9 +467,6 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
           <h2 className="text-xl font-bold text-red-400 mb-2">
             {t.results.operationFailed}
           </h2>
-          <p className="text-white/70">
-            {t.results.operationFailed}
-          </p>
         </motion.div>
       </motion.div>
     );

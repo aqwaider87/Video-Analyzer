@@ -29,6 +29,7 @@ export interface Translations {
     neutral: string;
     confidence: string;
     topPositiveComment: string;
+    topNegativeComment: string;
     mostLikedComment: string;
     hashtags: string;
     videoDescription: string;
@@ -58,7 +59,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
       likes: '125K Likes Estimated'
     },
     results: {
-      operationFailed: 'Operation Failed',
+      operationFailed: 'Operation Failed, Please try again.',
       analysisResults: 'Analysis Results',
       detailedAnalysis: 'The video has been successfully analyzed using AI techniques, based on user interactions and comments.',
       contentCreator: 'Content Creator',
@@ -71,6 +72,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
       neutral: 'Neutral',
       confidence: 'confidence',
       topPositiveComment: 'Top Positive Comment',
+      topNegativeComment: 'Top Negative Comment',
       mostLikedComment: 'Most Liked Comment',
       hashtags: 'Hashtags',
       videoDescription: 'Video Description',
@@ -98,7 +100,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
       likes: '125 ألف إعجاب متوقع'
     },
     results: {
-      operationFailed: 'فشلت العملية',
+      operationFailed: 'فشلت العملية، يرجى المحاولة مرة أخرى.',
       analysisResults: 'نتائج التحليل',
       detailedAnalysis: 'تم تحليل الفيديو بنجاح باستخدام تقنيات الذكاء الاصطناعي، استنادًا إلى تفاعل وتعليقات المستخدمين.',
       contentCreator: 'منشئ المحتوى',
@@ -111,6 +113,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
       neutral: 'محايد',
       confidence: 'ثقة',
       topPositiveComment: 'أفضل تعليق إيجابي',
+      topNegativeComment: 'أفضل تعليق سلبي',
       mostLikedComment: 'التعليق الأكثر إعجاباً',
       hashtags: 'الهاشتاغات',
       videoDescription: 'وصف الفيديو',
