@@ -38,6 +38,8 @@ export interface Translations {
     slideOf: string;
     nextComment: string;
     previousComment: string;
+    sentimentDistribution: string;
+    commentVolumeTrends: string;
   };
 }
 
@@ -81,7 +83,9 @@ export const translations: Record<'en' | 'ar', Translations> = {
       topPositiveComments: 'Top Positive Comments',
       slideOf: 'of',
       nextComment: 'Next',
-      previousComment: 'Previous'
+      previousComment: 'Previous',
+      sentimentDistribution: 'Sentiment Distribution',
+      commentVolumeTrends: 'Comment Volume Trends'
     }
   },
   ar: {
@@ -123,7 +127,9 @@ export const translations: Record<'en' | 'ar', Translations> = {
       topPositiveComments: 'أفضل التعليقات الإيجابية',
       slideOf: 'من',
       nextComment: 'التالي',
-      previousComment: 'السابق'
+      previousComment: 'السابق',
+      sentimentDistribution: 'توزيع المشاعر',
+      commentVolumeTrends: 'اتجاهات التعليقات'
     }
   }
 };

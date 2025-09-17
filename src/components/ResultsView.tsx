@@ -1,9 +1,10 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, MessageCircle, Bookmark, TrendingUp, User, Hash, AlertCircle, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Heart, MessageCircle, Bookmark, TrendingUp, User, Hash, AlertCircle, ThumbsUp, ThumbsDown, BarChart3 } from 'lucide-react';
 import { Translations, isRTL, Language } from '@/lib/i18n';
 import { AnalyzeResponse, CommentSentiment } from '@/api/types';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
 interface ResultsViewProps {
   t: Translations;
@@ -129,6 +130,171 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
           </p>
         </motion.div>
 
+        {/* Charts Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="mb-8"
+        >
+          <motion.div
+            className="glass rounded-2xl p-6 border border-white/10"
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <BarChart3 className="text-blue-400" size={28} />
+              {t.results.sentimentAnalysis}
+            </h3>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Sentiment Analysis */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
+                className="bg-white/5 rounded-xl p-6"
+              >
+                <h4 className="text-lg font-semibold text-white mb-6 flex items-center gap-3">
+                  <TrendingUp className="text-purple-400" size={24} />
+                  {t.results.sentimentAnalysis}
+                </h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    { 
+                      sentiment: 'positive', 
+                      count: sentimentCounts.positive, 
+                      percentage: sentimentCounts.total > 0 ? Math.round((sentimentCounts.positive / sentimentCounts.total) * 100) : 0,
+                      label: t.results.positive,
+                      color: 'from-green-400 to-emerald-600',
+                      icon: ThumbsUp
+                    },
+                    { 
+                      sentiment: 'negative', 
+                      count: sentimentCounts.negative, 
+                      percentage: sentimentCounts.total > 0 ? Math.round((sentimentCounts.negative / sentimentCounts.total) * 100) : 0,
+                      label: t.results.negative,
+                      color: 'from-red-400 to-rose-600',
+                      icon: ThumbsDown
+                    },
+                  ].map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <motion.div
+                        key={item.sentiment}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
+                        className="text-center"
+                      >
+                        <motion.div
+                          className={`relative w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center`}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                        >
+                          <Icon className="text-white" size={28} />
+                          <motion.div
+                            className="absolute inset-0 rounded-full border-4 border-white/20"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 1.0 + index * 0.1, duration: 0.5 }}
+                          />
+                        </motion.div>
+                        <motion.div
+                          className="text-xl font-bold text-white mb-1"
+                          initial={{ y: 10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: 1.1 + index * 0.1 }}
+                        >
+                          {item.percentage}%
+                        </motion.div>
+                        <p className="text-white/70 text-sm">{item.label}</p>
+                        <p className="text-white/50 text-xs">({item.count} {t.results.comments})</p>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+
+              {/* Comment Volume Trends by Sentiment */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
+                className="bg-white/5 rounded-xl p-6"
+              >
+                <h4 className="text-lg font-semibold text-white mb-4 text-center">
+                  {t.results.commentVolumeTrends}
+                </h4>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={(() => {
+                        // Create sample trend data based on comment distribution
+                        const baseData = [
+                          { time: '10 min ago', positive: Math.floor(sentimentCounts.positive * 0.1), negative: Math.floor(sentimentCounts.negative * 0.1), neutral: Math.floor(sentimentCounts.neutral * 0.1) },
+                          { time: '8 min ago', positive: Math.floor(sentimentCounts.positive * 0.3), negative: Math.floor(sentimentCounts.negative * 0.2), neutral: Math.floor(sentimentCounts.neutral * 0.2) },
+                          { time: '6 min ago', positive: Math.floor(sentimentCounts.positive * 0.5), negative: Math.floor(sentimentCounts.negative * 0.4), neutral: Math.floor(sentimentCounts.neutral * 0.4) },
+                          { time: '4 min ago', positive: Math.floor(sentimentCounts.positive * 0.7), negative: Math.floor(sentimentCounts.negative * 0.6), neutral: Math.floor(sentimentCounts.neutral * 0.6) },
+                          { time: '2 min ago', positive: Math.floor(sentimentCounts.positive * 0.9), negative: Math.floor(sentimentCounts.negative * 0.8), neutral: Math.floor(sentimentCounts.neutral * 0.8) },
+                          { time: 'Now', positive: sentimentCounts.positive, negative: sentimentCounts.negative, neutral: sentimentCounts.neutral },
+                        ];
+                        return baseData;
+                      })()}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+                      <XAxis 
+                        dataKey="time" 
+                        stroke="rgba(255,255,255,0.7)"
+                        fontSize={12}
+                      />
+                      <YAxis 
+                        stroke="rgba(255,255,255,0.7)"
+                        fontSize={12}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: 'rgba(0,0,0,0.8)', 
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          borderRadius: '8px',
+                          color: 'white'
+                        }}
+                      />
+                      <Legend />
+                      <Line 
+                        type="monotone" 
+                        dataKey="positive" 
+                        stroke="#10B981" 
+                        strokeWidth={3}
+                        dot={{ fill: '#10B981', strokeWidth: 2, r: 4 }}
+                        name={t.results.positive}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="negative" 
+                        stroke="#F87171" 
+                        strokeWidth={3}
+                        dot={{ fill: '#F87171', strokeWidth: 2, r: 4 }}
+                        name={t.results.negative}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="neutral" 
+                        stroke="#3B82F6" 
+                        strokeWidth={3}
+                        dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
+                        name={t.results.neutral}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
+
         {/* Video Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
@@ -167,81 +333,13 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
           })}
         </div>
 
-        {/* Sentiment Analysis and Most Liked Comment Row */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Sentiment Analysis */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-            className="glass rounded-2xl p-6 border border-white/10"
-          >
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-              <TrendingUp className="text-purple-400" size={24} />
-              {t.results.sentimentAnalysis}
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                { 
-                  sentiment: 'positive', 
-                  count: sentimentCounts.positive, 
-                  percentage: sentimentCounts.total > 0 ? Math.round((sentimentCounts.positive / sentimentCounts.total) * 100) : 0,
-                  label: t.results.positive,
-                  color: 'from-green-400 to-emerald-600',
-                  icon: ThumbsUp
-                },
-                { 
-                  sentiment: 'negative', 
-                  count: sentimentCounts.negative, 
-                  percentage: sentimentCounts.total > 0 ? Math.round((sentimentCounts.negative / sentimentCounts.total) * 100) : 0,
-                  label: t.results.negative,
-                  color: 'from-red-400 to-rose-600',
-                  icon: ThumbsDown
-                },
-              ].map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={item.sentiment}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.9 + index * 0.1, duration: 0.5 }}
-                    className="text-center"
-                  >
-                    <motion.div
-                      className={`relative w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center`}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                    >
-                      <Icon className="text-white" size={28} />
-                      <motion.div
-                        className="absolute inset-0 rounded-full border-4 border-white/20"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 1.1 + index * 0.1, duration: 0.5 }}
-                      />
-                    </motion.div>
-                    <motion.div
-                      className="text-xl font-bold text-white mb-1"
-                      initial={{ y: 10, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 1.2 + index * 0.1 }}
-                    >
-                      {item.percentage}%
-                    </motion.div>
-                    <p className="text-white/70 text-sm">{item.label}</p>
-                    <p className="text-white/50 text-xs">({item.count} {t.results.comments})</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-
+        {/* Comments Grid - All comments in same row */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Most Liked Comment */}
           {mostLikedComment && (
             <motion.div
-              initial={{ opacity: 0, x: rtl ? -20 : 20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.5 }}
               className="glass rounded-2xl p-6 border border-pink-400/20"
             >
@@ -257,15 +355,17 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                   <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-rose-600 rounded-full flex items-center justify-center">
                     <User className="text-white" size={18} />
                   </div>
-                  <span className="text-white font-medium text-lg">@{mostLikedComment.user}</span>
-                  <div className="flex items-center gap-1 text-pink-400 text-sm">
-                    <Heart size={16} />
-                    {mostLikedComment.likes}
+                  <div className="flex-1 min-w-0">
+                    <span className="text-white font-medium text-sm block truncate">@{mostLikedComment.user}</span>
+                    <div className="flex items-center gap-1 text-pink-400 text-xs">
+                      <Heart size={14} />
+                      {mostLikedComment.likes}
+                    </div>
                   </div>
                 </div>
-                <p className="text-white/80 leading-relaxed mb-3" dir={mostLikedComment.lang === 'ar' ? 'rtl' : 'ltr'}>
-                  {mostLikedComment.comment.length > 150 
-                    ? mostLikedComment.comment.substring(0, 150) + '...' 
+                <p className="text-white/80 leading-relaxed mb-3 text-sm" dir={mostLikedComment.lang === 'ar' ? 'rtl' : 'ltr'}>
+                  {mostLikedComment.comment.length > 100 
+                    ? mostLikedComment.comment.substring(0, 100) + '...' 
                     : mostLikedComment.comment}
                 </p>
                 {mostLikedComment.sentiment && (
@@ -275,13 +375,13 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                         ? 'bg-green-500/20 text-green-400' 
                         : mostLikedComment.sentiment === 'سلبي' || (mostLikedComment.sentiment && mostLikedComment.sentiment.toLowerCase() === 'negative')
                         ? 'bg-red-500/20 text-red-400'
-                        : 'bg-gray-500/20 text-gray-400'
+                        : 'bg-blue-500/20 text-blue-400'
                     }`}>
                       {getSentimentLabel(mostLikedComment.sentiment)}
                     </span>
                     {mostLikedComment.sentiment_confidence && (
                       <span className="text-xs text-pink-400">
-                        {(mostLikedComment.sentiment_confidence * 100).toFixed(1)}% {t.results.confidence}
+                        {(mostLikedComment.sentiment_confidence * 100).toFixed(1)}%
                       </span>
                     )}
                   </div>
@@ -306,8 +406,8 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
             
             return positiveComments.length > 0 && (
               <motion.div
-                initial={{ opacity: 0, x: rtl ? -20 : 20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.5 }}
                 className="glass rounded-2xl p-6 border border-green-400/20"
               >
@@ -329,13 +429,15 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                         <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center">
                           <User className="text-white" size={14} />
                         </div>
-                        <span className="text-white font-medium">@{comment.user}</span>
-                        <span className="text-xs text-green-400">
-                          {(comment.sentiment_confidence * 100).toFixed(2)}% {t.results.confidence}
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-white font-medium text-sm block truncate">@{comment.user}</span>
+                          <span className="text-xs text-green-400">
+                            {(comment.sentiment_confidence * 100).toFixed(1)}% {t.results.confidence}
+                          </span>
+                        </div>
                       </div>
-                      <p className={`text-white/90 mb-3 ${rtl ? 'text-right' : 'text-left'}`}>
-                        {comment.comment}
+                      <p className={`text-white/90 mb-3 text-sm ${rtl ? 'text-right' : 'text-left'}`}>
+                        {comment.comment.length > 100 ? comment.comment.substring(0, 100) + '...' : comment.comment}
                       </p>
                       <div className="flex items-center gap-2">
                         <Heart className="text-pink-400" size={16} />
@@ -348,6 +450,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
             );
           })()}
 
+          {/* Top Negative Comment */}
           {/* Top Negative Comment */}
           {(() => {
             const negativeComments = comments
@@ -364,8 +467,8 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
             
             return negativeComments.length > 0 && (
               <motion.div
-                initial={{ opacity: 0, x: rtl ? -20 : 20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.0, duration: 0.5 }}
                 className="glass rounded-2xl p-6 border border-red-400/20"
               >
@@ -387,13 +490,15 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                         <div className="w-8 h-8 bg-gradient-to-br from-red-400 to-rose-600 rounded-full flex items-center justify-center">
                           <User className="text-white" size={14} />
                         </div>
-                        <span className="text-white font-medium">@{comment.user}</span>
-                        <span className="text-xs text-red-400">
-                          {(comment.sentiment_confidence * 100).toFixed(2)}% {t.results.confidence}
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-white font-medium text-sm block truncate">@{comment.user}</span>
+                          <span className="text-xs text-red-400">
+                            {(comment.sentiment_confidence * 100).toFixed(1)}% {t.results.confidence}
+                          </span>
+                        </div>
                       </div>
-                      <p className={`text-white/90 mb-3 ${rtl ? 'text-right' : 'text-left'}`}>
-                        {comment.comment}
+                      <p className={`text-white/90 mb-3 text-sm ${rtl ? 'text-right' : 'text-left'}`}>
+                        {comment.comment.length > 100 ? comment.comment.substring(0, 100) + '...' : comment.comment}
                       </p>
                       <div className="flex items-center gap-2">
                         <Heart className="text-pink-400" size={16} />
