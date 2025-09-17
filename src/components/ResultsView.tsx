@@ -306,11 +306,11 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 <h4 className="text-lg font-semibold text-white mb-4 text-center">
                   {t.results.commentVolumeTrends}
                 </h4>
-                <div className="h-80 md:h-96">
+                <div className="h-72 sm:h-80 md:h-96 [&_.recharts-legend-wrapper]:text-xs [&_.recharts-legend-wrapper]:sm:text-sm [&_.recharts-legend-wrapper]:overflow-hidden [&_.recharts-legend-item-text]:truncate [&_.recharts-legend-item-text]:max-w-[80px] [&_.recharts-legend-item-text]:sm:max-w-none">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart
                       data={chartData}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                      margin={{ top: 10, right: 10, left: 10, bottom: 30 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                       <XAxis 
@@ -330,7 +330,17 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                           color: 'white'
                         }}
                       />
-                      <Legend />
+                      <Legend 
+                        wrapperStyle={{
+                          fontSize: '11px',
+                          color: 'rgba(255,255,255,0.8)',
+                          paddingTop: '8px'
+                        }}
+                        iconType="line"
+                        layout="horizontal"
+                        align="center"
+                        verticalAlign="bottom"
+                      />
                       <Line 
                         type="monotone" 
                         dataKey="positive" 
