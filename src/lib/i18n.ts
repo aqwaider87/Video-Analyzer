@@ -23,6 +23,7 @@ export interface Translations {
     contentCreator: string;
     likes: string;
     comments: string;
+    comment: string;
     saves: string;
     sentimentAnalysis: string;
     positive: string;
@@ -69,6 +70,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
       contentCreator: 'Content Creator',
       likes: 'Likes',
       comments: 'Comments',
+      comment: 'Comment',
       saves: 'Saves',
       sentimentAnalysis: 'Sentiment Analysis',
       positive: 'Positive',
@@ -113,6 +115,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
       contentCreator: 'منشئ المحتوى',
       likes: 'الإعجابات',
       comments: 'التعليقات',
+      comment: 'تعليق',
       saves: 'الحفظ',
       sentimentAnalysis: 'تحليل المشاعر',
       positive: 'إيجابي',

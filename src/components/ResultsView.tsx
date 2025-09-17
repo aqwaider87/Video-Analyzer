@@ -162,72 +162,138 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
             </h3>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Sentiment Analysis */}
+              {/* Enhanced Sentiment Analysis */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7, duration: 0.5 }}
-                className="bg-white/5 rounded-xl p-6"
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl"
               >
-                <h4 className="text-lg font-semibold text-white mb-6 flex items-center gap-3">
-                  <TrendingUp className="text-purple-400" size={24} />
-                  {t.results.sentimentAnalysis}
-                </h4>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Sentiment Overview Cards */}
+                <div className="space-y-6">
                   {[
                     { 
                       sentiment: 'positive', 
                       count: sentimentCounts.positive, 
                       percentage: sentimentCounts.total > 0 ? Math.round((sentimentCounts.positive / sentimentCounts.total) * 100) : 0,
                       label: t.results.positive,
-                      color: 'from-green-400 to-emerald-600',
-                      icon: ThumbsUp
+                      gradient: 'from-emerald-400 via-green-400 to-teal-500',
+                      bgGradient: 'from-emerald-500/20 to-green-600/10',
+                      icon: ThumbsUp,
+                      iconBg: 'from-emerald-500 to-green-600'
                     },
                     { 
                       sentiment: 'negative', 
                       count: sentimentCounts.negative, 
                       percentage: sentimentCounts.total > 0 ? Math.round((sentimentCounts.negative / sentimentCounts.total) * 100) : 0,
                       label: t.results.negative,
-                      color: 'from-red-400 to-rose-600',
-                      icon: ThumbsDown
+                      gradient: 'from-red-400 via-rose-400 to-pink-500',
+                      bgGradient: 'from-red-500/20 to-rose-600/10',
+                      icon: ThumbsDown,
+                      iconBg: 'from-red-500 to-rose-600'
+                    },
+                    { 
+                      sentiment: 'neutral', 
+                      count: sentimentCounts.neutral, 
+                      percentage: sentimentCounts.total > 0 ? Math.round((sentimentCounts.neutral / sentimentCounts.total) * 100) : 0,
+                      label: t.results.neutral,
+                      gradient: 'from-slate-400 via-gray-400 to-zinc-500',
+                      bgGradient: 'from-slate-500/20 to-gray-600/10',
+                      icon: AlertCircle,
+                      iconBg: 'from-slate-500 to-gray-600'
                     },
                   ].map((item, index) => {
                     const Icon = item.icon;
+                    const progressWidth = sentimentCounts.total > 0 ? (item.count / sentimentCounts.total) * 100 : 0;
+                    
                     return (
                       <motion.div
                         key={item.sentiment}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-                        className="text-center"
+                        className={`relative overflow-hidden rounded-xl bg-gradient-to-r ${item.bgGradient} border border-white/10 p-5 hover:border-white/30 transition-all duration-300`}
+                        whileHover={{ scale: 1.02, y: -2 }}
                       >
+                        {/* Background Progress Bar */}
                         <motion.div
-                          className={`relative w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center`}
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                        >
-                          <Icon className="text-white" size={28} />
+                          className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-10`}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${progressWidth}%` }}
+                          transition={{ delay: 1.2 + index * 0.1, duration: 1, ease: "easeOut" }}
+                        />
+                        
+                        <div className="relative flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            <motion.div
+                              className={`p-3 bg-gradient-to-br ${item.iconBg} rounded-xl shadow-lg`}
+                              whileHover={{ rotate: 10, scale: 1.1 }}
+                              transition={{ type: "spring", stiffness: 300 }}
+                            >
+                              <Icon className="text-white" size={20} />
+                            </motion.div>
+                            <div>
+                              <h5 className="text-white font-semibold text-lg">{item.label}</h5>
+                              <p className="text-white/60 text-sm">{item.count} {t.results.comment}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="text-right">
+                            <motion.div
+                              className={`text-3xl font-bold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ delay: 1.0 + index * 0.1, type: "spring", stiffness: 200 }}
+                            >
+                              {item.percentage}%
+                            </motion.div>
+                          </div>
+                        </div>
+                        
+                        {/* Animated Progress Line */}
+                        <div className="mt-3 h-1 bg-white/10 rounded-full overflow-hidden">
                           <motion.div
-                            className="absolute inset-0 rounded-full border-4 border-white/20"
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ delay: 1.0 + index * 0.1, duration: 0.5 }}
+                            className={`h-full bg-gradient-to-r ${item.gradient} rounded-full`}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${progressWidth}%` }}
+                            transition={{ delay: 1.4 + index * 0.1, duration: 1.2, ease: "easeOut" }}
                           />
-                        </motion.div>
-                        <motion.div
-                          className="text-xl font-bold text-white mb-1"
-                          initial={{ y: 10, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ delay: 1.1 + index * 0.1 }}
-                        >
-                          {item.percentage}%
-                        </motion.div>
-                        <p className="text-white/70 text-sm">{item.label}</p>
-                        <p className="text-white/50 text-xs">({item.count} {t.results.comments})</p>
+                        </div>
                       </motion.div>
                     );
                   })}
                 </div>
+
+                {/* Overall Sentiment Indicator */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.5, duration: 0.5 }}
+                  className="mt-6 p-4 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-xl border border-white/10"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-white/80 font-medium">Overall Sentiment</span>
+                    <div className="flex items-center gap-2">
+                      {sentimentCounts.positive > sentimentCounts.negative ? (
+                        <>
+                          <ThumbsUp className="text-green-400" size={18} />
+                          <span className="text-green-400 font-semibold">Positive</span>
+                        </>
+                      ) : sentimentCounts.negative > sentimentCounts.positive ? (
+                        <>
+                          <ThumbsDown className="text-red-400" size={18} />
+                          <span className="text-red-400 font-semibold">Negative</span>
+                        </>
+                      ) : (
+                        <>
+                          <AlertCircle className="text-gray-400" size={18} />
+                          <span className="text-gray-400 font-semibold">Neutral</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
               </motion.div>
 
               {/* Comment Volume Trends by Sentiment */}
@@ -284,9 +350,9 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                       <Line 
                         type="monotone" 
                         dataKey="neutral" 
-                        stroke="#3B82F6" 
+                        stroke="#64748B" 
                         strokeWidth={3}
-                        dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
+                        dot={{ fill: '#64748B', strokeWidth: 2, r: 4 }}
                         name={t.results.neutral}
                       />
                     </LineChart>
