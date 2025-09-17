@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clipboard, AlertCircle, Loader2 } from 'lucide-react';
+import { Clipboard, AlertCircle } from 'lucide-react';
 import { Translations, isRTL, Language } from '@/lib/i18n';
 import { validateTikTokUrl, analyzeVideo } from '@/lib/utils';
 import { AnalyzeResponse } from '@/api/types';
@@ -260,10 +260,52 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className={`flex items-center ${rtl ? 'space-x-reverse space-x-2' : 'space-x-2'}`}
+                      className="flex items-center gap-3"
                     >
-                      <Loader2 className="animate-spin" size={20} />
-                      <span className="text-white drop-shadow-sm">{t.loadingText}</span>
+                      <motion.svg
+                        key="brainBtn"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 64 64"
+                        className="w-7 h-7 shrink-0"
+                        fill="none"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                      >
+                        <defs>
+                          <linearGradient id="btnGradStroke" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stopColor="#5ef9ff" />
+                            <stop offset="50%" stopColor="#7d5bff" />
+                            <stop offset="100%" stopColor="#ff63ff" />
+                          </linearGradient>
+                          <radialGradient id="btnGradFill" cx="50%" cy="45%" r="60%">
+                            <stop offset="0%" stopColor="#65f6ff" stopOpacity="0.65" />
+                            <stop offset="45%" stopColor="#2563eb" stopOpacity="0.25" />
+                            <stop offset="100%" stopColor="#001c40" stopOpacity="0" />
+                          </radialGradient>
+                          <filter id="btnGlow" x="-30%" y="-30%" width="160%" height="160%" colorInterpolationFilters="sRGB">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="blur" />
+                            <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.5  0 0 0 0 0.1  0 0 0 0 0.6  0 0 0 0.45 0" result="glow" />
+                            <feMerge>
+                              <feMergeNode in="glow" />
+                              <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                          </filter>
+                        </defs>
+                        <g filter="url(#btnGlow)">
+                          <path
+                            d="M32 4c-8 0-14 6-14 14v2h-2c-4 0-8 4-8 8v8c0 4 4 8 8 8h2v2c0 8 6 14 14 14h4c8 0 14-6 14-14v-2h2c4 0 8-4 8-8v-8c0-4-4-8-8-8h-2v-2c0-8-6-14-14-14h-4z"
+                            stroke="url(#btnGradStroke)"
+                            strokeWidth={1.8}
+                            fill="url(#btnGradFill)"
+                          />
+                          <g stroke="url(#btnGradStroke)" strokeLinecap="round" strokeWidth={1.4}>
+                            <path d="M20 22c6 2 8 6 12 10s8 8 12 10" strokeDasharray="3 8" />
+                            <path d="M20 34c4 2 6 4 10 8s6 4 10 6" strokeDasharray="3 8" />
+                          </g>
+                          <line x1="33" y1="10" x2="33" y2="54" stroke="#ffffff" strokeWidth={1.1} strokeOpacity={0.5} />
+                        </g>
+                      </motion.svg>
+                      <span className="leading-none tracking-wide text-white drop-shadow-sm">{t.loadingText}</span>
                     </motion.div>
                   ) : (
                     <motion.div
