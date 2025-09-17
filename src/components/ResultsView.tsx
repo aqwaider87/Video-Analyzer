@@ -1,10 +1,11 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { Heart, MessageCircle, Bookmark, TrendingUp, User, Hash, AlertCircle, ThumbsUp, ThumbsDown, BarChart3 } from 'lucide-react';
 import { Translations, isRTL, Language } from '@/lib/i18n';
 import { AnalyzeResponse, CommentSentiment } from '@/api/types';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
 interface ResultsViewProps {
   t: Translations;
@@ -102,6 +103,18 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
       },
       { positive: 0, negative: 0, neutral: 0, total: 0 }
     );
+
+    // Memoize chart data to prevent re-renders and hanging
+    const chartData = useMemo(() => {
+      return [
+        { time: '1 h', positive: Math.floor(sentimentCounts.positive * 0.1), negative: Math.floor(sentimentCounts.negative * 0.1), neutral: Math.floor(sentimentCounts.neutral * 0.1) },
+        { time: '45 m', positive: Math.floor(sentimentCounts.positive * 0.3), negative: Math.floor(sentimentCounts.negative * 0.2), neutral: Math.floor(sentimentCounts.neutral * 0.2) },
+        { time: '30 m', positive: Math.floor(sentimentCounts.positive * 0.5), negative: Math.floor(sentimentCounts.negative * 0.4), neutral: Math.floor(sentimentCounts.neutral * 0.4) },
+        { time: '15 m', positive: Math.floor(sentimentCounts.positive * 0.7), negative: Math.floor(sentimentCounts.negative * 0.6), neutral: Math.floor(sentimentCounts.neutral * 0.6) },
+        { time: '10 m', positive: Math.floor(sentimentCounts.positive * 0.9), negative: Math.floor(sentimentCounts.negative * 0.8), neutral: Math.floor(sentimentCounts.neutral * 0.8) },
+        { time: 'Now', positive: sentimentCounts.positive, negative: sentimentCounts.negative, neutral: sentimentCounts.neutral },
+      ];
+    }, [sentimentCounts.positive, sentimentCounts.negative, sentimentCounts.neutral]);
 
     // Find most liked comment
     const mostLikedComment = comments
@@ -230,18 +243,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart
-                      data={(() => {
-                        // Create sample trend data based on comment distribution
-                        const baseData = [
-                          { time: '10 min ago', positive: Math.floor(sentimentCounts.positive * 0.1), negative: Math.floor(sentimentCounts.negative * 0.1), neutral: Math.floor(sentimentCounts.neutral * 0.1) },
-                          { time: '8 min ago', positive: Math.floor(sentimentCounts.positive * 0.3), negative: Math.floor(sentimentCounts.negative * 0.2), neutral: Math.floor(sentimentCounts.neutral * 0.2) },
-                          { time: '6 min ago', positive: Math.floor(sentimentCounts.positive * 0.5), negative: Math.floor(sentimentCounts.negative * 0.4), neutral: Math.floor(sentimentCounts.neutral * 0.4) },
-                          { time: '4 min ago', positive: Math.floor(sentimentCounts.positive * 0.7), negative: Math.floor(sentimentCounts.negative * 0.6), neutral: Math.floor(sentimentCounts.neutral * 0.6) },
-                          { time: '2 min ago', positive: Math.floor(sentimentCounts.positive * 0.9), negative: Math.floor(sentimentCounts.negative * 0.8), neutral: Math.floor(sentimentCounts.neutral * 0.8) },
-                          { time: 'Now', positive: sentimentCounts.positive, negative: sentimentCounts.negative, neutral: sentimentCounts.neutral },
-                        ];
-                        return baseData;
-                      })()}
+                      data={chartData}
                       margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
