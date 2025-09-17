@@ -271,7 +271,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                     </span>
                     {mostLikedComment.sentiment_confidence && (
                       <span className="text-xs text-pink-400">
-                        {Math.round(mostLikedComment.sentiment_confidence * 100)}% {t.results.confidence}
+                        {(mostLikedComment.sentiment_confidence * 100).toFixed(1)}% {t.results.confidence}
                       </span>
                     )}
                   </div>

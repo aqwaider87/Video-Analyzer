@@ -14,7 +14,7 @@ export interface CommentSentiment {
   likes: string | number; // API sometimes returns numeric-like strings
   lang: string; // e.g., 'ar', 'other'
   sentiment: string; // label (Arabic)
-  sentiment_confidence: number;
+  sentiment_confidence: number; // Decimal confidence score (0.0-1.0)
   sentiment_probs: SentimentProbabilities;
   sentiment_method: string; // e.g., 'neural_model'
   sentiment_latency_ms: number;
