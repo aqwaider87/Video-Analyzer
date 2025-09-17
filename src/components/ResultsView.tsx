@@ -24,6 +24,11 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
 
   // Sentiment lookup function to map API values to translated strings
   const getSentimentLabel = (sentimentValue: string): string => {
+    // Handle null or undefined values
+    if (!sentimentValue) {
+      return t.results.neutral; // Fallback to neutral
+    }
+    
     // Handle both Arabic and English API responses
     const normalizedSentiment = sentimentValue.toLowerCase().trim();
     
@@ -42,7 +47,15 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
   if (!isVisible || !data) return null;
 
   // More robust error handling - check for various error conditions
-  if (data.success === false || !data.metadata) {
+  // Only show error if explicitly failed OR no metadata with comments
+  const hasValidData = data.metadata && (
+    (data.metadata.comments && data.metadata.comments.length > 0) ||
+    data.metadata.likes ||
+    data.metadata.comment_count
+  );
+  
+  if (data.success === false || !hasValidData) {
+    
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -258,9 +271,9 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 {mostLikedComment.sentiment && (
                   <div className="flex items-center gap-2">
                     <span className={`text-xs px-2 py-1 rounded-full ${
-                      mostLikedComment.sentiment === 'ايجابي' || mostLikedComment.sentiment.toLowerCase() === 'positive'
+                      mostLikedComment.sentiment === 'ايجابي' || (mostLikedComment.sentiment && mostLikedComment.sentiment.toLowerCase() === 'positive')
                         ? 'bg-green-500/20 text-green-400' 
-                        : mostLikedComment.sentiment === 'سلبي' || mostLikedComment.sentiment.toLowerCase() === 'negative'
+                        : mostLikedComment.sentiment === 'سلبي' || (mostLikedComment.sentiment && mostLikedComment.sentiment.toLowerCase() === 'negative')
                         ? 'bg-red-500/20 text-red-400'
                         : 'bg-gray-500/20 text-gray-400'
                     }`}>
@@ -280,7 +293,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
           {/* Top Positive Comment */}
           {(() => {
             const positiveComments = comments
-              .filter((comment: CommentSentiment) => comment.sentiment === 'ايجابي' || comment.sentiment.toLowerCase() === 'positive')
+              .filter((comment: CommentSentiment) => comment.sentiment === 'ايجابي' || (comment.sentiment && comment.sentiment.toLowerCase() === 'positive'))
               .sort((a: CommentSentiment, b: CommentSentiment) => {
                 // First sort by confidence (descending)
                 const confidenceDiff = (b.sentiment_confidence || 0) - (a.sentiment_confidence || 0);
@@ -338,7 +351,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
           {/* Top Negative Comment */}
           {(() => {
             const negativeComments = comments
-              .filter((comment: CommentSentiment) => comment.sentiment === 'سلبي' || comment.sentiment.toLowerCase() === 'negative')
+              .filter((comment: CommentSentiment) => comment.sentiment === 'سلبي' || (comment.sentiment && comment.sentiment.toLowerCase() === 'negative'))
               .sort((a: CommentSentiment, b: CommentSentiment) => {
                 // First sort by confidence (descending)
                 const confidenceDiff = (b.sentiment_confidence || 0) - (a.sentiment_confidence || 0);

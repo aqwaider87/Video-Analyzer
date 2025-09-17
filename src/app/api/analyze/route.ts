@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
         data = rawResponse;
         console.log('Using direct response as data');
       }
-      
+   
       return NextResponse.json(data);
     } catch (error) {
       clearTimeout(timeoutId);
