@@ -156,10 +156,10 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
             animate={{ scale: 1 }}
             transition={{ delay: 0.6, duration: 0.5 }}
           >
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+            <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
               <BarChart3 className="text-blue-400" size={28} />
               {t.results.sentimentAnalysis}
-            </h3>
+            </h4>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Enhanced Sentiment Analysis */}
@@ -226,13 +226,14 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                         
                         <div className="relative flex items-center justify-between">
                           <div className="flex items-center gap-4">
-                            <motion.div
-                              className={`p-3 bg-gradient-to-br ${item.iconBg} rounded-xl shadow-lg`}
-                              whileHover={{ rotate: 10, scale: 1.1 }}
-                              transition={{ type: "spring", stiffness: 300 }}
-                            >
-                              <Icon className="text-white" size={20} />
-                            </motion.div>
+                            <Icon 
+                              className={`${
+                                item.sentiment === 'positive' ? 'text-green-400' : 
+                                item.sentiment === 'negative' ? 'text-red-400' : 
+                                'text-gray-400'
+                              }`} 
+                              size={28} 
+                            />
                             <div>
                               <h5 className="text-white font-semibold text-lg">{item.label}</h5>
                               <p className="text-white/60 text-sm">{item.count} {t.results.comment}</p>
