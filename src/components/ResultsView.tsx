@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, MessageCircle, Bookmark, TrendingUp, User, Hash, AlertCircle, ThumbsUp, ThumbsDown, BarChart3 } from 'lucide-react';
+import { Heart, MessageCircle, Bookmark, TrendingUp, User, Hash, AlertCircle, Smile, Frown, Meh, BarChart3 } from 'lucide-react';
 import { Translations, isRTL, Language } from '@/lib/i18n';
 import { AnalyzeResponse, CommentSentiment } from '@/api/types';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend } from 'recharts';
@@ -180,7 +180,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                       label: t.results.positive,
                       gradient: 'from-emerald-400 via-green-400 to-teal-500',
                       bgGradient: 'from-emerald-500/20 to-green-600/10',
-                      icon: ThumbsUp,
+                      icon: Smile,
                       iconBg: 'from-emerald-500 to-green-600'
                     },
                     { 
@@ -190,7 +190,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                       label: t.results.negative,
                       gradient: 'from-red-400 via-rose-400 to-pink-500',
                       bgGradient: 'from-red-500/20 to-rose-600/10',
-                      icon: ThumbsDown,
+                      icon: Frown,
                       iconBg: 'from-red-500 to-rose-600'
                     },
                     { 
@@ -200,7 +200,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                       label: t.results.neutral,
                       gradient: 'from-slate-400 via-gray-400 to-zinc-500',
                       bgGradient: 'from-slate-500/20 to-gray-600/10',
-                      icon: AlertCircle,
+                      icon: Meh,
                       iconBg: 'from-slate-500 to-gray-600'
                     },
                   ].map((item, index) => {
@@ -277,17 +277,17 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                     <div className="flex items-center gap-2">
                       {sentimentCounts.positive > sentimentCounts.negative ? (
                         <>
-                          <ThumbsUp className="text-green-400" size={18} />
+                          <Smile className="text-green-400" size={18} />
                           <span className="text-green-400 font-semibold">Positive</span>
                         </>
                       ) : sentimentCounts.negative > sentimentCounts.positive ? (
                         <>
-                          <ThumbsDown className="text-red-400" size={18} />
+                          <Frown className="text-red-400" size={18} />
                           <span className="text-red-400 font-semibold">Negative</span>
                         </>
                       ) : (
                         <>
-                          <AlertCircle className="text-gray-400" size={18} />
+                          <Meh className="text-gray-400" size={18} />
                           <span className="text-gray-400 font-semibold">Neutral</span>
                         </>
                       )}
@@ -306,7 +306,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 <h4 className="text-lg font-semibold text-white mb-4 text-center">
                   {t.results.commentVolumeTrends}
                 </h4>
-                <div className="h-64">
+                <div className="h-80 md:h-96">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart
                       data={chartData}
@@ -360,46 +360,51 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 </div>
               </motion.div>
             </div>
+
+            {/* Video Stats - Modern horizontal layout */}
+            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/10 mt-4">
+              <div className="grid grid-cols-3 gap-3 sm:gap-6">
+                {[
+                  { icon: Heart, label: t.results.likes, value: likes, color: 'text-red-400', bgColor: 'bg-red-400/10' },
+                  { icon: MessageCircle, label: t.results.comments, value: commentCount.toString(), color: 'text-blue-400', bgColor: 'bg-blue-400/10' },
+                  { icon: Bookmark, label: t.results.saves, value: saveCount, color: 'text-green-400', bgColor: 'bg-green-400/10' },
+                ].map((stat, index) => {
+                  const Icon = stat.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.9 + index * 0.1, duration: 0.4 }}
+                      className="flex flex-col items-center text-center"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <motion.div
+                        className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full ${stat.bgColor} mb-2 sm:mb-3`}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1.0 + index * 0.1, duration: 0.5, type: "spring" }}
+                      >
+                        <Icon className={stat.color} size={16} />
+                      </motion.div>
+                      <motion.div
+                        className={`text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 ${stat.color}`}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1.1 + index * 0.1, duration: 0.5, type: "spring" }}
+                      >
+                        {stat.value}
+                      </motion.div>
+                      <p className="text-white/70 font-medium text-xs sm:text-sm leading-tight">
+                        {stat.label}
+                      </p>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
         </motion.div>
-
-        {/* Video Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[
-            { icon: Heart, label: t.results.likes, value: likes, color: 'from-red-400 to-pink-600' },
-            { icon: MessageCircle, label: t.results.comments, value: commentCount.toString(), color: 'from-blue-400 to-cyan-600' },
-            { icon: Bookmark, label: t.results.saves, value: saveCount, color: 'from-green-400 to-emerald-600' },
-          ].map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
-                className="glass rounded-xl p-6 border border-white/10"
-                whileHover={{ scale: 1.02, y: -2 }}
-              >
-                <motion.div
-                  className={`inline-flex p-3 rounded-lg bg-gradient-to-br ${stat.color} mb-4`}
-                  animate={{ rotate: [0, 3, -3, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <Icon className="text-white" size={24} />
-                </motion.div>
-                <motion.div
-                  className="text-2xl md:text-3xl font-bold text-white mb-2"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.7 + index * 0.1, duration: 0.5, type: "spring" }}
-                >
-                  {stat.value}
-                </motion.div>
-                <p className="text-white/70 font-medium">{stat.label}</p>
-              </motion.div>
-            );
-          })}
-        </div>
 
         {/* Comments Grid - All comments in same row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -480,7 +485,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 className="glass rounded-2xl p-6 border border-green-400/20"
               >
                 <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                  <ThumbsUp className="text-green-400" size={24} />
+                  <Smile className="text-green-400" size={24} />
                   {t.results.topPositiveComment}
                 </h4>
                 <div className="space-y-4">
@@ -541,7 +546,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 className="glass rounded-2xl p-6 border border-red-400/20"
               >
                 <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                  <ThumbsDown className="text-red-400" size={24} />
+                  <Frown className="text-red-400" size={24} />
                   {t.results.topNegativeComment}
                 </h4>
                 <div className="space-y-4">
