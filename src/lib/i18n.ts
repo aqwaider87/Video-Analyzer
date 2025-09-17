@@ -4,6 +4,7 @@ export interface Translations {
   inputPlaceholder: string;
   buttonText: string;
   pasteButton: string;
+  clearButton: string;
   errorInvalidUrl: string;
   loadingText: string;
   loadingDivText: string;
@@ -47,6 +48,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
     inputPlaceholder: 'https://www.tiktok.com/video',
     buttonText: 'Start Analysis',
     pasteButton: 'Paste',
+    clearButton: 'Clear',
     errorInvalidUrl: 'Please enter a valid TikTok video URL',
     loadingText: 'Analyzing...',
     loadingDivText: 'Analyzing video content...',
@@ -88,6 +90,7 @@ export const translations: Record<'en' | 'ar', Translations> = {
     inputPlaceholder: 'https://www.tiktok.com/video',
     buttonText: 'بدء التحليل',
     pasteButton: 'لصق',
+    clearButton: 'مسح',
     errorInvalidUrl: 'يرجى إدخال رابط فيديو تيك توك صالح',
     loadingText: 'تحليل...',
     loadingDivText: 'جاري تحليل محتوى الفيديو...',

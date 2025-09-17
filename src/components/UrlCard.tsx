@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clipboard, AlertCircle } from 'lucide-react';
+import { Clipboard, AlertCircle, X } from 'lucide-react';
 import { Translations, isRTL, Language } from '@/lib/i18n';
 import { validateTikTokUrl, analyzeVideo } from '@/lib/utils';
 import { AnalyzeResponse } from '@/api/types';
@@ -80,6 +80,12 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
     }
   };
 
+  const handleClear = () => {
+    setUrl('');
+    setError('');
+    inputRef.current?.focus();
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
     if (error) setError('');
@@ -155,7 +161,7 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                 />
                 <motion.button
                   type="button"
-                  onClick={handlePaste}
+                  onClick={url.trim() ? handleClear : handlePaste}
                   className={`
                     absolute inset-y-0 right-2
                     my-auto h-11 w-11 text-white/60 hover:text-white hover:bg-white/10 rounded-xl
@@ -199,10 +205,10 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                       ? { duration: 0.7, times: [0, 0.25, 0.55, 0.8, 1], ease: 'easeInOut' }
                       : { type: 'spring', stiffness: 420, damping: 24 }
                   }
-                  title={t.pasteButton}
-                  aria-label={t.pasteButton}
+                  title={url.trim() ? t.clearButton : t.pasteButton}
+                  aria-label={url.trim() ? t.clearButton : t.pasteButton}
                 >
-                  <Clipboard size={20} />
+                  {url.trim() ? <X size={20} /> : <Clipboard size={20} />}
                   <AnimatePresence>
                     {pasteClicked && (
                       <motion.span
@@ -226,7 +232,10 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                         role="tooltip"
                         className={`absolute ${rtl ? 'right-full mr-2' : 'left-full ml-2'} top-1/2 -translate-y-1/2 px-2 py-1 rounded-md bg-black/70 text-xs text-white whitespace-nowrap backdrop-blur-sm`}
                       >
-                        {rtl ? 'لصق الرابط' : 'Paste URL'}
+                        {url.trim() 
+                          ? t.clearButton
+                          : t.pasteButton
+                        }
                       </motion.div>
                     )}
                   </AnimatePresence>
