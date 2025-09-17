@@ -167,11 +167,11 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7, duration: 0.5 }}
-                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl"
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/20 shadow-xl"
               >
                 
                 {/* Sentiment Overview Cards */}
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {[
                     { 
                       sentiment: 'positive', 
@@ -213,7 +213,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-                        className={`relative overflow-hidden rounded-xl bg-gradient-to-r ${item.bgGradient} border border-white/10 p-5 hover:border-white/30 transition-all duration-300`}
+                        className={`relative overflow-hidden rounded-lg bg-gradient-to-r ${item.bgGradient} border border-white/10 p-3 hover:border-white/30 transition-all duration-300`}
                         whileHover={{ scale: 1.02, y: -2 }}
                       >
                         {/* Background Progress Bar */}
@@ -225,24 +225,24 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                         />
                         
                         <div className="relative flex items-center justify-between">
-                          <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-3">
                             <Icon 
                               className={`${
                                 item.sentiment === 'positive' ? 'text-green-400' : 
                                 item.sentiment === 'negative' ? 'text-red-400' : 
                                 'text-gray-400'
                               }`} 
-                              size={28} 
+                              size={24} 
                             />
                             <div>
-                              <h5 className="text-white font-semibold text-lg">{item.label}</h5>
-                              <p className="text-white/60 text-sm">{item.count} {t.results.comment}</p>
+                              <h5 className="text-white font-semibold text-base">{item.label}</h5>
+                              <p className="text-white/60 text-xs">{item.count} {t.results.comment}</p>
                             </div>
                           </div>
                           
                           <div className="text-right">
                             <motion.div
-                              className={`text-3xl font-bold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}
+                              className={`text-2xl font-bold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}
                               initial={{ scale: 0 }}
                               animate={{ scale: 1 }}
                               transition={{ delay: 1.0 + index * 0.1, type: "spring", stiffness: 200 }}
@@ -253,7 +253,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                         </div>
                         
                         {/* Animated Progress Line */}
-                        <div className="mt-3 h-1 bg-white/10 rounded-full overflow-hidden">
+                        <div className="mt-2 h-1 bg-white/10 rounded-full overflow-hidden">
                           <motion.div
                             className={`h-full bg-gradient-to-r ${item.gradient} rounded-full`}
                             initial={{ width: 0 }}
@@ -271,25 +271,25 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.5, duration: 0.5 }}
-                  className="mt-6 p-4 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-xl border border-white/10"
+                  className="mt-4 p-3 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-lg border border-white/10"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-white/80 font-medium">Overall Sentiment</span>
+                    <span className="text-white/80 font-medium text-sm">Overall Sentiment</span>
                     <div className="flex items-center gap-2">
                       {sentimentCounts.positive > sentimentCounts.negative ? (
                         <>
-                          <Smile className="text-green-400" size={18} />
-                          <span className="text-green-400 font-semibold">Positive</span>
+                          <Smile className="text-green-400" size={16} />
+                          <span className="text-green-400 font-semibold text-sm">Positive</span>
                         </>
                       ) : sentimentCounts.negative > sentimentCounts.positive ? (
                         <>
-                          <Frown className="text-red-400" size={18} />
-                          <span className="text-red-400 font-semibold">Negative</span>
+                          <Frown className="text-red-400" size={16} />
+                          <span className="text-red-400 font-semibold text-sm">Negative</span>
                         </>
                       ) : (
                         <>
-                          <Meh className="text-gray-400" size={18} />
-                          <span className="text-gray-400 font-semibold">Neutral</span>
+                          <Meh className="text-gray-400" size={16} />
+                          <span className="text-gray-400 font-semibold text-sm">Neutral</span>
                         </>
                       )}
                     </div>
