@@ -303,9 +303,6 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                 transition={{ delay: 0.8, duration: 0.5 }}
                 className="bg-white/5 rounded-xl p-6"
               >
-                <h4 className="text-lg font-semibold text-white mb-4 text-center">
-                  {t.results.commentVolumeTrends}
-                </h4>
                 <div className="h-72 sm:h-80 md:h-96 [&_.recharts-legend-wrapper]:text-xs [&_.recharts-legend-wrapper]:sm:text-sm [&_.recharts-legend-wrapper]:overflow-hidden [&_.recharts-legend-item-text]:truncate [&_.recharts-legend-item-text]:max-w-[80px] [&_.recharts-legend-item-text]:sm:max-w-none">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart
@@ -368,12 +365,28 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
+                
+                {/* Chart Title - Below Chart with Different Style */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.0, duration: 0.5 }}
+                  className="mt-6 text-center"
+                >
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-full border border-white/20 backdrop-blur-sm">
+                    <BarChart3 className="text-blue-400" size={16} />
+                    <span className="text-sm font-medium text-white/90 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                      {t.results.commentVolumeTrends}
+                    </span>
+                  </div>
+                </motion.div>
               </motion.div>
             </div>
 
             {/* Video Stats - Modern horizontal layout */}
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/10 mt-4">
-              <div className="grid grid-cols-3 gap-3 sm:gap-6">
+            <div className="flex justify-center mt-4">
+              <div className="w-full md:w-1/2 bg-white/5 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/10">
+                <div className="grid grid-cols-3 gap-3 sm:gap-6">
                 {[
                   { icon: Heart, label: t.results.likes, value: likes, color: 'text-red-400', bgColor: 'bg-red-400/10' },
                   { icon: MessageCircle, label: t.results.comments, value: commentCount.toString(), color: 'text-blue-400', bgColor: 'bg-blue-400/10' },
@@ -412,6 +425,7 @@ export default function ResultsView({ t, language, data, isVisible }: ResultsVie
                   );
                 })}
               </div>
+            </div>
             </div>
           </motion.div>
         </motion.div>
