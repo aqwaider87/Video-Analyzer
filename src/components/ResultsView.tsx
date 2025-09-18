@@ -16,6 +16,10 @@ interface ResultsViewProps {
 export default function ResultsView({ data, translations: t, language }: ResultsViewProps) {
   const rtl = isRTL(language);
 
+  // Safe data extraction for hooks (with defaults to prevent conditional hook calls)
+  const metadata = data?.metadata;
+  const comments = metadata?.comments || [];
+
   // Number formatting utility for proper display in Arabic and English
   const formatNumber = (num: number | string): string => {
     let numValue: number;
@@ -126,6 +130,75 @@ export default function ResultsView({ data, translations: t, language }: Results
     return 'text-purple-400';
   };
 
+  // Chart data with safe defaults and proper translation - MOVED BEFORE EARLY RETURNS
+  const chartData = useMemo(() => {
+    if (!comments.length) return [];
+    
+    // Group comments by sentiment type, not by raw sentiment values
+    const positiveCount = getSentimentCounts(comments, 'positive');
+    const negativeCount = getSentimentCounts(comments, 'negative');
+    const neutralCount = getSentimentCounts(comments, 'neutral');
+    
+    const total = comments.length;
+    
+    // Return data with translated labels for chart display
+    const data = [];
+    
+    if (positiveCount > 0) {
+      data.push({
+        sentiment: t?.results?.positive || 'Positive',
+        count: positiveCount,
+        percentage: ((positiveCount / total) * 100).toFixed(1)
+      });
+    }
+    
+    if (negativeCount > 0) {
+      data.push({
+        sentiment: t?.results?.negative || 'Negative',
+        count: negativeCount,
+        percentage: ((negativeCount / total) * 100).toFixed(1)
+      });
+    }
+    
+    if (neutralCount > 0) {
+      data.push({
+        sentiment: t?.results?.neutral || 'Neutral',
+        count: neutralCount,
+        percentage: ((neutralCount / total) * 100).toFixed(1)
+      });
+    }
+    
+    return data;
+  }, [comments, t?.results]);
+
+  // Overall sentiment calculation with safe handling - MOVED BEFORE EARLY RETURNS
+  const overallSentiment = useMemo(() => {
+    if (!comments.length) return { label: t?.results?.neutral || 'neutral', percentage: 0, color: 'text-gray-400' };
+    
+    const total = comments.length;
+    const positive = getSentimentCounts(comments, 'positive');
+    const negative = getSentimentCounts(comments, 'negative');
+    
+    if (positive > negative) {
+      return { 
+        label: t?.results?.positive || 'positive', 
+        percentage: ((positive / total) * 100).toFixed(1), 
+        color: 'text-green-400' 
+      };
+    } else if (negative > positive) {
+      return { 
+        label: t?.results?.negative || 'negative', 
+        percentage: ((negative / total) * 100).toFixed(1), 
+        color: 'text-red-400' 
+      };
+    }
+    return { 
+      label: t?.results?.neutral || 'neutral', 
+      percentage: '50.0', 
+      color: 'text-purple-400' 
+    };
+  }, [comments, t?.results]);
+
   // Safety check for translations
   if (!t || !t.results) {
     return (
@@ -168,87 +241,13 @@ export default function ResultsView({ data, translations: t, language }: Results
 
   // Safe data extraction with error handling
   try {
-    const metadata = data.metadata;
-    if (!metadata) throw new Error('No metadata');
-    
-    const comments = metadata.comments || [];
-    
     const videoInfo = {
-      description: metadata.description || '',
-      likes: metadata.likes || '0',
-      comment_count: metadata.comment_count || '0',
-      save_count: metadata.save_count || '0',
-      hashtags: metadata.hashtags || []
+      description: metadata?.description || '',
+      likes: metadata?.likes || '0',
+      comment_count: metadata?.comment_count || '0',
+      save_count: metadata?.save_count || '0',
+      hashtags: metadata?.hashtags || []
     };
-
-    // Chart data with safe defaults and proper translation
-    const chartData = useMemo(() => {
-      if (!comments.length) return [];
-      
-      // Group comments by sentiment type, not by raw sentiment values
-      const positiveCount = getSentimentCounts(comments, 'positive');
-      const negativeCount = getSentimentCounts(comments, 'negative');
-      const neutralCount = getSentimentCounts(comments, 'neutral');
-      
-      const total = comments.length;
-      
-      // Return data with translated labels for chart display
-      const data = [];
-      
-      if (positiveCount > 0) {
-        data.push({
-          sentiment: t?.results?.positive || 'Positive',
-          count: positiveCount,
-          percentage: ((positiveCount / total) * 100).toFixed(1)
-        });
-      }
-      
-      if (negativeCount > 0) {
-        data.push({
-          sentiment: t?.results?.negative || 'Negative',
-          count: negativeCount,
-          percentage: ((negativeCount / total) * 100).toFixed(1)
-        });
-      }
-      
-      if (neutralCount > 0) {
-        data.push({
-          sentiment: t?.results?.neutral || 'Neutral',
-          count: neutralCount,
-          percentage: ((neutralCount / total) * 100).toFixed(1)
-        });
-      }
-      
-      return data;
-    }, [comments, t?.results]);
-
-    // Overall sentiment calculation with safe handling
-    const overallSentiment = useMemo(() => {
-      if (!comments.length) return { label: t?.results?.neutral || 'neutral', percentage: 0, color: 'text-gray-400' };
-      
-      const total = comments.length;
-      const positive = getSentimentCounts(comments, 'positive');
-      const negative = getSentimentCounts(comments, 'negative');
-      
-      if (positive > negative) {
-        return { 
-          label: t?.results?.positive || 'positive', 
-          percentage: ((positive / total) * 100).toFixed(1), 
-          color: 'text-green-400' 
-        };
-      } else if (negative > positive) {
-        return { 
-          label: t?.results?.negative || 'negative', 
-          percentage: ((negative / total) * 100).toFixed(1), 
-          color: 'text-red-400' 
-        };
-      }
-      return { 
-        label: t?.results?.neutral || 'neutral', 
-        percentage: '50.0', 
-        color: 'text-purple-400' 
-      };
-    }, [comments, t?.results]);
 
     // Comments analysis
     const topPositiveComment = getCommentsBySentiment(comments, 'positive')
@@ -426,7 +425,7 @@ export default function ResultsView({ data, translations: t, language }: Results
                 {t?.results?.positive || 'Positive'}
               </h4>
               <div className="space-y-3">
-                <p className="text-white/90 italic">"{topPositiveComment.comment}"</p>
+                <p className="text-white/90 italic">&quot;{topPositiveComment.comment}&quot;</p>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-white/60 flex items-center gap-1">
                     <User size={14} />
@@ -448,7 +447,7 @@ export default function ResultsView({ data, translations: t, language }: Results
                 {t?.results?.negative || 'Negative'}
               </h4>
               <div className="space-y-3">
-                <p className="text-white/90 italic">"{topNegativeComment.comment}"</p>
+                <p className="text-white/90 italic">&quot;{topNegativeComment.comment}&quot;</p>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-white/60 flex items-center gap-1">
                     <User size={14} />
@@ -470,7 +469,7 @@ export default function ResultsView({ data, translations: t, language }: Results
                 {t?.results?.likes || 'Likes'}
               </h4>
               <div className="space-y-3">
-                <p className="text-white/90 italic">"{mostLikedComment.comment}"</p>
+                <p className="text-white/90 italic">&quot;{mostLikedComment.comment}&quot;</p>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-white/60 flex items-center gap-1">
                     <User size={14} />
