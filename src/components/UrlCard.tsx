@@ -93,25 +93,25 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
   };
 
   return (
-    <motion.div className={`w-full max-w-4xl mx-auto ${rtl ? 'font-arabic' : 'font-english'}`}>
+    <motion.div className={`w-full ${rtl ? 'font-arabic' : 'font-english'}`}>
       <motion.form
         onSubmit={handleSubmit}
         className="space-y-6"
         animate={shake ? { x: [-6, 6, -4, 4, -2, 2, 0] } : { x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md shadow-xl space-y-6">
+        <div className="p-0 space-y-6">
           <div className="flex flex-col md:flex-row gap-4 md:items-center">
             <div className="flex-1">
               <motion.div 
-                className="relative group rounded-2xl p-[2px] transition-all duration-500 bg-white/10"
+                className="relative group rounded-[var(--radius-md)] transition-all"
                 animate={highlightInput ? {
                   boxShadow: [
-                    '0 0 0 0 rgba(94, 249, 255, 0)',
-                    '0 0 0 4px rgba(94, 191, 255, 0.4)',
-                    '0 0 0 0 rgba(255, 99, 255, 0)',
-                    '0 0 0 4px rgba(125, 91, 255, 0.5)',
-                    '0 0 0 0 rgba(94, 249, 255, 0)'
+                    '0 0 0 0 rgba(0,0,0,0)',
+                    '0 0 0 3px rgba(0,0,0,0.10)',
+                    '0 0 0 0 rgba(0,0,0,0)',
+                    '0 0 0 3px rgba(0,0,0,0.10)',
+                    '0 0 0 0 rgba(0,0,0,0)'
                   ],
                   scale: [1, 1.02, 1, 1.02, 1]
                 } : {}}
@@ -131,29 +131,15 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                   value={url}
                   onChange={handleInputChange}
                   placeholder={t.inputPlaceholder}
-                  className={`
-                    w-full px-6 py-4 rounded-[1rem] bg-white/10 border border-white/20 
-                    text-white placeholder-white/50 backdrop-blur-sm
-                    focus:outline-none focus:ring-0 focus:border-white/20
-                    transition-all duration-300 text-lg
-                    ${rtl ? 'text-left pl-6 pr-14' : 'text-left pl-6 pr-14'}
-                    ${error ? 'border-red-400/50 focus:ring-red-400/50' : ''}
-                    ${highlightInput ? 'border-blue-400/60' : ''}
-                  `}
+                  className={`w-full px-5 py-4 rounded-[var(--radius-md)] bg-[var(--bg-card)] border border-[var(--border-soft)] text-[var(--text-strong)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-0 focus:border-[var(--border-soft)] transition-all duration-200 text-base shadow-sm disabled:opacity-60 ${rtl ? 'text-left pl-6 pr-14' : 'text-left pl-6 pr-14'} ${error ? 'border-red-400 focus:border-red-400' : ''}`}
                   disabled={isLoading}
                   dir="ltr"
                   animate={highlightInput ? {
-                    borderColor: [
-                      'rgba(255, 255, 255, 0.2)',
-                      'rgba(94, 249, 255, 0.6)',
-                      'rgba(255, 99, 255, 0.6)',
-                      'rgba(125, 91, 255, 0.7)',
-                      'rgba(255, 255, 255, 0.2)'
-                    ]
+                    borderColor: ['var(--border-soft)','rgba(0,0,0,0.4)','var(--border-soft)']
                   } : {}}
                   transition={highlightInput ? { 
-                    duration: 2, 
-                    times: [0, 0.2, 0.4, 0.6, 1],
+                    duration: 1.4, 
+                    times: [0, 0.5, 1],
                     ease: 'easeInOut' 
                   } : {}}
                   aria-invalid={!!error}
@@ -163,10 +149,8 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                   type="button"
                   onClick={url.trim() ? handleClear : handlePaste}
                   className={`
-                    absolute inset-y-0 right-2
-                    my-auto h-11 w-11 text-white/60 hover:text-white hover:bg-white/10 rounded-xl
-                    transition-all duration-200 z-30 flex items-center justify-center
-                    overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60
+                    absolute inset-y-0 right-1 my-auto h-10 w-10 text-muted hover:text-[var(--text-strong)] rounded-[calc(var(--radius-md)-4px)]
+                    transition-colors duration-150 z-30 flex items-center justify-center overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20
                   `}
                   disabled={isLoading}
                   onHoverStart={() => {
@@ -242,23 +226,17 @@ export default function UrlCard({ t, language, onAnalysisComplete }: UrlCardProp
                 </motion.button>
               </motion.div>
             </div>
-              <motion.button
+                <motion.button
                 type="submit"
                 disabled={isLoading}
-                className="px-7 py-4 rounded-2xl font-semibold text-lg bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white hover:from-gray-500 hover:via-gray-600 hover:to-gray-700 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl h-14 whitespace-nowrap"
+                className="px-8 py-4 rounded-full font-medium text-sm bg-[var(--action-primary)] text-white disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center shadow-sm hover:bg-[var(--action-primary-hover)] h-12 whitespace-nowrap"
                 whileHover={{ scale: isLoading ? 1 : 1.06 }}
                 whileTap={{ scale: 0.94 }}
                 animate={isLoading ? {} : {
-                  boxShadow: [
-                    '0 10px 25px rgba(0,0,0,0.18)',
-                    '0 15px 38px rgba(30,30,30,0.55)',
-                    '0 10px 25px rgba(0,0,0,0.18)'
-                  ],
-                  scale: url.trim() ? [1, 1.015, 1] : 1
+                  scale: url.trim() ? [1, 1.02, 1] : 1
                 }}
                 transition={{
-                  boxShadow: { duration: 6, repeat: Infinity, ease: 'easeInOut' },
-                  scale: url.trim() ? { duration: 2.8, repeat: Infinity, ease: 'easeInOut' } : undefined
+                  scale: url.trim() ? { duration: 2.4, repeat: Infinity, ease: 'easeInOut' } : undefined
                 }}
                 aria-disabled={isLoading}
               >

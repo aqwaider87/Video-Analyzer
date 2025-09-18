@@ -7,6 +7,22 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        // Semantic tokens mapped to CSS variables (defined in globals.css)
+        page: 'var(--bg-page)',
+        shell: 'var(--bg-shell)',
+        card: 'var(--bg-card)',
+        border: 'var(--border-soft)',
+        faint: 'var(--border-faint)',
+        text: {
+          strong: 'var(--text-strong)',
+          muted: 'var(--text-muted)'
+        },
+        action: {
+          primary: 'var(--action-primary)',
+          primaryHover: 'var(--action-primary-hover)'
+        }
+      },
       fontFamily: {
         'arabic': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         'english': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],

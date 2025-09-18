@@ -9,23 +9,23 @@ interface HeroProps { t: Translations; language: Language }
 export default function Hero({ t, language }: HeroProps) {
   const rtl = isRTL(language);
   return (
-    <div className={`relative ${rtl ? 'font-arabic' : 'font-english'} pt-8 md:pt-12 pb-4`}>      
-      <div className="mx-auto max-w-[1080px] px-4">
-        <AnimatedHeading className="bg-gradient-to-br from-white via-white to-slate-300 bg-clip-text text-transparent" phrase={t.title} />
-      </div>
-
-      <motion.p
-        initial={{ opacity:0, y:24 }}
-        animate={{ opacity:1, y:0 }}
-        transition={{ delay:0.15, duration:0.75 }}
-        className="mt-4 text-center text-base md:text-lg text-slate-300/90 leading-relaxed max-w-2xl mx-auto px-4"
-      >
-        {t.subtitle}
-      </motion.p>
-
-      {/* Accent underline glow */}
-      <div className="relative flex justify-center mt-6 mb-2">
-        <div className="h-px w-52 bg-gradient-to-r from-transparent via-fuchsia-400/50 to-transparent" />
+    <div className={`relative ${rtl ? 'font-arabic' : 'font-english'} select-none`}>
+      <div className="space-y-6">
+        <div className="space-y-3">
+          <AnimatedHeading className="text-[clamp(2.4rem,4vw,3.2rem)] font-semibold leading-[1.08] text-[var(--text-strong)]" phrase={t.title} />
+        </div>
+        <motion.p
+          initial={{ opacity:0, y:20 }}
+          animate={{ opacity:1, y:0 }}
+          transition={{ duration:0.6 }}
+          className="text-base md:text-lg text-muted max-w-md leading-relaxed"
+        >
+          {t.subtitle}
+        </motion.p>
+        {/* <div className="flex gap-3 pt-2">
+          <button className="btn-primary-minimal rounded-full px-7 h-12 text-sm font-medium focus-ring-minimal transition-colors">{language==='ar' ? 'ابدأ التحليل' : 'Analyze Now'}</button>
+          <button className="btn-outline-minimal rounded-full px-7 h-12 text-sm font-medium focus-ring-minimal transition-colors">{language==='ar' ? 'تعرف أكثر' : 'Learn More'}</button>
+        </div> */}
       </div>
     </div>
   );

@@ -46,62 +46,24 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
   };
 
   return (
-  <div className="fixed inset-0 overflow-hidden pointer-events-none [perspective:1200px]">
-      {/* Base deep background */}
-      <div className="absolute inset-0 bg-[#05060a]" />
-      {/* Subtle grid */}
-      <div className="absolute inset-0 opacity-[0.06] mix-blend-overlay [background-image:linear-gradient(transparent_95%,rgba(255,255,255,.25)_95%),linear-gradient(90deg,transparent_95%,rgba(255,255,255,.25)_95%)] [background-size:46px_46px]" />
-      {/* Aurora / mesh gradients */}
-      <div className="absolute inset-0 animate-[aurora_22s_linear_infinite] will-change-transform will-change-filter bg-[radial-gradient(circle_at_18%_32%,rgba(120,160,255,.35),transparent_60%),radial-gradient(circle_at_82%_68%,rgba(255,90,170,.35),transparent_60%),radial-gradient(circle_at_55%_55%,rgba(140,90,255,.25),transparent_60%),radial-gradient(circle_at_70%_30%,rgba(40,200,255,.25),transparent_60%)]" />
-      {/* Soft blobs */}
-      <div className="absolute inset-0">
-        {blobs.map(b => (
-          <div key={b.id} style={b.style} className="absolute w-[42vw] max-w-[640px] aspect-square rounded-full blur-[120px] opacity-25 animate-slow-pulse">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-500/40 via-violet-500/30 to-sky-400/30 mix-blend-screen" />
-          </div>
-        ))}
-      </div>
-      {/* Noise */}
-      <div className="absolute inset-0 opacity-[0.12] mix-blend-overlay [background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+2lP3VwAAAABJRU5ErkJggg==)]" />
-      {/* Full-screen binary matrix layer - optimized for performance */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" style={{ contain: 'layout style paint' }}>
-        {Array.from({ length: 20 }).map((_, i) => { // reduced from 40 to 20 for better performance
-          const delay = (i * -1.2) + 's';
-          const dur = 20 + (i % 6) * 3; // simplified duration calculation
-          const left = (i / 20) * 100; // recompute based on new count
-          const fontSize = i % 6 === 0 ? '0.65rem' : i % 4 === 0 ? '0.5rem' : '0.55rem';
-          const opacity = i % 7 === 0 ? '0.18' : i % 3 === 0 ? '0.12' : '0.08';
-          return (
-            <div
-              key={i}
-              aria-hidden="true"
-              className="absolute top-0 h-full w-[5%] flex items-start justify-center"
-              style={{ 
-                left: left + '%', 
-                animation: `binaryFull ${dur}s linear infinite`, 
-                animationDelay: delay,
-                transform: 'translateZ(0)', // Force GPU acceleration
-                contain: 'layout style paint'
-              }}
-            >
-              <div
-                className="font-mono whitespace-pre leading-[1.1] tracking-tight will-change-transform text-cyan-200/70 [text-shadow:0_0_4px_rgba(0,255,255,0.1)]"
-                style={{ fontSize, opacity }}
-              >
-{`1010 1101 0110 0001\n0101 1010 0011 0000\n1101 0110 1001 0001\n1110 0101 1101 0000\n1001 0011 0101 0001\n0110 1001 0101 0000\n1010 1101 0110 0001\n0101 1010 0011 0000\n1101 0110 1001 0001\n1110 0101 1101 0000\n1001 0011 0101 0001\n0110 1001 0101 0000`}
-              </div>
+  <div className="fixed inset-0 overflow-hidden pointer-events-none [perspective:1200px]" data-bg-clean>
+      {/* Optional radial color washes (now much lighter). Remove entirely if pure photo needed. */}
+      <div className="absolute inset-0 animate-[aurora_48s_linear_infinite] opacity-[0.18] bg-[radial-gradient(circle_at_18%_32%,rgba(120,160,255,.12),transparent_60%),radial-gradient(circle_at_82%_68%,rgba(255,140,200,.14),transparent_65%),radial-gradient(circle_at_55%_55%,rgba(150,120,255,.10),transparent_60%),radial-gradient(circle_at_70%_30%,rgba(40,180,255,.12),transparent_60%)]" />
+      {/* Blobs disabled (commented) to avoid adding color cast */}
+      {false && (
+        <div className="absolute inset-0">
+          {blobs.map(b => (
+            <div key={b.id} style={b.style} className="absolute w-[42vw] max-w-[640px] aspect-square rounded-full blur-[120px] opacity-10 animate-slow-pulse">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-500/20 via-violet-400/15 to-sky-400/15" />
             </div>
-          );
-        })}
-        {/* Soft gradient mask top & bottom */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#05060a] via-transparent to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#05060a] via-transparent to-transparent" />
-      </div>
-      {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_60%,#05060a_100%)]" />
+          ))}
+        </div>
+      )}
+      {/* Noise further reduced */}
+      <div className="absolute inset-0 opacity-[0.025] [background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+2lP3VwAAAABJRU5ErkJggg==)]" />
 
-  {/* Right side neural network (visible on all sizes) */}
-  <div className="flex absolute right-0 top-0 h-full w-[75%] sm:w-[60%] md:w-[48%] lg:w-[44%] items-center justify-center pr-[3.5vw]">
+  {/* Right side neural network (softened & lower opacity for light theme) */}
+  <div className="flex absolute right-0 top-0 h-full w-[75%] sm:w-[60%] md:w-[48%] lg:w-[44%] items-center justify-center pr-[3.5vw] opacity-30">
           <div className="relative w-full h-[70vh] max-h-[780px]">
             <div className="absolute right-[14%] top-1/2 -translate-y-1/2 w-[340px] h-[340px] max-w-full">
               {[...Array(4)].map((_,i)=>(
@@ -111,7 +73,7 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
                 <div className="w-5 h-5 rounded-full bg-gradient-to-br from-pink-500 via-fuchsia-400 to-cyan-300 shadow-[0_0_18px_6px_rgba(255,60,200,0.55)] animate-ping-slow" />
               </div>
             </div>
-            <svg className="absolute inset-0 w-full h-full opacity-[0.42]" viewBox="0 0 800 800" fill="none">
+            <svg className="absolute inset-0 w-full h-full opacity-[0.20]" viewBox="0 0 800 800" fill="none">
               <defs>
                 <radialGradient id="gradNode" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stopColor="#ff5ecf"/>
@@ -156,51 +118,7 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
             </div>
           </div>
         </div>
-      {/* Brain top-left (mobile visible) */}
-      <div className="absolute left-0 top-0 z-40 w-auto h-auto flex items-start justify-start p-3 sm:p-4">
-        <div className="relative">
-          <div
-            className={
-              `relative w-[140px] sm:w-[160px] md:w-[180px] lg:w-[200px] aspect-square ` +
-              `cursor-pointer pointer-events-auto group select-none transition-transform duration-700 ease-out` +
-              (thinking ? ' scale-[1.05] [filter:drop-shadow(0_0_20px_rgba(255,255,255,0.25))]' : ' hover:scale-[1.03]')
-            }
-            onClick={triggerThinking}
-            role="button"
-            aria-label="Activate AI thinking"
-          >
-            {/* Audio element */}
-            <audio ref={audioRef} className="hidden" preload="auto" aria-hidden="true">
-              <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQgAAAAA/////wAAAP///w==" type="audio/wav" />
-            </audio>
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-500/25 via-sky-400/10 to-fuchsia-500/25 blur-3xl" />
-            {/* Removed rotating ring, dashed rings, and radial tick lines per request */}
-            {/* Orbiting nodes removed by request */}
-            {/* Simplified animated brain icon component with ripple layer */}
-            <div className="relative z-10 flex items-center justify-center w-full h-full overflow-hidden">
-              <AnimatedBrainI thinking={thinking} />
-              {ripples.map(r => (
-                <span
-                  key={r.id}
-                  className="absolute block rounded-full bg-cyan-300/20 border border-cyan-300/40 animate-ripple"
-                  style={{ left: r.x - 8, top: r.y - 8, width: 16, height: 16 }}
-                />
-              ))}
-            </div>
-            {/* Click hint ring (subtle) */}
-            <div className={`absolute inset-0 rounded-full ${thinking ? 'opacity-0' : 'opacity-30 group-hover:opacity-70'} transition-opacity duration-700`}> 
-              <div className="absolute inset-0 rounded-full border border-white/10" />
-            </div>
-            {thinking && (
-              <div className="absolute inset-0">
-                {[...Array(3)].map((_,i)=>(
-                  <div key={i} className="absolute inset-0 rounded-full border border-fuchsia-400/10 animate-thinking-rings" style={{ animationDelay:`${i*0.6}s`, transform:`scale(${1 + i*0.25})` }} />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+  {/* Brain moved into main section (InteractiveBrain component) */}
       {/* Expanded hologram modal */}
       {expanded && (
         <div className="pointer-events-auto fixed inset-0 z-[90] flex items-center justify-center bg-black/70 backdrop-blur-sm" role="dialog" aria-label="Expanded brain hologram">
@@ -222,7 +140,7 @@ export default function BackgroundFX({ language }: BackgroundFXProps) {
             </div>
             {/* Decorative volumetric beams */}
             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[520px] h-[180px] pointer-events-none opacity-60">
-              <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/25 via-fuchsia-400/10 to-transparent blur-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/15 via-fuchsia-400/8 to-transparent blur-2xl" />
             </div>
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               {Array.from({length:20}).map((_,i)=>{ // reduced from 40 to 20 for better performance

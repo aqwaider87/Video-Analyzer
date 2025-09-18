@@ -23,21 +23,54 @@ html::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
 
+/* -------------------------------------------------------------------------- */
+/* Design Tokens (Light Minimalist Theme)                                      */
+/* -------------------------------------------------------------------------- */
+:root {
+  --bg-page: #eeece8;
+  --bg-shell: #f7f6f4;
+  --bg-card: #ffffff;
+  --border-soft: #e1ded9;
+  --border-faint: #ebe8e3;
+  --text-strong: #161615;
+  --text-muted: #6f6e6b;
+  --action-primary: #111111;
+  --action-primary-hover: #000000;
+  --radius-xl: 34px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --shadow-soft: 0 4px 12px -2px rgba(0,0,0,0.06), 0 12px 32px -8px rgba(0,0,0,0.07);
+  --shadow-card: 0 2px 4px rgba(0,0,0,0.04), 0 4px 18px -4px rgba(0,0,0,0.06);
+  --shadow-focus: 0 0 0 3px rgba(0,0,0,0.15);
+  /* Tiny noise texture (inline) */
+  --noise-data: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/AzWAiYFCwEgDIGgGCoZhAACRBQH6zQX5xQAAAABJRU5ErkJggg==");
+  /* Background image tokens */
+  --bg-hero-image: url('/background.jpg'); /* Replace with actual image path placed in public/ */
+  /* Lightened overlay (reduced opacity to show original image with minimal wash) */
+  --bg-overlay: linear-gradient(120deg, rgba(255,255,255,0.60) 5%, rgba(255,255,255,0.50) 40%, rgba(255,255,255,0.55) 75%);
+}
+
 body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-  background-attachment: fixed;
+  background: var(--bg-page);
+  /* Base gradient + image + noise */
+  background-image: var(--bg-overlay), var(--bg-hero-image), var(--noise-data);
+  background-size: cover, cover, 360px 360px;
+  background-position: center center, center center, 0 0;
+  background-attachment: fixed, fixed, fixed;
+  background-repeat: no-repeat, no-repeat, repeat;
   height: 100vh; /* Fallback */
   height: 100dvh; /* Dynamic viewport on modern mobile browsers */
   margin: 0;
   padding: 0;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
-  /* Permit vertical scrolling (horizontal still clipped) */
   overflow-x: hidden;
   overflow-y: auto;
-  /* Performance optimizations */
+  color: var(--text-strong);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
   will-change: scroll-position;
-  transform: translateZ(0); /* Force GPU acceleration */
+  transform: translateZ(0);
 }
 
 body::-webkit-scrollbar {
@@ -68,11 +101,19 @@ body::-webkit-scrollbar {
 }
 
 /* Custom glassmorphism effect */
-.glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
+/* Legacy glass class retained (may be deprecated) */
+.glass { background: rgba(255,255,255,0.55); backdrop-filter: blur(10px); border: 1px solid var(--border-soft); }
+
+/* New utility classes */
+.surface-shell { background: var(--bg-shell); box-shadow: var(--shadow-soft); }
+.surface-card { background: var(--bg-card); box-shadow: var(--shadow-card); border:1px solid var(--border-soft); }
+.divider-vertical { width:1px; background: linear-gradient(to bottom, transparent, var(--border-soft) 10%, var(--border-soft) 90%, transparent); }
+.text-muted { color: var(--text-muted); }
+.btn-primary-minimal { background: var(--action-primary); color:#fff; }
+.btn-primary-minimal:hover { background: var(--action-primary-hover); }
+.btn-outline-minimal { background: transparent; border:1px solid var(--border-soft); color: var(--text-strong); }
+.btn-outline-minimal:hover { background: var(--action-outline-hover); }
+.focus-ring-minimal:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
 
 /* RTL support */
 [dir="rtl"] {
