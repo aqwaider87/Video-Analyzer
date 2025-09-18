@@ -416,7 +416,30 @@ export default function ResultsView({ data, translations: t, language }: Results
         </div>
 
         {/* Comments Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">     
+          {/* Most Liked Comment */}
+          {mostLikedComment && (
+            <div className="surface-card rounded-xl p-6 border border-purple-500/30">
+              <h4 className="text-sm font-medium text-purple-600 mb-4 flex items-center gap-2 uppercase tracking-wide">
+                <Heart size={20} />
+                {t?.results?.likes || 'Likes'}
+              </h4>
+              <div className="space-y-3">
+                <p className="text-[var(--text-strong)] italic">&quot;{mostLikedComment.comment}&quot;</p>
+                <div className="flex items-center justify-between text-xs text-muted">
+                  <span className="flex items-center gap-1">
+                    <User size={14} />
+                    @{mostLikedComment.user}
+                  </span>
+                  <span className="text-purple-600 font-semibold flex items-center gap-1">
+                    <Heart size={14} />
+                    <span dir="ltr">{formatNumber(mostLikedComment.likes)}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Top Positive Comment */}
           {topPositiveComment && (
             <div className="surface-card rounded-xl p-6 border border-green-500/30">
@@ -455,29 +478,6 @@ export default function ResultsView({ data, translations: t, language }: Results
                   </span>
                   <span className="text-red-600 font-semibold" dir="ltr">
                     {((topNegativeComment.sentiment_confidence || 0) * 100).toFixed(1)}%
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Most Liked Comment */}
-          {mostLikedComment && (
-            <div className="surface-card rounded-xl p-6 border border-purple-500/30">
-              <h4 className="text-sm font-medium text-purple-600 mb-4 flex items-center gap-2 uppercase tracking-wide">
-                <Heart size={20} />
-                {t?.results?.likes || 'Likes'}
-              </h4>
-              <div className="space-y-3">
-                <p className="text-[var(--text-strong)] italic">&quot;{mostLikedComment.comment}&quot;</p>
-                <div className="flex items-center justify-between text-xs text-muted">
-                  <span className="flex items-center gap-1">
-                    <User size={14} />
-                    @{mostLikedComment.user}
-                  </span>
-                  <span className="text-purple-600 font-semibold flex items-center gap-1">
-                    <Heart size={14} />
-                    <span dir="ltr">{formatNumber(mostLikedComment.likes)}</span>
                   </span>
                 </div>
               </div>
