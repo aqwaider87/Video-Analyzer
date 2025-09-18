@@ -18,8 +18,28 @@ export default function ResultsView({ data, translations: t, language }: Results
 
   // Number formatting utility for proper display in Arabic and English
   const formatNumber = (num: number | string): string => {
-    const numValue = Number(num);
-    if (isNaN(numValue)) return '0';
+    let numValue: number;
+    
+    // Handle string values with suffixes (e.g., "147.4K", "2.1M")
+    if (typeof num === 'string') {
+      const cleanNum = num.toString().trim();
+      
+      if (cleanNum.includes('K') || cleanNum.includes('k')) {
+        const numericPart = parseFloat(cleanNum.replace(/[Kk]/g, ''));
+        if (isNaN(numericPart)) return '0';
+        numValue = numericPart * 1000;
+      } else if (cleanNum.includes('M') || cleanNum.includes('m')) {
+        const numericPart = parseFloat(cleanNum.replace(/[Mm]/g, ''));
+        if (isNaN(numericPart)) return '0';
+        numValue = numericPart * 1000000;
+      } else {
+        numValue = Number(cleanNum);
+        if (isNaN(numValue)) return '0';
+      }
+    } else {
+      numValue = Number(num);
+      if (isNaN(numValue)) return '0';
+    }
     
     // For Arabic, use Western numerals with Arabic locale formatting
     // This prevents Arabic-Indic numerals (٠-٩) and uses Western numerals (0-9)

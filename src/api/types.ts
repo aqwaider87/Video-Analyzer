@@ -11,7 +11,7 @@ export interface SentimentProbabilities {
 export interface CommentSentiment {
   user: string;
   comment: string;
-  likes: string | number; // API sometimes returns numeric-like strings
+  likes: string;
   lang: string; // e.g., 'ar', 'other'
   sentiment: string; // label (Arabic)
   sentiment_confidence: number; // Decimal confidence score (0.0-1.0)
