@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Language, getTranslation, isRTL } from '@/lib/i18n';
 import { AnalyzeResponse } from '@/api/types';
 import BackgroundFX from '@/components/BackgroundFX';
@@ -83,13 +82,12 @@ export default function Home() {
           </div>
           
           {/* Results Section */}
-          {showResults && (
+          {showResults && analysisData && (
             <div className="flex-shrink-0 w-full">
               <ResultsView
-                t={t}
+                translations={t}
                 language={language}
                 data={analysisData}
-                isVisible={showResults}
               />
             </div>
           )}
@@ -97,11 +95,8 @@ export default function Home() {
       </div>
 
       {/* Footer - Always visible at bottom */}
-      <motion.footer
+      <footer
         className={`relative z-10 text-center py-4 px-4 flex-shrink-0 ${rtl ? 'font-arabic' : 'font-english'}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
       >
         <p className={`text-white/50 text-sm leading-relaxed ${rtl ? 'font-arabic' : 'font-english'}`}>
           {language === 'ar' ? (
@@ -130,7 +125,7 @@ export default function Home() {
             </>
           )}
         </p>
-      </motion.footer>
+      </footer>
     </main>
   );
 }
