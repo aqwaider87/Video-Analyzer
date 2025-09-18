@@ -109,7 +109,7 @@ export default function AnimatedHeading({ className = '', phrase, rtl }: Animate
                   onKeyDown={(e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); triggerCrazy(); } }}
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 40 40"
-                  className="absolute -right-2 -top-7 w-5 h-5 text-cyan-500 dark:text-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-sm"
+                  className="absolute -right-1 -top-4 w-5 h-5 text-cyan-500 dark:text-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-sm"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
