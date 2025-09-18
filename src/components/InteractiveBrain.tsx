@@ -23,7 +23,7 @@ export default function InteractiveBrain({ className = '' }: InteractiveBrainPro
   const triggerThinking = (e: React.MouseEvent) => {
   // Ripple logic removed
     setThinking(true);
-    setExpanded(true);
+    // setExpanded(true);
     if (audioRef.current) {
       try { audioRef.current.currentTime = 0; audioRef.current.play().catch(()=>{}); } catch {}
     }
