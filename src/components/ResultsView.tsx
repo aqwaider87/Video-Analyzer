@@ -161,22 +161,46 @@ export default function ResultsView({ data, translations: t, language }: Results
       hashtags: metadata.hashtags || []
     };
 
-    // Chart data with safe defaults
+    // Chart data with safe defaults and proper translation
     const chartData = useMemo(() => {
       if (!comments.length) return [];
       
-      const sentimentCounts = comments.reduce((acc, comment) => {
-        const sentiment = comment.sentiment || t?.results?.neutral || 'neutral';
-        acc[sentiment] = (acc[sentiment] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>);
-
-      return Object.entries(sentimentCounts).map(([sentiment, count]) => ({
-        sentiment,
-        count,
-        percentage: ((count / comments.length) * 100).toFixed(1)
-      }));
-    }, [comments, t?.results?.neutral]);
+      // Group comments by sentiment type, not by raw sentiment values
+      const positiveCount = getSentimentCounts(comments, 'positive');
+      const negativeCount = getSentimentCounts(comments, 'negative');
+      const neutralCount = getSentimentCounts(comments, 'neutral');
+      
+      const total = comments.length;
+      
+      // Return data with translated labels for chart display
+      const data = [];
+      
+      if (positiveCount > 0) {
+        data.push({
+          sentiment: t?.results?.positive || 'Positive',
+          count: positiveCount,
+          percentage: ((positiveCount / total) * 100).toFixed(1)
+        });
+      }
+      
+      if (negativeCount > 0) {
+        data.push({
+          sentiment: t?.results?.negative || 'Negative',
+          count: negativeCount,
+          percentage: ((negativeCount / total) * 100).toFixed(1)
+        });
+      }
+      
+      if (neutralCount > 0) {
+        data.push({
+          sentiment: t?.results?.neutral || 'Neutral',
+          count: neutralCount,
+          percentage: ((neutralCount / total) * 100).toFixed(1)
+        });
+      }
+      
+      return data;
+    }, [comments, t?.results]);
 
     // Overall sentiment calculation with safe handling
     const overallSentiment = useMemo(() => {
@@ -319,10 +343,19 @@ export default function ResultsView({ data, translations: t, language }: Results
                           dataKey="sentiment" 
                           stroke="#9CA3AF"
                           fontSize={12}
+                          angle={language === 'ar' ? 0 : -45}
+                          textAnchor={language === 'ar' ? 'middle' : 'end'}
+                          height={60}
                         />
                         <YAxis 
                           stroke="#9CA3AF"
                           fontSize={12}
+                          label={{ 
+                            value: t?.results?.confidence || 'Percentage', 
+                            angle: -90, 
+                            position: 'insideLeft',
+                            style: { textAnchor: 'middle', fill: '#9CA3AF' }
+                          }}
                         />
                         <Tooltip 
                           contentStyle={{ 
@@ -331,7 +364,11 @@ export default function ResultsView({ data, translations: t, language }: Results
                             borderRadius: '8px',
                             color: '#F9FAFB'
                           }}
-                          formatter={(value, name) => [`${value}%`, name]}
+                          formatter={(value, name) => [
+                            `${value}%`, 
+                            t?.results?.confidence || 'Percentage'
+                          ]}
+                          labelFormatter={(label) => `${t?.results?.sentimentAnalysis || 'Sentiment'}: ${label}`}
                         />
                         <Legend 
                           wrapperStyle={{
@@ -339,6 +376,7 @@ export default function ResultsView({ data, translations: t, language }: Results
                             fontSize: '14px'
                           }}
                           className="[&_.recharts-legend-wrapper]:text-white [&_.recharts-legend-item-text]:!text-white"
+                          formatter={() => t?.results?.sentimentDistribution || 'Sentiment Distribution'}
                         />
                         <Line 
                           type="monotone" 
@@ -347,6 +385,7 @@ export default function ResultsView({ data, translations: t, language }: Results
                           strokeWidth={3}
                           dot={{ fill: '#8B5CF6', strokeWidth: 2, r: 4 }}
                           activeDot={{ r: 6, stroke: '#8B5CF6', strokeWidth: 2 }}
+                          name={t?.results?.sentimentDistribution || 'Sentiment Distribution'}
                         />
                       </LineChart>
                     </ResponsiveContainer>
