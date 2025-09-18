@@ -10,8 +10,7 @@ interface InteractiveBrainProps {
 export default function InteractiveBrain({ className = '' }: InteractiveBrainProps) {
   const [thinking, setThinking] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
-  const rippleId = useRef(0);
+  // Ripple effect removed for ultra-minimal appearance
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -22,13 +21,7 @@ export default function InteractiveBrain({ className = '' }: InteractiveBrainPro
   }, [thinking]);
 
   const triggerThinking = (e: React.MouseEvent) => {
-    const target = e.currentTarget as HTMLElement;
-    const rect = target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const id = rippleId.current++;
-    setRipples(rs => [...rs, { id, x, y }]);
-    setTimeout(() => setRipples(rs => rs.filter(r => r.id !== id)), 1200);
+  // Ripple logic removed
     setThinking(true);
     setExpanded(true);
     if (audioRef.current) {
@@ -37,11 +30,11 @@ export default function InteractiveBrain({ className = '' }: InteractiveBrainPro
   };
 
   return (
-    <div className={"relative inline-flex flex-col items-center gap-4 " + className}>
+    <div className={"relative inline-flex flex-col items-start gap-3 " + className}>
       <div
         className={
-          `relative w-[160px] md:w-[200px] aspect-square cursor-pointer group select-none transition-transform duration-700 ease-out` +
-          (thinking ? ' scale-[1.05]' : ' hover:scale-[1.03]')
+          `relative w-[84px] md:w-[92px] aspect-square cursor-pointer group select-none transition-transform duration-500 ease-out` +
+          (thinking ? ' scale-[1.03]' : ' hover:scale-[1.04]')
         }
         onClick={triggerThinking}
         role="button"
@@ -50,27 +43,11 @@ export default function InteractiveBrain({ className = '' }: InteractiveBrainPro
         <audio ref={audioRef} className="hidden" preload="auto" aria-hidden="true">
           <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQgAAAAA/////wAAAP///w==" type="audio/wav" />
         </audio>
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-400/20 via-sky-300/8 to-fuchsia-400/20 blur-3xl" />
-        <div className="relative z-10 flex items-center justify-center w-full h-full overflow-hidden">
-          <AnimatedBrainI thinking={thinking} />
-          {ripples.map(r => (
-            <span
-              key={r.id}
-              className="absolute block rounded-full bg-cyan-300/20 border border-cyan-300/40 animate-ripple"
-              style={{ left: r.x - 8, top: r.y - 8, width: 16, height: 16 }}
-            />
-          ))}
+        {/* Minimal brain (no outer gradient background) */}
+        <div className="relative z-10 flex items-center justify-center w-full h-full overflow-visible">
+          <AnimatedBrainI thinking={thinking} minimal />
         </div>
-        <div className={`absolute inset-0 rounded-full ${thinking ? 'opacity-0' : 'opacity-30 group-hover:opacity-70'} transition-opacity duration-700`}>
-          <div className="absolute inset-0 rounded-full border border-white/10" />
-        </div>
-        {thinking && (
-          <div className="absolute inset-0">
-            {[...Array(3)].map((_,i)=>(
-              <div key={i} className="absolute inset-0 rounded-full border border-fuchsia-400/10 animate-thinking-rings" style={{ animationDelay:`${i*0.6}s`, transform:`scale(${1 + i*0.25})` }} />
-            ))}
-          </div>
-        )}
+        {/* Removed decorative ring & thinking rings for minimal variant */}
       </div>
       {expanded && (
         <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 backdrop-blur-sm" role="dialog" aria-label="Expanded brain hologram">

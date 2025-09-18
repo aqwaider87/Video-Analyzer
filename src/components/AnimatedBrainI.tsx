@@ -1,37 +1,38 @@
 import { motion } from 'framer-motion';
 
-interface AnimatedBrainIProps { thinking?: boolean }
+interface AnimatedBrainIProps { thinking?: boolean; minimal?: boolean }
 
-export default function AnimatedBrainI({ thinking = false }: AnimatedBrainIProps) {
+export default function AnimatedBrainI({ thinking = false, minimal = false }: AnimatedBrainIProps) {
   return (
   <div
       className={
-        'relative inline-flex items-center justify-center text-white select-none ' +
-    (thinking ? 'scale-[1.05] animate-[hueShift_6s_linear_infinite]' : '')
+        'relative inline-flex items-center justify-center select-none ' +
+        (thinking && !minimal ? 'scale-[1.05] animate-[hueShift_6s_linear_infinite]' : '')
       }
     >
-      {/* Outer glow pulse when thinking */}
-      <div
-        className={
-          'absolute inset-0 rounded-full blur-2xl transition-opacity duration-700 pointer-events-none ' +
-          (thinking
-            ? 'opacity-70 bg-[radial-gradient(circle_at_50%_50%,rgba(0,220,255,0.5),rgba(255,0,200,0)_70%)] animate-[brainPulse_2s_ease-in-out_infinite]'
-            : 'opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(0,200,255,0.35),rgba(255,0,200,0)_70%)]')
-        }
-      />
-      {/* Brain (enlarged) */}
+      {/* Outer glow pulse (suppressed in minimal mode) */}
+      {!minimal && (
+        <div
+          className={
+            'absolute inset-0 rounded-full blur-2xl transition-opacity duration-700 pointer-events-none ' +
+            (thinking
+              ? 'opacity-70 bg-[radial-gradient(circle_at_50%_50%,rgba(0,220,255,0.5),rgba(255,0,200,0)_70%)] animate-[brainPulse_2s_ease-in-out_infinite]'
+              : 'opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(0,200,255,0.35),rgba(255,0,200,0)_70%)]')
+          }
+        />
+      )}
+      {/* Brain */}
       <motion.svg
         initial={{ rotate: -6 }}
         animate={{ rotate: thinking ? [ -6, 6, -6 ] : [ -4, 4, -4 ] }}
         transition={{ repeat: Infinity, duration: thinking ? 4 : 7, ease: 'easeInOut' }}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 64 64"
-        className="w-32 h-32"
+        className={minimal ? 'w-20 h-20' : 'w-32 h-32'}
         fill="none"
         strokeWidth={1.15}
         style={{
-          filter:
-            'drop-shadow(0 0 4px rgba(0,200,255,0.55)) drop-shadow(0 0 8px rgba(255,0,200,0.35))',
+          filter: minimal ? 'none' : 'drop-shadow(0 0 4px rgba(0,200,255,0.55)) drop-shadow(0 0 8px rgba(255,0,200,0.35))',
         }}
       >
         <defs>
@@ -45,11 +46,13 @@ export default function AnimatedBrainI({ thinking = false }: AnimatedBrainIProps
             <stop offset="45%" stopColor="#fdc47aff" />
             <stop offset="100%" stopColor="#f8b051ff" />
           </linearGradient>
-          <radialGradient id="brainFill" cx="50%" cy="45%" r="60%">
-            <stop offset="0%" stopColor="#1ce8ff" stopOpacity="0.35" />
-            <stop offset="55%" stopColor="#0084ff" stopOpacity="0.15" />
-            <stop offset="100%" stopColor="#001c40" stopOpacity="0" />
-          </radialGradient>
+          {!minimal && (
+            <radialGradient id="brainFill" cx="50%" cy="45%" r="60%">
+              <stop offset="0%" stopColor="#1ce8ff" stopOpacity="0.35" />
+              <stop offset="55%" stopColor="#0084ff" stopOpacity="0.15" />
+              <stop offset="100%" stopColor="#001c40" stopOpacity="0" />
+            </radialGradient>
+          )}
           <filter id="gsoft" x="-40%" y="-40%" width="180%" height="180%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b" />
             <feColorMatrix in="b" type="matrix" values="0 0 0 0 0.2 0 0 0 0 0.0 0 0 0 0 0.5 0 0 0 0.9 0" />
@@ -57,31 +60,32 @@ export default function AnimatedBrainI({ thinking = false }: AnimatedBrainIProps
           </filter>
         </defs>
         {/* Anatomical Shell (more brain-like with lobed curvature) */}
-        <g id="brain-shell" filter="url(#gsoft)">
+        <g id="brain-shell" filter={minimal ? undefined : 'url(#gsoft)'}>
           <path
             d="M31.5 6c-4.2 0-7.6 2.2-9.3 5.7-1.2-.8-2.6-1.2-4.1-1.2-4.9 0-8.9 4.1-8.9 9.2 0 1.2.2 2.4.6 3.5-1 1.5-1.6 3.4-1.6 5.4 0 3.4 1.8 6.4 4.6 8-.4 1.1-.6 2.3-.6 3.6 0 6.2 4.7 11.3 10.9 11.3 1.1 0 2.2-.2 3.3-.5 1.4 2.1 3.9 3.5 6.8 3.5h2c6.8 0 12.4-5.7 12.4-12.7v-.8c3-1.9 5.2-5.3 5.2-9.2 0-1.3-.2-2.6-.6-3.8 1.1-1.5 1.8-3.4 1.8-5.4 0-5.1-4.1-9.3-9.2-9.3-.5 0-1.1.1-1.6.2C41 8.4 36.6 6 31.5 6Z"
             stroke="url(#signalGrad)"
             strokeWidth={0.8}
             strokeLinejoin="round"
             strokeLinecap="round"
-            fill="url(#brainFill)"
-            style={{ filter: 'drop-shadow(0 0 6px rgba(120,255,255,0.35)) drop-shadow(0 0 10px rgba(255,99,255,0.25))' }}
+            fill={minimal ? 'none' : 'url(#brainFill)'}
+            style={minimal ? undefined : { filter: 'drop-shadow(0 0 6px rgba(120,255,255,0.35)) drop-shadow(0 0 10px rgba(255,99,255,0.25))' }}
           />
           {/* Subtle sulcus-style inner contour lines */}
-          <path d="M22 20c3 2 5 4.5 7.2 7.2 2.2 2.7 4.5 5.1 7.8 7" stroke="url(#signalGrad)" strokeOpacity={0.22} strokeWidth={0.7} fill="none" />
-          <path d="M20 28c3.4 2.1 6 4.9 8.4 7.9 1.8 2.2 3.6 4.1 6.2 5.8" stroke="url(#signalGrad)" strokeOpacity={0.18} strokeWidth={0.65} fill="none" />
+          {!minimal && <path d="M22 20c3 2 5 4.5 7.2 7.2 2.2 2.7 4.5 5.1 7.8 7" stroke="url(#signalGrad)" strokeOpacity={0.22} strokeWidth={0.7} fill="none" />}
+          {!minimal && <path d="M20 28c3.4 2.1 6 4.9 8.4 7.9 1.8 2.2 3.6 4.1 6.2 5.8" stroke="url(#signalGrad)" strokeOpacity={0.18} strokeWidth={0.65} fill="none" />}
           {/* Midline (hemisphere division) */}
-          <path d="M32 10c-1.8 2.5-2.6 5.2-2.6 8.2 0 4.6 1.9 8.2 2.6 12.4.7-4.2 2.6-7.8 2.6-12.4 0-3-0.8-5.7-2.6-8.2Z" fill="url(#signalGrad)" fillOpacity={0.15} />
+          {!minimal && <path d="M32 10c-1.8 2.5-2.6 5.2-2.6 8.2 0 4.6 1.9 8.2 2.6 12.4.7-4.2 2.6-7.8 2.6-12.4 0-3-0.8-5.7-2.6-8.2Z" fill="url(#signalGrad)" fillOpacity={0.15} />}
         </g>
         {/* Pathways – traveling neural dots style */}
         <g strokeLinecap="round" fill="none">
           {/* Base pathways */}
-          <path id="pA" d="M20 22c6 2 8 6 12 10s8 8 12 10" stroke="url(#signalGrad)" strokeOpacity={0.20} strokeWidth={0.8} />
-          <path id="pB" d="M20 34c4 2 6 4 10 8s6 4 10 6" stroke="url(#signalGrad)" strokeOpacity={0.18} strokeWidth={0.7} />
-            <path id="pC" d="M24 18c5 3 10 8 14 14s10 10 16 14" stroke="url(#signalGrad)" strokeOpacity={0.22} strokeWidth={0.85} />
-          <path id="pD" d="M18 28c7 3 12 9 16 14s10 11 18 16" stroke="url(#signalGrad)" strokeOpacity={0.18} strokeWidth={0.75} />
+          {!minimal && <path id="pA" d="M20 22c6 2 8 6 12 10s8 8 12 10" stroke="url(#signalGrad)" strokeOpacity={0.20} strokeWidth={0.8} />}
+          {!minimal && <path id="pB" d="M20 34c4 2 6 4 10 8s6 4 10 6" stroke="url(#signalGrad)" strokeOpacity={0.18} strokeWidth={0.7} />}
+          {!minimal && <path id="pC" d="M24 18c5 3 10 8 14 14s10 10 16 14" stroke="url(#signalGrad)" strokeOpacity={0.22} strokeWidth={0.85} />}
+          {!minimal && <path id="pD" d="M18 28c7 3 12 9 16 14s10 11 18 16" stroke="url(#signalGrad)" strokeOpacity={0.18} strokeWidth={0.75} />}
 
           {/* Dots moving along each pathway */}
+          {!minimal && (
           <g filter="url(#gsoft)">
             {/* Path A dots */}
             <circle r={1.4} fill="url(#dotGrad)" opacity={0.9}>
@@ -143,19 +147,22 @@ export default function AnimatedBrainI({ thinking = false }: AnimatedBrainIProps
               <animate attributeName="opacity" values="0.18;0.6;0.18" dur="1.4s" repeatCount="indefinite" />
             </circle>
           </g>
+          )}
 
           {/* Soft glow overlay of whole map */}
-          <g stroke="url(#signalGrad)" filter="url(#gsoft)">
-            <path d="M20 22c6 2 8 6 12 10s8 8 12 10" strokeOpacity={0.35} strokeWidth={0.35} />
-            <path d="M20 34c4 2 6 4 10 8s6 4 10 6" strokeOpacity={0.32} strokeWidth={0.3} />
-            <path d="M24 18c5 3 10 8 14 14s10 10 16 14" strokeOpacity={0.4} strokeWidth={0.4} />
-            <path d="M18 28c7 3 12 9 16 14s10 11 18 16" strokeOpacity={0.33} strokeWidth={0.35} />
-          </g>
+          {!minimal && (
+            <g stroke="url(#signalGrad)" filter="url(#gsoft)">
+              <path d="M20 22c6 2 8 6 12 10s8 8 12 10" strokeOpacity={0.35} strokeWidth={0.35} />
+              <path d="M20 34c4 2 6 4 10 8s6 4 10 6" strokeOpacity={0.32} strokeWidth={0.3} />
+              <path d="M24 18c5 3 10 8 14 14s10 10 16 14" strokeOpacity={0.4} strokeWidth={0.4} />
+              <path d="M18 28c7 3 12 9 16 14s10 11 18 16" strokeOpacity={0.33} strokeWidth={0.35} />
+            </g>
+          )}
         </g>
   {/* Firing nodes removed by request */}
-  {/* Midline divider glow */}
-  <line x1="34" y1="10" x2="34" y2="54" stroke="#ffffff" strokeWidth={0.9} strokeOpacity={0.45} />
-  <line x1="30" y1="10" x2="30" y2="54" stroke="#ffffff" strokeWidth={0.6} strokeOpacity={0.22} />
+  {/* Midline divider glow (omit in minimal) */}
+  {!minimal && <line x1="34" y1="10" x2="34" y2="54" stroke="#ffffff" strokeWidth={0.9} strokeOpacity={0.45} />}
+  {!minimal && <line x1="30" y1="10" x2="30" y2="54" stroke="#ffffff" strokeWidth={0.6} strokeOpacity={0.22} />}
         <style>{`
           @keyframes brainPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
           @keyframes hueShift { 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(360deg)} }
