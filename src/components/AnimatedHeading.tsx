@@ -42,10 +42,10 @@ export default function AnimatedHeading({ className = '', phrase, rtl }: Animate
   }, [text, isArabic]);
 
   return (
-  <div className={`flex flex-col ${direction ? 'items-end' : 'items-start'} justify-center gap-4 ${className}`} dir={direction ? 'rtl' : 'ltr'}>
+  <div className={`flex flex-col items-center justify-center gap-4 text-center ${className}`} dir={direction ? 'rtl' : 'ltr'}>
       {/* Brain Icon controller removed; brain now only decorates the 'i' */}
       {/* Title */}
-  <div className="inline-flex flex-wrap gap-x-1 sm:gap-x-2 gap-y-2 text-4xl md:text-5xl lg:text-6xl">
+  <div className="inline-flex flex-wrap justify-center gap-x-1 sm:gap-x-2 gap-y-2 text-4xl md:text-5xl lg:text-6xl">
         {isArabic && arabicTokens.length > 0 && arabicTokens.map((token, i) => (
           token.trim() === '' ? (
             <span key={i} className="inline-block">&nbsp;</span>
@@ -55,7 +55,7 @@ export default function AnimatedHeading({ className = '', phrase, rtl }: Animate
               custom={i}
               initial={{ opacity: 0, y: -14 }}
               animate={controls}
-              className="relative inline-block font-extrabold text-current"
+              className="relative inline-block font-bold text-current"
             >{token}</motion.span>
           )
         ))}
@@ -76,7 +76,7 @@ export default function AnimatedHeading({ className = '', phrase, rtl }: Animate
                       custom={globalIndex}
                       initial={{ opacity: 0, y: 14 }}
                       animate={controls}
-                      className="relative inline-block font-extrabold text-current"
+                      className="relative inline-block font-bold text-current"
                     >A</motion.span>
                   );
                 }
@@ -88,7 +88,7 @@ export default function AnimatedHeading({ className = '', phrase, rtl }: Animate
                         initial={{ opacity: 0, y: 14, scale: 0.7 }}
                         animate={controls}
                         transition={{ duration: 0.5, ease: 'easeOut' }}
-                        className="font-extrabold text-current"
+                        className="font-bold text-current"
                       >i</motion.span>
                       <motion.svg
                         aria-hidden="true"
@@ -114,7 +114,7 @@ export default function AnimatedHeading({ className = '', phrase, rtl }: Animate
                     custom={globalIndex}
                     initial={{ opacity: 0, y: 14 }}
                     animate={controls}
-                    className="relative inline-block font-extrabold text-current"
+                    className="relative inline-block font-bold text-current"
                   >{char}</motion.span>
                 );
               })}
