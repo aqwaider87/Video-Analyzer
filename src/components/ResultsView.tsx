@@ -250,11 +250,22 @@ export default function ResultsView({ data, translations: t, language }: Results
     };
 
     // Comments analysis
+    // Select top positive / negative strictly by raw (unrounded) confidence.
+    // No percentage conversion before ordering to preserve sensitivity.
     const topPositiveComment = getCommentsBySentiment(comments, 'positive')
-      .sort((a, b) => (Number(b.sentiment_confidence || 0) - Number(a.sentiment_confidence || 0)))[0];
-    
+      .sort((a, b) => {
+        const confDiff = Number(b.sentiment_confidence || 0) - Number(a.sentiment_confidence || 0);
+        if (confDiff !== 0) return confDiff;
+        // tie-breaker: higher likes first (numeric comparison; missing likes treated as 0)
+        return Number(b.likes || 0) - Number(a.likes || 0);
+      })[0];
+
     const topNegativeComment = getCommentsBySentiment(comments, 'negative')
-      .sort((a, b) => (Number(b.sentiment_confidence || 0) - Number(a.sentiment_confidence || 0)))[0];
+      .sort((a, b) => {
+        const confDiff = Number(b.sentiment_confidence || 0) - Number(a.sentiment_confidence || 0);
+        if (confDiff !== 0) return confDiff;
+        return Number(b.likes || 0) - Number(a.likes || 0);
+      })[0];
 
     // Find most liked comment
     const mostLikedComment = comments
