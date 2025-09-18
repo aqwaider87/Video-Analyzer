@@ -154,7 +154,7 @@ export default function ResultsView({ data, translations: t, language }: Results
     const comments = metadata.comments || [];
     
     const videoInfo = {
-      description: metadata.description || t?.results?.videoDescription || '',
+      description: metadata.description || '',
       likes: metadata.likes || '0',
       comment_count: metadata.comment_count || '0',
       save_count: metadata.save_count || '0',
@@ -476,7 +476,13 @@ export default function ResultsView({ data, translations: t, language }: Results
             <div className="space-y-4">
               <div>
                 <h5 className="text-sm font-medium text-white/60 mb-1">{t?.results?.videoDescription || 'Description'}</h5>
-                <p className="text-white text-sm leading-relaxed">{videoInfo.description}</p>
+                <p className="text-white text-sm leading-relaxed">
+                  {videoInfo.description || (
+                    <span className="text-white/50 italic">
+                      {language === 'ar' ? 'لا يوجد وصف متاح' : 'No description available'}
+                    </span>
+                  )}
+                </p>
               </div>
               {videoInfo.hashtags && videoInfo.hashtags.length > 0 && (
                 <div>
