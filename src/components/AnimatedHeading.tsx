@@ -63,30 +63,7 @@ export default function AnimatedHeading({ className = '', phrase, rtl }: Animate
 
   return (
     <div className={`flex flex-col items-center justify-center gap-6 ${className}`} dir={direction ? 'rtl' : 'ltr'}>
-      {/* Brain Icon controller */}
-      <motion.svg
-        onClick={triggerCrazy}
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 40 40"
-        className="w-12 h-12 cursor-pointer"
-        fill="none"
-        stroke="url(#brainStroke)"
-        strokeWidth="2"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-        style={{ filter: 'drop-shadow(0 0 6px rgba(100,180,255,0.9)) drop-shadow(0 0 10px rgba(180,120,255,0.7))' }}
-        role="button"
-        aria-label="Scatter title"
-      >
-        <defs>
-          <linearGradient id="brainStroke" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#5ef9ff" />
-              <stop offset="50%" stopColor="#7d5bff" />
-              <stop offset="100%" stopColor="#ff63ff" />
-          </linearGradient>
-        </defs>
-        <path d="M20 6c-4 0-7 3.4-7 7.6-.9.3-1.7.8-2.3 1.5-.9 1-1.4 2.2-1.4 3.5 0 2 1 3.8 2.7 4.9-.4 1.2-.6 2.4-.6 3.6 0 4.9 3.7 8.9 8.2 8.9 1 0 2-.2 3-.5 1 .3 2 .5 3 .5 4.5 0 8.2-4 8.2-8.9 0-1.2-.2-2.4-.6-3.6 1.7-1.1 2.7-2.9 2.7-4.9 0-2.6-1.8-4.9-4.3-5.7C33 9.4 29 6 25 6c-1.4 0-2.8.4-4 1.2C22 6.5 21 6 20 6Z" />
-      </motion.svg>
+      {/* Brain Icon controller removed; brain now only decorates the 'i' */}
       {/* Title */}
   <div className="inline-flex flex-wrap justify-center gap-x-1 sm:gap-x-2 gap-y-3 text-4xl md:text-5xl lg:text-6xl">
         {isArabic && arabicTokens.length > 0 && arabicTokens.map((token, i) => (
@@ -125,15 +102,20 @@ export default function AnimatedHeading({ className = '', phrase, rtl }: Animate
                   className="font-extrabold text-neutral-200"
                 >i</motion.span>
                 <motion.svg
+                  onClick={triggerCrazy}
+                  role="button"
+                  aria-label="Scatter heading"
+                  tabIndex={0}
+                  onKeyDown={(e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); triggerCrazy(); } }}
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 40 40"
-                  className="absolute -right-5 -top-4 w-5 h-5"
+                  className="absolute -right-2 -top-7 w-5 h-5 text-cyan-500 dark:text-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-sm"
                   fill="none"
-                  stroke="url(#brainStroke)"
+                  stroke="currentColor"
                   strokeWidth="2"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-                  style={{ filter: 'drop-shadow(0 0 3px rgba(100,180,255,0.8)) drop-shadow(0 0 5px rgba(180,120,255,0.6))' }}
+                  animate={{ scale: [1, 1.12, 1] }}
+                  transition={{ repeat: Infinity, duration: 2.6, ease: 'easeInOut' }}
+                  style={{ filter: 'none' }}
                 >
                   <path d="M20 6c-4 0-7 3.4-7 7.6-.9.3-1.7.8-2.3 1.5-.9 1-1.4 2.2-1.4 3.5 0 2 1 3.8 2.7 4.9-.4 1.2-.6 2.4-.6 3.6 0 4.9 3.7 8.9 8.2 8.9 1 0 2-.2 3-.5 1 .3 2 .5 3 .5 4.5 0 8.2-4 8.2-8.9 0-1.2-.2-2.4-.6-3.6 1.7-1.1 2.7-2.9 2.7-4.9 0-2.6-1.8-4.9-4.3-5.7C33 9.4 29 6 25 6c-1.4 0-2.8.4-4 1.2C22 6.5 21 6 20 6Z" />
                 </motion.svg>
