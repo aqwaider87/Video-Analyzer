@@ -16,6 +16,7 @@ export default function Home() {
   const [showResults, setShowResults] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalyzeResponse | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [showVersion, setShowVersion] = useState(false);
 
   const t = getTranslation(language);
   const rtl = isRTL(language);
@@ -61,7 +62,6 @@ export default function Home() {
       {/* Floating controls */}
       <div className="absolute top-4 right-4 z-30 flex items-center gap-4">
         <LanguageToggle language={language} onLanguageChange={handleLanguageChange} />
-        <Version />
       </div>
 
       {/* Centered shell container */}
@@ -98,14 +98,33 @@ export default function Home() {
         <footer className="mt-10 text-center text-xs text-muted tracking-wide">
           {language === 'ar' ? (
             <>
-              © {new Date().getFullYear()} <a href="https://www.linkedin.com/in/ammar1987/" className="underline decoration-dotted">عمار قويدر</a>
+              <button
+                type="button"
+                onClick={() => setShowVersion(v => !v)}
+                className="inline-flex items-center gap-1 hover:text-foreground/80 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500 rounded-sm"
+                aria-expanded={showVersion}
+                aria-controls="app-version-panel"
+              >
+                <span>© {new Date().getFullYear()}</span>
+                <span className="underline decoration-dotted">عمار قويدر</span>
+              </button>
             </>
           ) : (
             <>
-              © {new Date().getFullYear()} <a href="https://www.linkedin.com/in/ammar1987/" className="underline decoration-dotted">Ammar Qwaider</a>
+              <button
+                type="button"
+                onClick={() => setShowVersion(v => !v)}
+                className="inline-flex items-center gap-1 hover:text-foreground/80 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500 rounded-sm"
+                aria-expanded={showVersion}
+                aria-controls="app-version-panel"
+              >
+                <span>© {new Date().getFullYear()}</span>
+                <span className="underline decoration-dotted">Ammar Qwaider</span>
+              </button>
             </>
           )}
         </footer>
+        {showVersion && <Version className="" />}
       </div>
     </main>
   );
