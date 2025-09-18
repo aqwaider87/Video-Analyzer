@@ -95,7 +95,7 @@ export default function Home() {
           </section>
         </div>
         {/* Footer */}
-        <footer className="mt-10 text-center text-xs text-muted tracking-wide">
+        <footer className="mt-10 text-center text-xs tracking-wide">
           {language === 'ar' ? (
             <>
               <button
