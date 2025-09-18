@@ -9,6 +9,8 @@ export interface Translations {
   loadingText: string;
   loadingDivText: string;
   resultsTitle: string;
+  videoTitle: string;
+  videoResults: string;
   resultsSubtitle: string;
   sampleInsights: {
     engagement: string;
@@ -56,6 +58,8 @@ export const translations: Record<'en' | 'ar', Translations> = {
     loadingText: 'Analyzing...',
     loadingDivText: 'Analyzing video content...',
     resultsTitle: 'Analysis Results',
+    videoTitle: 'Video Info',
+    videoResults: 'Video Results',
     resultsSubtitle: 'The video has been successfully analyzed using AI techniques, based on user interactions and comments.',
     sampleInsights: {
       engagement: 'High Engagement Score',
@@ -101,6 +105,8 @@ export const translations: Record<'en' | 'ar', Translations> = {
     loadingText: 'تحليل...',
     loadingDivText: 'جاري تحليل محتوى الفيديو...',
     resultsTitle: 'نتائج التحليل',
+    videoTitle: 'معلومات الفيديو',
+    videoResults: 'نتائج الفيديو',
     resultsSubtitle: 'تم تحليل الفيديو بنجاح باستخدام تقنيات الذكاء الاصطناعي، استنادًا إلى تفاعل وتعليقات المستخدمين.',
     sampleInsights: {
       engagement: 'نسبة تفاعل عالية',

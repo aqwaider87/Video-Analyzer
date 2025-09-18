@@ -243,7 +243,6 @@ export default function ResultsView({ data, translations: t, language }: Results
               <div className="space-y-6">
                 {/* Overall Sentiment Indicator */}
                 <div className="text-center p-6 rounded-xl bg-black/20 border border-white/10">
-                  <h5 className="text-lg font-semibold text-white mb-3">{t?.results?.sentimentAnalysis || 'Sentiment Analysis'}</h5>
                   <div className="text-4xl font-bold mb-2">
                     <span className={overallSentiment.color} dir="ltr">{overallSentiment.percentage}%</span>
                   </div>
@@ -255,7 +254,7 @@ export default function ResultsView({ data, translations: t, language }: Results
                   <div className="glass rounded-xl p-6 border border-white/10">
                     <h5 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                       <TrendingUp className="text-purple-400" size={20} />
-                      {t?.results?.analysisResults || 'Video Stats'}
+                      {t?.videoResults}
                     </h5>
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div className="space-y-1">
@@ -312,7 +311,6 @@ export default function ResultsView({ data, translations: t, language }: Results
               {/* Chart Visualization */}
               <div className="lg:col-span-1">
                 <div className="bg-black/20 rounded-xl p-4 border border-white/10">
-                  <h5 className="text-lg font-semibold text-white mb-4">{t?.results?.sentimentAnalysis || 'Sentiment Analysis'}</h5>
                   <div className="h-72 sm:h-80 md:h-96">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={chartData}>
@@ -433,7 +431,7 @@ export default function ResultsView({ data, translations: t, language }: Results
         <div className="glass rounded-xl p-6 border border-white/10">
           <h4 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
             <TrendingUp className="text-purple-400" size={24} />
-            {t?.results?.analysisResults || 'Video Info'}
+            {t?.videoTitle}
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
